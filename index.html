@@ -84,6 +84,9 @@ h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text
 .rn{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.rn b{font-size:36px;line-height:1}.rn small{font-size:11px;color:var(--mut);margin-top:2px}
 .grid.fit{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
 .hero>.row:first-child{padding-bottom:28px}
+.look{background:var(--pan);border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+.look.ok{border-color:#2f7a52;color:var(--ok);font-weight:600}.lt{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.ahd{padding:3px 10px;font-size:12px;border-radius:999px}.lk{color:var(--gold);font-weight:700;font-size:12px}.tabs button.lkon{border-color:var(--acc);color:var(--acc);background:var(--in)}
 .empty{color:var(--mut);padding:20px;text-align:center}
 .more{display:block;margin:16px auto}
 </style>
@@ -92,7 +95,8 @@ h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text
 <div class="wrap">
  <div class="row"><div class="row" style="justify-content:flex-start"><h1>Droid Tracker</h1><div id="pathDd"></div></div><div class="tools"><div class="sws" id="sw"></div><div class="scl"><button data-scale="-1" title="Smaller">A&minus;</button><button data-scale="1" title="Bigger">A+</button></div><button id="reset" style="color:#ff6a6a">&#8635; Reset path</button></div></div>
  <div class="hero" id="hero"></div>
- <div class="tabs"><button data-v="up">Coming up</button><button data-v="all">All droids</button></div>
+ <div id="lookBox"></div>
+ <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><button id="lk" data-lk="1" style="margin-left:auto"></button></div>
  <input type="search" id="q" placeholder="Search droid...">
  <div id="out"></div>
  <div id="sellBox"></div>
@@ -365,6 +369,10 @@ const route=(n,from,lab)=>{const o=own(n),l=R[n].filter(r=>r.rb>from),g=[];l.for
 function dd(id,items,sel,label,right){return `<div class="dd${right?" r":""}${S.open===id?" open":""}"><button class="ddb" data-dd="${id}"><span>${label}</span><span>&#9662;</span></button><div class="ddl">${items.map(i=>`<button class="ddi${i.v==sel?" sel":""}" data-pick="${id}" data-v="${i.v}">${i.l}</button>`).join("")}</div></div>`}
 function render(){
  const cur=P().cur,max=D.length,nx=D.find(r=>r.n===cur+1);
+ {const on=S.look!==false,ah=Math.min(S.ahead||3,5),seen={},list=[],AHL=[1,2,3,4,5].map(n=>({v:n,l:"Next "+n+(n===1?" rebirth":" rebirths")})),AL="Next "+ah+(ah===1?" rebirth":" rebirths");
+  D.filter(r=>r.n>cur&&r.n<=cur+ah).forEach(r=>r.d.forEach(d=>{if(own(d.name)<0&&!seen[d.name]){seen[d.name]=1;list.push({n:d.name,rb:r.n,t:d.t})}}));
+  const b=document.getElementById("lk");b.innerHTML="&#128301; Coming up: "+(on?"On":"Off");b.classList.toggle("lkon",on);
+  document.getElementById("lookBox").innerHTML=!on?"":list.length?`<div class="look"><div class="lt"><b>&#128301; Coming up</b>${dd("ahead",AHL,ah,AL,true)}</div><div class="pills">${list.map(x=>`<span class="pill">${x.n}<span class="lk">R${x.rb} &middot; ${TN[x.t]}</span></span>`).join("")}</div></div>`:`<div class="look ok"><div class="lt" style="margin:0"><span>&#10003; Nothing coming up that you don't own yet</span>${dd("ahead",AHL,ah,AL,true)}</div></div>`}
  document.documentElement.dataset.theme=S.theme||"orange";document.body.style.zoom=S.scale||1;
  document.getElementById("sw").innerHTML=[["orange","#ff8a3d"],["purple","#b78bff"],["blue","#4da3ff"],["green","#34d399"],["rose","#ff6b8b"],["mono","#d4d4d4"]].map(([k,c])=>`<button class="sw${(S.theme||"orange")===k?" on":""}" data-theme="${k}" style="background:${c}" title="${k[0].toUpperCase()+k.slice(1)}"></button>`).join("");
  const sg=NAMES.filter(n=>!R[n].some(r=>r.rb>cur)&&!P().sold[n]);
@@ -400,10 +408,11 @@ document.addEventListener("click",e=>{
  const b=e.target.closest("button");if(!b||b.disabled)return;
  const d=b.dataset;if(!d.sup&&b.id!=="reset"&&!d.dd)S.arm=null;if(!d.dd&&!d.pick)S.open=null;
  if(d.dd){S.open=S.open===d.dd?null:d.dd;render();return}
- else if(d.pick){if(d.pick==="path"){S.path=d.v;load()}else P().cur=+d.v;S.open=null}
+ else if(d.pick){if(d.pick==="path"){S.path=d.v;load()}else if(d.pick==="ahead")S.ahead=+d.v;else P().cur=+d.v;S.open=null}
  else if(d.sup){if(S.arm!=="sup"){S.arm="sup";render();return}S.arm=null;S.path=PATHS[(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length].id;S.p[S.path]={cur:0,own:{},sold:{}};load();window.scrollTo({top:0,behavior:"smooth"})}
  else if(d.sold)P().sold[d.sold]=!P().sold[d.sold];
  else if(d.rar){const O="CREL M".replace(" ","");S.rar[d.rar]=O[(O.indexOf(rar(d.rar))+1)%5]}
+ else if(d.lk)S.look=S.look===false;
  else if(d.theme)S.theme=d.theme;
  else if(d.scale)S.scale=Math.min(1.5,Math.max(.8,Math.round(((S.scale||1)+.1*+d.scale)*10)/10));
  else if(d.t!==undefined){const n=d.n,t=+d.t;P().own[n]=own(n)===t?t-1:t}
