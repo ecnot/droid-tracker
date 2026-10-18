@@ -66,7 +66,7 @@ h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text
 @media (prefers-reduced-motion:reduce){.sup{animation:none}}
 .hint{font-size:12px;color:var(--mut);margin-top:6px;line-height:1.6}
 .nm{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.rar{padding:2px 9px;font-size:11px;font-weight:700;border-radius:999px;background:transparent;border:1px solid}.rar.unk{border-style:dashed}
+.rar{display:inline-block;cursor:default;user-select:none;padding:2px 9px;font-size:11px;font-weight:700;border-radius:999px;background:transparent;border:1px solid}.rar.unk{border-style:dashed}
 .route{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;font-size:11px;font-weight:600;color:var(--mut)}
 .rc{padding:3px 9px;border-radius:6px;font-weight:800}.rc.got{opacity:.35;text-decoration:line-through}
 .soldbtn{margin-left:auto;padding:4px 10px;font-size:12px;font-weight:700;border-color:#a32b2b;color:#ffb0b0}.soldc{opacity:.55}
@@ -96,6 +96,17 @@ h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text
 .lk2{color:var(--mut);font-size:11px;font-weight:600}.okm{color:var(--ok);font-weight:600}
 .lr .ddb{padding:5px 10px;font-size:12px;min-width:0}
 .lr{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+button{transition:transform .15s ease,background-color .15s,border-color .15s,filter .15s,box-shadow .15s}
+button:hover:not(:disabled){filter:brightness(1.15)}
+button.sw:hover:not(:disabled),button.ddb:hover:not(:disabled),button.ddi:hover:not(:disabled){filter:none}
+button:active:not(:disabled){transform:translateY(0) scale(.97)}
+.tiers button:hover:not(:disabled){transform:none;filter:brightness(1.15)}.tiers button:active:not(:disabled){transform:scale(.96)}
+.ddi:hover:not(:disabled){transform:none}.sw:hover{transform:scale(1.14)}
+.c,.hr{transition:border-color .25s,box-shadow .25s}.c:hover{border-color:color-mix(in srgb,var(--acc) 35%,var(--line))}
+
+.dd.open .ddl{animation:ddin .14s ease-out}@keyframes ddin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.go.rdy{animation:rdy 2.8s ease-in-out infinite alternate}@keyframes rdy{from{box-shadow:0 0 10px color-mix(in srgb,var(--goA) 25%,transparent)}to{box-shadow:0 0 22px color-mix(in srgb,var(--goA) 55%,transparent)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 .empty{color:var(--mut);padding:20px;text-align:center}
 .more{display:block;margin:16px auto}
 </style>
@@ -373,8 +384,9 @@ for(const k in KN)KN[k].split(",").forEach(n=>RAR[n]=k);
 const CC={C:[10,25,40,80,120,180,240],R:[30,60,100,250,400,750,1000],E:[120,180,240,2000,5000,8000,12000],L:[400,1200,2500,6000,16000,24000,30000],M:[4000,8000,14000,30000,60000,90000,110000]};
 const rar=n=>S.rar[n]||RAR[n]||"R",known=n=>!!(S.rar[n]||RAR[n]);
 const chips=(n,o,t)=>{let c=0;for(let i=Math.max(o,0)+1;i<=t;i++)c+=CC[rar(n)][i-1];return c};
-const rbadge=n=>`<button class="rar${known(n)?"":" unk"}" data-rar="${n}" style="color:${RC[rar(n)]};border-color:${RC[rar(n)]}" title="${known(n)?"":"Rarity not confirmed - "}tap to change rarity">${RK[rar(n)]}${known(n)?"":"?"}</button>`;
+const rbadge=n=>`<span class="rar" style="color:${RC[rar(n)]};border-color:${RC[rar(n)]}">${RK[rar(n)]}</span>`;
 const route=(n,from,lab)=>{const o=own(n),l=R[n].filter(r=>r.rb>from),g=[];l.forEach(r=>{const p=g[g.length-1];if(p&&p.t===r.t)p.rbs.push(r.rb);else g.push({t:r.t,rbs:[r.rb]})});return l.length?`<div class="route"><span>${lab}</span>${g.map(r=>`<span class="rc t${r.t} l${o>=r.t?" got":""}" title="${TN[r.t]}">R${r.rbs.join(" &middot; R")}</span>`).join("")}</div>`:""};
+let armT;function arm(k){S.arm=k;clearTimeout(armT);armT=setTimeout(()=>{if(S.arm===k){S.arm=null;render()}},10000);render()}
 function dd(id,items,sel,label,right){return `<div class="dd${right?" r":""}${S.open===id?" open":""}"><button class="ddb" data-dd="${id}"><span>${label}</span><span>&#9662;</span></button><div class="ddl">${items.map(i=>`<button class="ddi${i.v==sel?" sel":""}" data-pick="${id}" data-v="${i.v}">${i.l}</button>`).join("")}</div></div>`}
 function render(){
  const cur=P().cur,max=D.length,nx=D.find(r=>r.n===cur+1);
@@ -392,7 +404,7 @@ function render(){
  document.getElementById("pathDd").innerHTML=dd("path",PATHS.map(p=>({v:p.id,l:p.name})),S.path,PATHS.find(p=>p.id===S.path).name);
  document.getElementById("reset").textContent=S.arm==="reset"?"Tap again to confirm":"\u21BB Reset path";
  const step=`<div class="row"><div class="stp"><button data-s="-1" ${cur?"":"disabled"} title="Go back one rebirth">&minus;</button><div style="text-align:center;position:relative"><div class="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--line)" stroke-width="8"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--acc)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(263.9*cur/max).toFixed(1)} 264" transform="rotate(-90 50 50)"/></svg><div class="rn"><b>${cur}</b></div></div><div class="lbl" style="white-space:nowrap;margin:6px -40px 0;text-align:center">Current rebirth</div></div><button data-s="1" ${nx?"":"disabled"} title="Skip ahead one rebirth">+</button></div><div id="jumpCol" style="display:flex;flex-direction:column;align-items:flex-end;gap:12px"><div class="row" style="gap:8px"><span class="lbl">Jump to</span>${dd("jump",Array.from({length:max+1},(_,i)=>({v:i,l:String(i)})),cur,String(cur),true)}</div></div></div>`;
- const nid=(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length,sup=cur>=12?`<button class="sup${S.arm==="sup"?" arm":""}" data-sup="1">${S.arm==="sup"?"Tap again to confirm":"\u2605 Super Rebirth \u2192 "+PATHS[nid].name}</button>`:"";
+ const nid=(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length,sup=cur>=12?`<button class="sup${S.arm==="sup"?" arm":""}" data-sup="1">${S.arm==="sup"?"Tap again to confirm":"\u2605 Super Rebirth"}</button>`:"";
  let body;
  if(!nx)body=`<div class="big" style="margin-top:14px">All rebirths complete!</div>`;
  else{
@@ -419,7 +431,7 @@ document.addEventListener("click",e=>{
  const d=b.dataset;if(!d.sup&&b.id!=="reset"&&!d.dd)S.arm=null;if(!d.dd&&!d.pick)S.open=null;
  if(d.dd){S.open=S.open===d.dd?null:d.dd;render();return}
  else if(d.pick){if(d.pick==="path"){S.path=d.v;load()}else if(d.pick==="ahead")S.ahead=+d.v;else if(d.pick==="lmode")S.lmode=d.v;else P().cur=+d.v;S.open=null}
- else if(d.sup){if(S.arm!=="sup"){S.arm="sup";render();return}S.arm=null;S.path=PATHS[(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length].id;S.p[S.path]={cur:0,own:{},sold:{}};load();window.scrollTo({top:0,behavior:"smooth"})}
+ else if(d.sup){if(S.arm!=="sup"){arm("sup");return}S.arm=null;S.path=PATHS[(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length].id;S.p[S.path]={cur:0,own:{},sold:{}};load();window.scrollTo({top:0,behavior:"smooth"})}
  else if(d.sold)P().sold[d.sold]=!P().sold[d.sold];
  else if(d.rar){const O="CREL M".replace(" ","");S.rar[d.rar]=O[(O.indexOf(rar(d.rar))+1)%5]}
  else if(d.lm)S.lmode=d.lm;
@@ -431,7 +443,7 @@ document.addEventListener("click",e=>{
  else if(d.s)P().cur+=+d.s;
  else if(d.v)S.tab=d.v;
  else if(d.more)S.more=!S.more;
- else if(b.id==="reset"){if(S.arm!=="reset"){S.arm="reset";render();return}S.arm=null;S.p[S.path]={cur:0,own:{},sold:{}}}
+ else if(b.id==="reset"){if(S.arm!=="reset"){arm("reset");return}S.arm=null;S.p[S.path]={cur:0,own:{},sold:{}}}
  else return;
  save();render();
 });
