@@ -110,6 +110,7 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 .c.fin:hover{border-color:#d84a4a}
 .c.okc:hover{border-color:#44c47e}
+.c{display:flex;flex-direction:column}.c .tiers{margin-top:0}.sp{flex:1;min-height:8px}.c>.route{margin:12px 0 4px}
 .empty{color:var(--mut);padding:20px;text-align:center}
 .more{display:block;margin:16px auto}
 </style>
@@ -380,7 +381,7 @@ function card(n,ctx){
  const cur=P().cur,o=own(n),rs=R[n].filter(r=>r.rb>cur),unmet=rs.find(r=>o<r.t),all=rs.map(r=>"R"+r.rb+" "+AB[r.t]).join(" &rarr; "),up=unmet&&rs.find(r=>r.t>unmet.t);
  const sold=P().sold[n]&&!rs.length;if(sold)return"";
  const cq=ctx&&R[n].find(r=>r.rb===ctx),done=cq?o>=cq.t:rs.length&&!unmet,g=cq?(o>=cq.t?`<div class="goal ok"><span>&#10003; ${TN[cq.t]}</span></div>`:`<div class="goal"><span>${ctx===cur+1?"&#9889;":"&#128274;"} ${TN[cq.t]} for R${ctx}</span></div>`):!rs.length?`<div class="goal sl"><span class="badge">SELL</span><span>No longer needed</span><button class="soldbtn" data-sold="${n}">Sold</button></div>`:!unmet?`<div class="goal ok"><span>&#10003; ${TN[rs[rs.length-1].t]} for R${rs.filter(r=>r.t===rs[rs.length-1].t).map(r=>r.rb).join(", R")}</span></div>`:`<div class="goal"><span>${unmet.rb===cur+1?"&#9889;":"&#128274;"} ${TN[unmet.t]} for R${unmet.rb}</span></div>`;
- return `<div class="c${!rs.length?" fin":""}${sold?" soldc":""}${done?" okc":""}"><div class="nm">${n} ${rbadge(n)}</div>${g}${rs.length>1?route(n,cur,"Needed:"):""}${tiers(n)}</div>`;
+ return `<div class="c${!rs.length?" fin":""}${sold?" soldc":""}${done?" okc":""}"><div class="nm">${n} ${rbadge(n)}</div>${g}${rs.length?route(n,cur,"Needed:"):""}<div class="sp"></div>${tiers(n)}</div>`;
 }
 const KN={C:"GONK,MOUSE,IMPERIAL PROBE,R8,CB,DRK-1 PROBE,PIT,ID10,R3,R5,B1 BATTLE",R:"2BB,A-LT,ARG,B1 SECURITY,BAL-CORE,BDX EXPLORER,B-U4D,HOV-R,EG-58,R4,R9,NAV-EX,ROLL-R,VECT-ARM,SENATE HOVER",E:"AMP WALKER,B1 HEAVY,BB,GROUNDMECH,HAUL-R,LO,SEN-TRI,OPTI-POD,ORB-WALKER,R6,R2,STRIKE-ORB,GUNRUNNER,B2 HEAVY,B2 SUPER,TRAK-R,UTIL-TEC,LNG-SHOT,EGL,KT,MPH",L:"B2-RP,BB9,CYCLO-GRAV,OPTI-STRK,MECHA-DROID,MONO-WLKR,PROTO-ROLLER,R7,J09-4MN,PLNK",M:"CYCLENS,DRFT-R,IG,KX,LOADLIFTER,RIC-1200,TRI-TEK,MO-TRAK,RIC,SNOW MOUSE,LEP,ECG"},RAR={},RK={C:"Common",R:"Rare",E:"Epic",L:"Legendary",M:"Mythic"},RC={C:"#9aa4b2",R:"#4aa3ff",E:"#b57bff",L:"#ff9f3d",M:"#ff5fa0"};
 for(const k in KN)KN[k].split(",").forEach(n=>RAR[n]=k);
