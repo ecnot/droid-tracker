@@ -82,6 +82,7 @@ h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text
 .scl{display:flex;gap:4px}.scl button{padding:5px 10px;font-weight:700}
 .ring{position:relative;width:108px;height:108px}.ring svg{width:100%;height:100%}
 .rn{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.rn b{font-size:36px;line-height:1}.rn small{font-size:11px;color:var(--mut);margin-top:2px}
+.grid.fit{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
 .empty{color:var(--mut);padding:20px;text-align:center}
 .more{display:block;margin:16px auto}
 </style>
@@ -390,7 +391,7 @@ function render(){
   out.innerHTML=l.length?`<div class="grid">${l.map(n=>card(n)).join("")}</div>`:`<div class="empty">No droids found</div>`;
  }else{
   const l=D.filter(r=>r.n>cur+1),sh=S.more?l:l.slice(0,4);
-  out.innerHTML=sh.map(r=>`<h2>Rebirth ${r.n} &bull; ${r.c}</h2><div class="grid">${r.d.map(d=>card(d.name,r.n)).join("")}</div>`).join("")+(l.length>4?`<button class="more" data-more="1">${S.more?"Show fewer":"Show all "+l.length+" upcoming rebirths"}</button>`:"")||`<div class="empty">Nothing further coming up</div>`;
+  out.innerHTML=sh.map(r=>`<h2>Rebirth ${r.n} &bull; ${r.c}</h2><div class="grid fit">${r.d.map(d=>card(d.name,r.n)).join("")}</div>`).join("")+(l.length>4?`<button class="more" data-more="1">${S.more?"Show fewer":"Show all "+l.length+" upcoming rebirths"}</button>`:"")||`<div class="empty">Nothing further coming up</div>`;
  }
 }
 document.addEventListener("click",e=>{
