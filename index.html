@@ -6,7 +6,7 @@
 <title>Droid Tracker</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2064%2064%27%3E%3Crect%20width=%2764%27%20height=%2764%27%20rx=%2714%27%20fill=%27%23120d0a%27/%3E%3Cg%20fill=%27none%27%20stroke=%27%23ff8a3d%27%20stroke-width=%276%27%20stroke-linecap=%27round%27%3E%3Cpath%20d=%27M16%2026A17%2017%200%200%201%2046%2022%27/%3E%3Cpath%20d=%27M48%2038A17%2017%200%200%201%2018%2042%27/%3E%3C/g%3E%3Cpath%20fill=%27%23ff8a3d%27%20d=%27M32%2023l2.8%206.2L41%2032l-6.2%202.8L32%2041l-2.8-6.2L23%2032l6.2-2.8z%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#120d0a;--pan:#1c1511;--card:#221915;--in:#150f0c;--line:#3a2b22;--tx:#f5ede6;--mut:#a8978a;--acc:#ff8a3d;--ok:#5fd38d;--gold:#ffc266;--acc2:#e8661c;--h1:#3a1f10;--h2:#1f130c;--hb:#8a4a22;--dd:#2a1f19;--ddh:#5a3b27;--goA:#ea580c;--goB:#f59e0b;--sA:#b45309;--btxt:#b9a99b;
 color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -41,7 +41,7 @@ h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text
 .c.fin{border-color:#a32b2b;background:#2a1212}.c.fin .nm{color:#ff7a7a}
 .goal.sl{color:#ff9a9a;background:#3a1717;justify-content:flex-start;align-items:center;gap:10px}.badge{background:#e03a3a;color:#fff;border-radius:5px;padding:2px 8px;font-size:11px;font-weight:800;letter-spacing:.5px}
 .nm{font-weight:800;font-size:18px}
-.goal{background:var(--in);border-radius:8px;padding:7px 10px;font-size:13px;font-weight:700;display:flex;justify-content:space-between;gap:8px;color:var(--gold);margin-top:8px}
+.goal{background:var(--in);border-radius:8px;padding:7px 10px;font-size:12px;font-weight:500;display:flex;justify-content:space-between;gap:8px;color:var(--gold);margin-top:8px}
 .goal span:first-child{white-space:nowrap}
 .goal.ok{color:var(--ok)}.goal.dn{color:var(--mut)}
 .tiers{display:flex;margin-top:8px;border-radius:8px;overflow:hidden;background:var(--in)}
@@ -85,7 +85,11 @@ h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text
 .ring{position:relative;width:108px;height:108px}.ring svg{width:100%;height:100%}
 .rn{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.rn b{font-size:36px;line-height:1}.rn small{font-size:11px;color:var(--mut);margin-top:2px}
 .grid.fit{grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr))}
-.hero>.row:first-child{align-items:flex-start;gap:14px 20px}
+.hero>.row:first-child{align-items:flex-start;gap:14px 20px;margin-bottom:30px}
+.hr{padding:12px 14px}.hr .route{margin:10px 0 0}
+.srch{position:relative;flex:1 1 200px;min-width:180px;margin:0 18px}.srch input{margin:0;padding:12px 14px 12px 42px}.srch svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--mut);pointer-events:none}
+@media (max-width:1000px){.srch{order:5;flex:1 1 100%;margin:6px 0 0}}
+.nextc{flex:1;min-width:190px;align-self:center;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
 .look{background:var(--pan);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px}
 .look.ok{color:var(--ok);font-weight:600}.lt{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
 .ahd{padding:3px 10px;font-size:12px;border-radius:999px}.lk{color:var(--gold);font-weight:700;font-size:12px}.tabs button.lkon{border-color:var(--acc);color:var(--acc);background:var(--in)}
@@ -101,17 +105,17 @@ button.sw:hover:not(:disabled),button.ddb:hover:not(:disabled),button.ddi:hover:
 button:active:not(:disabled){transform:translateY(0) scale(.97)}
 .tiers button:hover:not(:disabled){transform:none;filter:brightness(1.15)}.tiers button:active:not(:disabled){transform:scale(.96)}
 .ddi:hover:not(:disabled){transform:none}.sw:hover{transform:scale(1.14)}
-.c,.hr{transition:border-color .25s,box-shadow .25s}.c:hover{border-color:color-mix(in srgb,var(--acc) 35%,var(--line))}
+.c,.hr{transition:border-color .25s,box-shadow .25s}
 
 .dd.open .ddl{animation:ddin .14s ease-out}@keyframes ddin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 .go.rdy{animation:rdy 2.8s ease-in-out infinite alternate}@keyframes rdy{from{box-shadow:0 0 10px color-mix(in srgb,var(--goA) 25%,transparent)}to{box-shadow:0 0 22px color-mix(in srgb,var(--goA) 55%,transparent)}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-.c.fin:hover{border-color:#d84a4a}
-.c.okc:hover{border-color:#44c47e}
+
+
 .c{display:flex;flex-direction:column}.c .tiers{margin-top:0}.sp{flex:1;min-height:8px}.c>.route{margin:12px 0 4px}
 .tiers{container-type:inline-size}.tiers .fu{display:none}
 @container (min-width:560px){.tiers .ab{display:none}.tiers .fu{display:inline}}
-.gc{color:var(--tx);opacity:.55;font-weight:400;font-size:13px}
+.gc{color:var(--tx);opacity:.55;font-weight:400;font-size:12px}
 .tabs{flex-wrap:wrap;align-items:center}.cb{display:flex;align-items:center;gap:6px;color:var(--mut);font-size:13px;font-weight:600;cursor:pointer}.cb input{accent-color:var(--acc2);width:16px;height:16px;margin:0}
 .cb{margin-right:10px}#cm{margin-right:0}.tabs .seg2 button{padding:4px 10px;font-size:12px;border:0;font-weight:700}.tabs .seg2 button{color:var(--mut);background:transparent}.tabs .seg2 button.on{background:var(--acc2);color:#fff;box-shadow:0 0 0 1px var(--acc)}
 #cm{position:relative;display:inline-grid;grid-template-columns:1fr 1fr}
@@ -133,6 +137,24 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
 .pill:has(.undo){padding-right:7px}
 .totop{position:fixed;right:max(28px,env(safe-area-inset-right,0px));bottom:max(28px,env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--acc);border:2px solid var(--acc);box-shadow:0 0 14px color-mix(in srgb,var(--acc) 55%,transparent),inset 0 0 8px color-mix(in srgb,var(--acc) 25%,transparent);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .25s,transform .25s;z-index:30}
 .totop.show{opacity:1;pointer-events:auto;transform:none}#jumpSell{color:#ffb0b0;border-color:#8a2f2f;font-weight:700}
+.nm,.nmrow b{font-family:"Rajdhani","Poppins",system-ui,sans-serif;letter-spacing:.4px;font-weight:700}
+.nm .rar,.nmrow .rar{font-family:"Poppins",system-ui,sans-serif;letter-spacing:0}
+.nt,.nmrow b{display:block;text-box:trim-both cap alphabetic}
+.nm{font-size:23px}.hr .nmrow b{font-size:22px}
+@media (max-width:900px){
+.ring{width:92px;height:92px}.rn b{font-size:30px}.stp>button{margin-top:29px}.stp button{width:34px;height:34px}
+.nextc{min-width:150px}.nextc .big{font-size:24px}
+}
+@media (max-width:640px){
+.hero>.row:first-child{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:14px 16px}
+.nextc{min-width:0;flex:none;align-items:flex-start;text-align:left}
+#jumpCol{grid-column:1/-1;flex-direction:row!important;align-items:stretch!important;gap:10px!important}
+#jumpCol>*{flex:1 1 0}#jumpCol>.row{justify-content:space-between}#jumpCol .sup{width:auto;padding:9px 12px}
+}
+@media (max-width:440px){
+.hero>.row:first-child{grid-template-columns:1fr;justify-items:center}
+.nextc{align-items:center;text-align:center}#jumpCol{width:100%}
+}
 .empty{color:var(--mut);padding:20px;text-align:center}
 .more{display:block;margin:16px auto}
 </style>
@@ -142,8 +164,8 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
  <div class="row"><div class="row" style="justify-content:flex-start"><h1>Droid Tracker</h1><div id="pathDd"></div></div><div class="tools"><button id="jumpSell" data-jsell="1" style="display:none"></button><div class="sws" id="sw"></div><div class="scl"><button data-scale="-1" title="Smaller">A&minus;</button><button data-scale="1" title="Bigger">A+</button></div><button id="reset" style="color:#ff6a6a">&#8635; Reset path</button></div></div>
  <div class="hero" id="hero"></div>
  <div id="lookBox"></div>
- <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><label class="cb" style="margin-left:auto"><input type="checkbox" id="cc"> Chip costs</label><div class="seg2" id="cm"><button data-cm="next" title="Cost to reach the next tier you need">Next</button><button data-cm="last" title="Cost to reach the highest tier you will need">Max</button></div></div>
- <input type="search" id="q" placeholder="Search droid...">
+ <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><div class="srch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Search droid..."></div><label class="cb" style="margin-left:auto"><input type="checkbox" id="cc"> Chip costs</label><div class="seg2" id="cm"><button data-cm="next" title="Cost to reach the next tier you need">Next</button><button data-cm="last" title="Cost to reach the highest tier you will need">Max</button></div></div>
+ 
  <div id="out"></div>
  <div id="sellBox"></div>
  <div id="soldBox"></div>
@@ -404,7 +426,7 @@ function card(n,ctx){
  const cur=P().cur,o=own(n),rs=R[n].filter(r=>r.rb>cur),unmet=rs.find(r=>o<r.t),all=rs.map(r=>"R"+r.rb+" "+AB[r.t]).join(" &rarr; "),up=unmet&&rs.find(r=>r.t>unmet.t),mx=rs.length?Math.max(...rs.map(r=>r.t)):0,last=S.cmode==="last";
  const sold=P().sold[n]&&!rs.length;if(sold)return"";
  const cq=ctx&&R[n].find(r=>r.rb===ctx),hl=cq?cq.rb:unmet?unmet.rb:0,done=cq?o>=cq.t:rs.length&&!unmet,g=cq?(o>=cq.t?`<div class="goal ok"><span>&#10003; ${TN[cq.t]}</span></div>`:`<div class="goal"><span>${ctx===cur+1?"&#9889;":"&#128274;"} ${TN[cq.t]} for R${ctx}</span>${gc(n,o,last?mx:cq.t)}</div>`):!rs.length?`<div class="goal sl"><span class="badge">SELL</span><span>No longer needed</span><button class="soldbtn" data-sold="${n}">Sold</button></div>`:!unmet?`<div class="goal ok"><span>&#10003; ${TN[rs[rs.length-1].t]} for R${rs.filter(r=>r.t===rs[rs.length-1].t).map(r=>r.rb).join(", R")}</span></div>`:`<div class="goal"><span>${unmet.rb===cur+1?"&#9889;":"&#128274;"} ${TN[unmet.t]} for R${unmet.rb}</span>${gc(n,o,last?mx:unmet.t)}</div>`;
- return `<div class="c${!rs.length?" fin":""}${sold?" soldc":""}${done?" okc":""}"><div class="nm">${n} ${rbadge(n)}</div>${g}${rs.length?route(n,cur,"Needed:",hl):""}<div class="sp"></div>${tiers(n)}</div>`;
+ return `<div class="c${!rs.length?" fin":""}${sold?" soldc":""}${done?" okc":""}"><div class="nm"><span class="nt">${n}</span>${rbadge(n)}</div>${g}${rs.length?route(n,cur,"Needed:",hl):""}<div class="sp"></div>${tiers(n)}</div>`;
 }
 const KN={C:"GONK,MOUSE,IMPERIAL PROBE,R8,CB,DRK-1 PROBE,PIT,ID10,R3,R5,B1 BATTLE",R:"2BB,A-LT,ARG,B1 SECURITY,BAL-CORE,BDX EXPLORER,B-U4D,HOV-R,EG-58,R4,R9,NAV-EX,ROLL-R,VECT-ARM,SENATE HOVER",E:"AMP WALKER,B1 HEAVY,BB,GROUNDMECH,HAUL-R,LO,SEN-TRI,OPTI-POD,ORB-WALKER,R6,R2,STRIKE-ORB,GUNRUNNER,B2 HEAVY,B2 SUPER,TRAK-R,UTIL-TEC,LNG-SHOT,EGL,KT,MPH",L:"B2-RP,BB9,CYCLO-GRAV,OPTI-STRK,MECHA-DROID,MONO-WLKR,PROTO-ROLLER,R7,J09-4MN,PLNK",M:"CYCLENS,DRFT-R,IG,KX,LOADLIFTER,RIC-1200,TRI-TEK,MO-TRAK,RIC,SNOW MOUSE,LEP,ECG"},RAR={},RK={C:"Common",R:"Rare",E:"Epic",L:"Legendary",M:"Mythic"},RC={C:"#9aa4b2",R:"#4aa3ff",E:"#b57bff",L:"#ff9f3d",M:"#ff5fa0"};
 for(const k in KN)KN[k].split(",").forEach(n=>RAR[n]=k);
@@ -442,11 +464,11 @@ function render(){
  else{
   const miss=nx.d.filter(d=>own(d.name)<d.t).length,rdy=!miss;
   const fut=d=>R[d.name].filter(r=>r.rb>nx.n),safe=nx.d.filter(d=>!fut(d).length).map(d=>d.name),sell=[safe.length?"<span style='color:#ff8a8a'>Safe to sell after rebirthing: "+safe.join(", ")+"</span>":""].filter(Boolean).join("<br>")||"Keep all of these for now.";
-  body=`<div class="row" style="margin-top:16px"><div><div class="lbl">Next up</div><div class="big">Rebirth ${nx.n}</div></div><span class="chip">${nx.c}</span></div>`+
+  body=`<div class="nextc" id="nextRow"><div class="lbl">Next up</div><div class="big">Rebirth ${nx.n}</div><span class="chip">${nx.c}</span></div>`+
   nx.d.map(d=>{const ok=own(d.name)>=d.t;return `<div class="hr${ok?" ok":""}"><div><div class="nmrow"><b>${d.name}</b>${rbadge(d.name)}</div><small>${ok?"":"Needs "+TN[d.t]+(d.t>0?" &middot; "+chips(d.name,own(d.name),d.t).toLocaleString()+" chips":"")}</small>${route(d.name,nx.n,"Later:")}</div>${tiers(d.name)}</div>`}).join("")+
   `<div class="note">${sell}</div><button class="go${rdy?" rdy":""}" data-go="1" ${rdy?"":"disabled"}>${rdy?"Rebirth now \u2192":"Need "+miss+" more droid"+(miss>1?"s":"")}</button>`;
  }
- document.getElementById("hero").innerHTML=step+body;if(sup)document.getElementById("jumpCol").insertAdjacentHTML("beforeend",sup);
+ document.getElementById("hero").innerHTML=step+body;{const nr=document.getElementById("nextRow");if(nr)document.getElementById("hero").firstElementChild.insertBefore(nr,document.getElementById("jumpCol"))}if(sup)document.getElementById("jumpCol").insertAdjacentHTML("beforeend",sup);
  document.querySelectorAll(".tabs>button[data-v]").forEach(b=>b.classList.toggle("on",b.dataset.v===S.tab));
  const q=document.getElementById("q").value.trim().toLowerCase(),out=document.getElementById("out");
  if(q||S.tab==="all"){
