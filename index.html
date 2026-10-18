@@ -111,6 +111,8 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
 .c.fin:hover{border-color:#d84a4a}
 .c.okc:hover{border-color:#44c47e}
 .c{display:flex;flex-direction:column}.c .tiers{margin-top:0}.sp{flex:1;min-height:8px}.c>.route{margin:12px 0 4px}
+.tiers{container-type:inline-size}.tiers .fu{display:none}
+@container (min-width:560px){.tiers .ab{display:none}.tiers .fu{display:inline}}
 .empty{color:var(--mut);padding:20px;text-align:center}
 .more{display:block;margin:16px auto}
 </style>
@@ -376,12 +378,12 @@ const KEY="droidTrackerV3";let S={path:"sr",p:{},tab:"up",more:false};
 try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const P=()=>S.p[S.path],own=n=>P().own[n]??-1;
-const tiers=n=>`<div class="tiers">${AB.map((a,i)=>`<button class="t${i}${i<=own(n)?" l":""}" data-n="${n}" data-t="${i}">${a}</button>`).join("")}</div>`;
+const tiers=n=>`<div class="tiers">${AB.map((a,i)=>`<button class="t${i}${i<=own(n)?" l":""}" data-n="${n}" data-t="${i}"><span class="ab">${a}</span><span class="fu">${TN[i]}</span></button>`).join("")}</div>`;
 function card(n,ctx){
  const cur=P().cur,o=own(n),rs=R[n].filter(r=>r.rb>cur),unmet=rs.find(r=>o<r.t),all=rs.map(r=>"R"+r.rb+" "+AB[r.t]).join(" &rarr; "),up=unmet&&rs.find(r=>r.t>unmet.t);
  const sold=P().sold[n]&&!rs.length;if(sold)return"";
- const cq=ctx&&R[n].find(r=>r.rb===ctx),done=cq?o>=cq.t:rs.length&&!unmet,g=cq?(o>=cq.t?`<div class="goal ok"><span>&#10003; ${TN[cq.t]}</span></div>`:`<div class="goal"><span>${ctx===cur+1?"&#9889;":"&#128274;"} ${TN[cq.t]} for R${ctx}</span></div>`):!rs.length?`<div class="goal sl"><span class="badge">SELL</span><span>No longer needed</span><button class="soldbtn" data-sold="${n}">Sold</button></div>`:!unmet?`<div class="goal ok"><span>&#10003; ${TN[rs[rs.length-1].t]} for R${rs.filter(r=>r.t===rs[rs.length-1].t).map(r=>r.rb).join(", R")}</span></div>`:`<div class="goal"><span>${unmet.rb===cur+1?"&#9889;":"&#128274;"} ${TN[unmet.t]} for R${unmet.rb}</span></div>`;
- return `<div class="c${!rs.length?" fin":""}${sold?" soldc":""}${done?" okc":""}"><div class="nm">${n} ${rbadge(n)}</div>${g}${rs.length?route(n,cur,"Needed:"):""}<div class="sp"></div>${tiers(n)}</div>`;
+ const cq=ctx&&R[n].find(r=>r.rb===ctx),hl=cq?cq.rb:unmet?unmet.rb:0,done=cq?o>=cq.t:rs.length&&!unmet,g=cq?(o>=cq.t?`<div class="goal ok"><span>&#10003; ${TN[cq.t]}</span></div>`:`<div class="goal"><span>${ctx===cur+1?"&#9889;":"&#128274;"} ${TN[cq.t]} for R${ctx}</span></div>`):!rs.length?`<div class="goal sl"><span class="badge">SELL</span><span>No longer needed</span><button class="soldbtn" data-sold="${n}">Sold</button></div>`:!unmet?`<div class="goal ok"><span>&#10003; ${TN[rs[rs.length-1].t]} for R${rs.filter(r=>r.t===rs[rs.length-1].t).map(r=>r.rb).join(", R")}</span></div>`:`<div class="goal"><span>${unmet.rb===cur+1?"&#9889;":"&#128274;"} ${TN[unmet.t]} for R${unmet.rb}</span></div>`;
+ return `<div class="c${!rs.length?" fin":""}${sold?" soldc":""}${done?" okc":""}"><div class="nm">${n} ${rbadge(n)}</div>${g}${rs.length?route(n,cur,"Needed:",hl):""}<div class="sp"></div>${tiers(n)}</div>`;
 }
 const KN={C:"GONK,MOUSE,IMPERIAL PROBE,R8,CB,DRK-1 PROBE,PIT,ID10,R3,R5,B1 BATTLE",R:"2BB,A-LT,ARG,B1 SECURITY,BAL-CORE,BDX EXPLORER,B-U4D,HOV-R,EG-58,R4,R9,NAV-EX,ROLL-R,VECT-ARM,SENATE HOVER",E:"AMP WALKER,B1 HEAVY,BB,GROUNDMECH,HAUL-R,LO,SEN-TRI,OPTI-POD,ORB-WALKER,R6,R2,STRIKE-ORB,GUNRUNNER,B2 HEAVY,B2 SUPER,TRAK-R,UTIL-TEC,LNG-SHOT,EGL,KT,MPH",L:"B2-RP,BB9,CYCLO-GRAV,OPTI-STRK,MECHA-DROID,MONO-WLKR,PROTO-ROLLER,R7,J09-4MN,PLNK",M:"CYCLENS,DRFT-R,IG,KX,LOADLIFTER,RIC-1200,TRI-TEK,MO-TRAK,RIC,SNOW MOUSE,LEP,ECG"},RAR={},RK={C:"Common",R:"Rare",E:"Epic",L:"Legendary",M:"Mythic"},RC={C:"#9aa4b2",R:"#4aa3ff",E:"#b57bff",L:"#ff9f3d",M:"#ff5fa0"};
 for(const k in KN)KN[k].split(",").forEach(n=>RAR[n]=k);
@@ -389,7 +391,7 @@ const CC={C:[10,25,40,80,120,180,240],R:[30,60,100,250,400,750,1000],E:[120,180,
 const rar=n=>S.rar[n]||RAR[n]||"R",known=n=>!!(S.rar[n]||RAR[n]);
 const chips=(n,o,t)=>{let c=0;for(let i=Math.max(o,0)+1;i<=t;i++)c+=CC[rar(n)][i-1];return c};
 const rbadge=n=>`<span class="rar" style="color:${RC[rar(n)]};border-color:${RC[rar(n)]}">${RK[rar(n)]}</span>`;
-const route=(n,from,lab)=>{const o=own(n),l=R[n].filter(r=>r.rb>from),g=[];l.forEach(r=>{const p=g[g.length-1];if(p&&p.t===r.t)p.rbs.push(r.rb);else g.push({t:r.t,rbs:[r.rb]})});return l.length?`<div class="route"><span>${lab}</span>${g.map(r=>`<span class="rc t${r.t} l${o>=r.t?" got":""}" title="${TN[r.t]}">R${r.rbs.join(" &middot; R")}</span>`).join("")}</div>`:""};
+const route=(n,from,lab,hl)=>{const o=own(n),l=R[n].filter(r=>r.rb>from),g=[];l.forEach(r=>{const p=g[g.length-1];if(p&&p.t===r.t)p.rbs.push(r.rb);else g.push({t:r.t,rbs:[r.rb]})});return l.length?`<div class="route"><span>${lab}</span>${g.map(r=>`<span class="rc t${r.t} l${o>=r.t?" got":""}${r.rbs.includes(hl)?" hl":""}" title="${TN[r.t]}">R${r.rbs.join(" &middot; R")}</span>`).join("")}</div>`:""};
 let armT;function arm(k){S.arm=k;clearTimeout(armT);armT=setTimeout(()=>{if(S.arm===k){S.arm=null;render()}},10000);render()}
 function dd(id,items,sel,label,right){return `<div class="dd${right?" r":""}${S.open===id?" open":""}"><button class="ddb" data-dd="${id}"><span>${label}</span><span>&#9662;</span></button><div class="ddl">${items.map(i=>`<button class="ddi${i.v==sel?" sel":""}" data-pick="${id}" data-v="${i.v}">${i.l}</button>`).join("")}</div></div>`}
 function render(){
