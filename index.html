@@ -31,7 +31,7 @@ select option:checked,select option:hover{background:var(--acc2) linear-gradient
 .hr .tiers{min-width:280px;flex:1;max-width:380px}
 .go{width:100%;margin-top:14px;padding:15px;font-size:18px;font-weight:800;border-radius:12px;border:0;background:var(--dd);color:#a8978a}
 .go.rdy{background:linear-gradient(90deg,var(--goA),var(--goB));color:#fff;box-shadow:0 0 18px #f9731655}
-.note{color:var(--mut);font-size:13px;margin-top:10px}
+.note{color:var(--mut);font-size:13px;margin:20px 0 8px}
 .tabs{display:flex;gap:6px;margin:6px 0 12px}
 .tabs button{padding:10px 18px;font-weight:700;color:var(--mut)}.tabs button.on{background:var(--acc2);color:#fff;border-color:var(--acc2)}
 input[type=search]{width:100%;background:var(--pan);border:1px solid var(--line);border-radius:12px;padding:13px 14px;color:var(--tx);font:inherit;font-size:16px;margin-bottom:12px}
@@ -442,7 +442,7 @@ function render(){
  if(!nx)body=`<div class="big" style="margin-top:14px">All rebirths complete!</div>`;
  else{
   const miss=nx.d.filter(d=>own(d.name)<d.t).length,rdy=!miss;
-  const fut=d=>R[d.name].filter(r=>r.rb>nx.n),safe=nx.d.filter(d=>!fut(d).length).map(d=>d.name),sell=[safe.length?"<span style='color:#ff8a8a'>Safe to sell after rebirthing: "+safe.join(", ")+".</span>":""].filter(Boolean).join("<br>")||"Keep all of these for now.";
+  const fut=d=>R[d.name].filter(r=>r.rb>nx.n),safe=nx.d.filter(d=>!fut(d).length).map(d=>d.name),sell=[safe.length?"<span style='color:#ff8a8a'>Safe to sell after rebirthing: "+safe.join(", ")+"</span>":""].filter(Boolean).join("<br>")||"Keep all of these for now.";
   body=`<div class="row" style="margin-top:16px"><div><div class="lbl">Next up</div><div class="big">Rebirth ${nx.n}</div></div><span class="chip">${nx.c}</span></div>`+
   nx.d.map(d=>{const ok=own(d.name)>=d.t;return `<div class="hr${ok?" ok":""}"><div><div class="nmrow"><b>${d.name}</b>${rbadge(d.name)}</div><small>${ok?"":"Needs "+TN[d.t]+(d.t>0?" &middot; "+chips(d.name,own(d.name),d.t).toLocaleString()+" chips":"")}</small>${route(d.name,nx.n,"Later:")}</div>${tiers(d.name)}</div>`}).join("")+
   `<div class="note">${sell}</div><button class="go${rdy?" rdy":""}" data-go="1" ${rdy?"":"disabled"}>${rdy?"Rebirth now \u2192":"Need "+miss+" more droid"+(miss>1?"s":"")}</button>`;
