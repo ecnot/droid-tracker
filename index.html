@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Droid Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#120d0a;--pan:#1c1511;--card:#221915;--in:#150f0c;--line:#3a2b22;--tx:#f5ede6;--mut:#a8978a;--acc:#ff8a3d;--ok:#5fd38d;--gold:#ffc266;--acc2:var(--acc2);--h1:#3a1f10;--h2:#1f130c;--hb:#8a4a22;--dd:var(--dd);--ddh:var(--ddh);--goA:#ea580c;--goB:#f59e0b;--sA:var(--sA);--btxt:#b9a99b;
+color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1200px;margin:0 auto;padding:14px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h1{margin:0;font-size:24px;color:var(--acc)}
+button,select{background:var(--in);color:var(--tx);border:1px solid var(--line);border-radius:10px;font:inherit;cursor:pointer;padding:8px 12px}
+select{font-weight:700;color-scheme:light}
+select option{background:var(--dd);color:#f5ede6}
+select option:checked,select option:hover{background:var(--acc2) linear-gradient(0deg,var(--acc2),var(--acc2));color:#fff}
+.hero{background:linear-gradient(160deg,var(--h1),var(--h2));border:1px solid var(--hb);border-radius:18px;padding:18px;margin:14px 0}
+.stp{display:flex;align-items:center;gap:10px}
+.stp button{width:38px;height:38px;border-radius:50%;padding:0;font-size:20px;line-height:1}
+.lbl{color:var(--mut);font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.big{font-size:30px;font-weight:800}
+.chip{background:#2a2410;color:var(--gold);border:1px solid #6b5517;border-radius:8px;padding:4px 10px;font-weight:700}
+.hr{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:color-mix(in srgb,var(--acc) 8%,var(--in));border:1px solid color-mix(in srgb,var(--acc) 45%,transparent);box-shadow:0 2px 12px #0006;border-radius:12px;padding:10px 12px;margin-top:10px}
+.hr.ok{border-color:#2f7a52;background:#14231a}
+.hr b{font-size:17px}.hr small{display:block;color:var(--mut);font-size:12px;margin-top:2px}.hr.ok small{color:var(--ok)}
+.hr .tiers{min-width:280px;flex:1;max-width:380px}
+.go{width:100%;margin-top:14px;padding:15px;font-size:18px;font-weight:800;border-radius:12px;border:0;background:var(--dd);color:#a8978a}
+.go.rdy{background:linear-gradient(90deg,var(--goA),var(--goB));color:#fff;box-shadow:0 0 18px #f9731655}
+.note{color:var(--mut);font-size:13px;margin-top:10px}
+.tabs{display:flex;gap:6px;margin:6px 0 12px}
+.tabs button{padding:10px 18px;font-weight:700;color:var(--mut)}.tabs button.on{background:var(--acc2);color:#fff;border-color:var(--acc2)}
+input[type=search]{width:100%;background:var(--pan);border:1px solid var(--line);border-radius:12px;padding:13px 14px;color:var(--tx);font:inherit;font-size:16px;margin-bottom:12px}
+h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.c.fin{border-color:#a32b2b;background:#2a1212}.c.fin .nm{color:#ff7a7a}
+.goal.sl{color:#ff9a9a;background:#3a1717;justify-content:flex-start;align-items:center;gap:10px}.badge{background:#e03a3a;color:#fff;border-radius:5px;padding:2px 8px;font-size:11px;font-weight:800;letter-spacing:.5px}
+.nm{font-weight:800;font-size:18px}
+.goal{background:var(--in);border-radius:8px;padding:7px 10px;font-size:13px;font-weight:700;display:flex;justify-content:space-between;gap:8px;color:var(--gold);margin-top:8px}
+.goal span:first-child{white-space:nowrap}
+.goal.ok{color:var(--ok)}.goal.dn{color:var(--mut)}
+.tiers{display:flex;margin-top:8px;border-radius:8px;overflow:hidden;background:var(--in)}
+.hr .tiers{margin-top:0}
+.tiers button{flex:1;border:0;border-radius:0;padding:10px 0;font-size:11px;font-weight:800;color:var(--btxt);background:var(--in);border-right:1px solid var(--line)}
+.tiers button:last-child{border:0}
+.t0.l{background:#c3c9d6;color:#222}.t1.l{background:#e6b422;color:#222}.t2.l{background:#25c8dd;color:#06222a}
+.t3.l{background:linear-gradient(115deg,#ff3b3b,#ff9f1c,#ffe14d,#3ddc84,#2ec4ff,#8f5cf2,#ff5fa0);color:#fff;text-shadow:0 1px 2px #000b}
+.t4.l{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 .8 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),linear-gradient(135deg,#2e333b,#7b828e 28%,#454b55 50%,#8e95a1 72%,#2e333b);background-blend-mode:overlay,normal;color:#fff;text-shadow:0 1px 2px #000b}
+.t5.l{background:radial-gradient(1px 1px at 7px 6px,#ffffffd0 50%,#0000),radial-gradient(1px 1px at 24px 13px,#ffffff99 50%,#0000),radial-gradient(1px 1px at 36px 5px,#ffffffcc 50%,#0000),radial-gradient(1px 1px at 15px 26px,#ffffff88 50%,#0000),radial-gradient(1px 1px at 38px 24px,#ffffffaa 50%,#0000),radial-gradient(1px 1px at 3px 18px,#ffffff88 50%,#0000),radial-gradient(1px 1px at 30px 29px,#ffffffbb 50%,#0000),radial-gradient(1px 1px at 20px 3px,#ffffff88 50%,#0000),radial-gradient(1px 1px at 43px 15px,#ffffffcc 50%,#0000),radial-gradient(1px 1px at 11px 14px,#ffffff77 50%,#0000),linear-gradient(135deg,#3d2594,#5a2db0);background-size:46px 34px,46px 34px,46px 34px,46px 34px,46px 34px,46px 34px,46px 34px,46px 34px,46px 34px,46px 34px,100% 100%;color:#fff;box-shadow:inset 0 0 5px 0 #ff5fc899,inset 0 0 1px #ff9ae0aa;text-shadow:0 1px 2px #0008}.t6.l{background:repeating-conic-gradient(from 190deg at 72% 135%,#ffc24d99 0 .7deg,#0000 .7deg 10deg),repeating-radial-gradient(circle at 72% 135%,#ffb02ecc 0 1px,#0000 1px 8px),radial-gradient(ellipse at 50% 120%,#ff9d1a77,#0000 62%),linear-gradient(135deg,#3b1d06,#69390b 50%,#2a1304);color:#ffe7a0;text-shadow:0 0 6px #ffa71acc;box-shadow:inset 0 0 9px 1px #ffb21fcc,inset 0 0 2px #fff0b0;animation:stl 2.2s ease-in-out infinite alternate}
+@keyframes stl{from{box-shadow:inset 0 0 6px 1px #ffb21f99,inset 0 0 2px #fff0b0aa,0 0 4px #ffa71a55}to{box-shadow:inset 0 0 12px 2px #ffb21fee,inset 0 0 2px #fff0b0,0 0 13px #ffa71aaa}}
+.t7.l{background:linear-gradient(90deg,#1fd37a,#18b8d8,#8a5cf0);color:#fff}
+.c.late{border-color:#b9831f;background:#2a2010}.c.late .nm{color:#ffc266}
+.goal.sl2{color:#ffd28a;background:#3a2a10;justify-content:flex-start;align-items:center;gap:10px}.badge.am{background:#e0a020;color:#1a1208}
+.dd{position:relative}.ddb{font-weight:700;min-width:110px;display:flex;justify-content:space-between;gap:10px}
+.ddl{display:none;position:absolute;z-index:20;top:calc(100% + 6px);left:0;min-width:100%;max-height:260px;overflow-y:auto;background:var(--dd);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 10px 30px #000a}
+.dd.r .ddl{left:auto;right:0}.dd.open .ddl{display:block}
+.ddi{display:block;width:100%;text-align:left;border:0;background:transparent;color:var(--tx);padding:9px 12px;border-radius:8px;font-weight:600;white-space:nowrap}
+.ddi:hover{background:var(--ddh);color:#fff}.ddi.sel{background:var(--acc2);color:#fff}
+.sup{width:100%;margin-top:14px;padding:13px;font-size:16px;font-weight:800;border-radius:12px;border:0;background:linear-gradient(90deg,var(--sA),var(--acc2));color:#fff}.sup.arm{background:#c2410c;box-shadow:0 0 0 2px #ffc266}
+.hint{font-size:12px;color:var(--mut);margin-top:6px;line-height:1.6}
+.nm{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rar{padding:2px 9px;font-size:11px;font-weight:700;border-radius:999px;background:transparent;border:1px solid}.rar.unk{border-style:dashed}
+.route{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;font-size:11px;font-weight:600;color:var(--mut)}
+.rc{padding:3px 9px;border-radius:6px;font-weight:800}.rc.got{opacity:.35;text-decoration:line-through}
+.soldbtn{margin-left:auto;padding:4px 10px;font-size:12px;font-weight:700;border-color:#a32b2b;color:#ffb0b0}.soldc{opacity:.55}
+.pills{display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:9px;background:var(--pan);border:1px solid var(--line);border-radius:999px;padding:6px 7px 6px 14px;font-weight:600;font-size:14px}
+.pill:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--acc)}
+.undo{padding:3px 10px;font-size:12px;border-radius:999px}
+.c.okc{border-color:#2f9d62;background:linear-gradient(160deg,#1b4a30,#18201f 75%);box-shadow:0 0 0 1px #2f9d6266,0 4px 18px #2f9d6222}
+:root[data-theme="purple"]{--bg:#0f0b18;--pan:#181226;--card:#1d1630;--in:#120d20;--line:#342a52;--tx:#efeaf8;--mut:#9d92b8;--acc:#b78bff;--acc2:#8b5cf6;--h1:#2b1a52;--h2:#170f2c;--hb:#5b3fa8;--dd:#231a3b;--ddh:#3d2d66;--goA:#7c3aed;--goB:#c084fc;--sA:#5b21b6;--btxt:#b3a6d0}
+:root[data-theme="blue"]{--bg:#0a1020;--pan:#101a30;--card:#141f3a;--in:#0c1426;--line:#243558;--tx:#e8eefc;--mut:#8da0c6;--acc:#4da3ff;--acc2:#2a7de1;--h1:#12305c;--h2:#0d1a33;--hb:#2a5aa0;--dd:#17233f;--ddh:#2b4272;--goA:#2563eb;--goB:#38bdf8;--sA:#1e40af;--btxt:#9fb2d6}
+:root[data-theme="green"]{--bg:#0c1210;--pan:#131c19;--card:#172420;--in:#0e1613;--line:#25403a;--tx:#e8f3ef;--mut:#8aa89e;--acc:#34d399;--acc2:#10b981;--h1:#123a2c;--h2:#0d1f19;--hb:#2c7a5c;--dd:#1b2b26;--ddh:#2d4a40;--goA:#059669;--goB:#34d399;--sA:#047857;--btxt:#a6c4ba}
+:root[data-theme="rose"]{--bg:#170c10;--pan:#22131a;--card:#281822;--in:#1a0f15;--line:#4a2a37;--tx:#f8e9ee;--mut:#b898a4;--acc:#ff6b8b;--acc2:#e11d48;--h1:#4a1626;--h2:#260d15;--hb:#9a3050;--dd:#2f1a24;--ddh:#5a2d40;--goA:#e11d48;--goB:#fb7185;--sA:#9f1239;--btxt:#c9a8b4}
+:root[data-theme="mono"]{--bg:#0e0e0e;--pan:#171717;--card:#1c1c1c;--in:#111111;--line:#333333;--tx:#f0f0f0;--mut:#999999;--acc:#e5e5e5;--acc2:#6b6b6b;--h1:#2a2a2a;--h2:#161616;--hb:#555555;--dd:#222222;--ddh:#3a3a3a;--goA:#6b6b6b;--goB:#bdbdbd;--sA:#444444;--btxt:#aaaaaa}
+.tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.sws{display:flex;gap:7px;align-items:center}
+.sw{width:22px;height:22px;border-radius:50%;padding:0;border:2px solid transparent}.sw.on{border-color:var(--tx)}
+.scl{display:flex;gap:4px}.scl button{padding:5px 10px;font-weight:700}
+.ring{position:relative;width:108px;height:108px}.ring svg{width:100%;height:100%}
+.rn{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.rn b{font-size:36px;line-height:1}.rn small{font-size:11px;color:var(--mut);margin-top:2px}
+.empty{color:var(--mut);padding:20px;text-align:center}
+.more{display:block;margin:16px auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="row"><div class="row" style="justify-content:flex-start"><h1>Droid Tracker</h1><div id="pathDd"></div></div><div class="tools"><div class="sws" id="sw"></div><div class="scl"><button data-scale="-1" title="Smaller">A&minus;</button><button data-scale="1" title="Bigger">A+</button></div><button id="reset" style="color:#ff6a6a">&#8635; Reset path</button></div></div>
+ <div class="hero" id="hero"></div>
+ <div class="tabs"><button data-v="up">Coming up</button><button data-v="all">All droids</button></div>
+ <input type="search" id="q" placeholder="Search droid...">
+ <div id="out"></div>
+ <div id="sellBox"></div>
+ <div id="soldBox"></div>
+</div>
+<script>
+const TN=["Base","Gold","Diamond","Rainbow","Beskar","Galactic","Stellar","Kyber"],AB=["BAS","GLD","DIA","RNB","BES","GAL","STL","KYB"],CD={DF:0,GD:1,DM:2,RB:3,BK:4,GL:5,ST:6,KY:7};
+const PATHS=[{id:"p1",name:"Path 1",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,CB:DF
+2|150K||BAL-CORE:DF,BDX EXPLORER:DF,2BB:DF
+3|975K||B-U4D:DF,A-LT:DF,R9:GD
+4|2.95M||ARG:GD,B1 SECURITY:GD,GROUNDMECH:DF
+5|5.35M||B-U4D:GD,HOV-R:GD,R9:DM
+6|9.85M||ARG:DM,A-LT:DM,GROUNDMECH:GD
+7|14.5M||B-U4D:DM,B1 SECURITY:DM,BB:GD
+8|36M||HOV-R:DM,LO:GD,UTIL-TEC:GD
+9|89M||R6:GD,TRAK-R:GD,GROUNDMECH:RB
+10|220M||STRIKE-ORB:GD,LO:RB,HAUL-R:RB
+11|550M||AMP WALKER:RB,B1 HEAVY:RB,BB9:DF
+12|1.36B||MONO-WLKR:DF,MECHA-DROID:DF,PROTO-ROLLER:GD
+13|3.4B||B2-RP:DF,CYCLO-GRAV:DF,R7:DF
+14|8.45B||OPTI-STRK:DF,MECHA-DROID:GD,MONO-WLKR:GD
+15|21B||B2-RP:GD,R7:GD,BB9:GD
+16|52B||OPTI-STRK:GD,PROTO-ROLLER:DM,MONO-WLKR:DM
+17|130B||MECHA-DROID:DM,CYCLO-GRAV:DM,B2-RP:DM
+18|325B||R7:DM,BB9:DM,MONO-WLKR:RB
+19|810B||PROTO-ROLLER:RB,CYCLO-GRAV:RB,B2-RP:RB
+20|2T||MECHA-DROID:RB,OPTI-STRK:RB,R7:RB
+21|3T||GROUNDMECH:BK,ORB-WALKER:BK,BB:BK
+22|4.5T||AMP WALKER:BK,B1 HEAVY:BK,PROTO-ROLLER:BK
+23|6T||MONO-WLKR:BK,OPTI-STRK:BK,R7:BK
+24|9T||CYCLO-GRAV:BK,BB9:BK,MO-TRAK:DF
+25|13.5T||B2-RP:BK,IG:DF,DRFT-R:GD
+26|21T||CYCLENS:GD,LOADLIFTER:DM,RIC-1200:RB
+27|32T||KX:DM,TRI-TEK:RB,SNOW MOUSE:BK
+28|45T||PROTO-ROLLER:GL,MO-TRAK:RB,DRFT-R:BK
+29|68T||MECHA-DROID:GL,MONO-WLKR:GL,IG:BK
+30|100T||B2-RP:GL,CYCLENS:BK,LOADLIFTER:GL
+31|150T||SEN-TRI:ST,PROTO-ROLLER:BK,KX:BK
+32|230T||OPTI-POD:GL,ORB-WALKER:GL,RIC:BK
+33|345T||B1 HEAVY:ST,CYCLO-GRAV:GL,DRFT-R:GL
+34|520T||GROUNDMECH:ST,BB:ST,CYCLENS:GL
+35|778T||BB9:ST,SNOW MOUSE:ST,IG:ST
+36|1.2Q||BDX EXPLORER:KY,A-LT:KY,2BB:KY
+37|2.5Q||GROUNDMECH:KY,B1 HEAVY:KY,BB:KY
+38|4.5Q||R6:KY,R2:KY,BB9:KY
+39|8Q||PROTO-ROLLER:KY,R7:KY,IG:KY
+40|15Q||SNOW MOUSE:KY,CYCLENS:KY,DRFT-R:KY`},{id:"p2",name:"Path 2",raw:`1|10K||MOUSE:DF,GONK:DF,ID10:DF
+2|150K||ROLL-R:DF,SENATE HOVER:DF,NAV-EX:DF
+3|975K||BDX EXPLORER:DF,VECT-ARM:DF,R4:DF
+4|2.95M||BAL-CORE:DF,2BB:DF,ORB-WALKER:DF
+5|5.35M||VECT-ARM:GD,NAV-EX:GD,R4:GD
+6|9.85M||BAL-CORE:DM,2BB:DM,GUNRUNNER:DF
+7|14.5M||ROLL-R:DM,BDX EXPLORER:DM,R2:GD
+8|36M||R4:DM,GUNRUNNER:GD,B2 SUPER:GD
+9|89M||NAV-EX:RB,AMP WALKER:GD,STRIKE-ORB:GD
+10|220M||VECT-ARM:RB,B2 SUPER:DM,R2:DM
+11|550M||BAL-CORE:RB,B2 HEAVY:DM,STRIKE-ORB:DM
+12|1.36B||R2:RB,ORB-WALKER:RB,BB9:DF
+13|3.4B||B2 SUPER:RB,PROTO-ROLLER:DF,MECHA-DROID:DF
+14|8.45B||B2 HEAVY:RB,B2-RP:DF,R7:GD
+15|21B||STRIKE-ORB:RB,PROTO-ROLLER:GD,BB9:GD
+16|52B||AMP WALKER:RB,MECHA-DROID:GD,B2-RP:DM
+17|130B||OPTI-POD:RB,MONO-WLKR:GD,R7:DM
+18|325B||UTIL-TEC:RB,PROTO-ROLLER:DM,BB9:DM
+19|810B||MECHA-DROID:DM,B2-RP:RB,R7:RB
+20|2T||MONO-WLKR:RB,CYCLO-GRAV:RB,OPTI-STRK:RB
+21|3T||LO:BK,HAUL-R:BK,R6:BK
+22|4.5T||SEN-TRI:BK,STRIKE-ORB:BK,PROTO-ROLLER:BK
+23|6T||B2-RP:BK,CYCLO-GRAV:BK,BB9:BK
+24|9T||B2-RP:BK,OPTI-STRK:BK,SNOW MOUSE:DF
+25|13.5T||MONO-WLKR:BK,RIC-1200:DF,TRI-TEK:GD
+26|21T||KX:GD,DRFT-R:DM,IG:RB
+27|32T||LEP:DM,LOADLIFTER:RB,MO-TRAK:BK
+28|45T||MECHA-DROID:GL,SNOW MOUSE:RB,TRI-TEK:BK
+29|68T||CYCLO-GRAV:GL,R7:GL,RIC:BK
+30|100T||OPTI-STRK:GL,KX:BK,DRFT-R:GL
+31|150T||B2 SUPER:ST,B2-RP:BK,LOADLIFTER:BK
+32|230T||GUNRUNNER:GL,B1 HEAVY:GL,LEP:BK
+33|345T||R2:ST,OPTI-STRK:GL,KX:GL
+34|520T||LO:ST,R6:ST,RIC:GL
+35|778T||R7:ST,CYCLENS:ST,DRFT-R:ST
+36|1.2Q||B1 SECURITY:KY,R9:KY,R4:KY
+37|2.5Q||LO:KY,ORB-WALKER:KY,TRAK-R:KY
+38|4.5Q||B2 HEAVY:KY,B2 SUPER:KY,B2-RP:KY
+39|8Q||MECHA-DROID:KY,CYCLO-GRAV:KY,KX:KY
+40|15Q||LEP:KY,LOADLIFTER:KY,RIC:KY`},{id:"p3",name:"Path 3",raw:`1|10K||GONK:DF,PIT:DF,MOUSE:DF
+2|150K||R3:DF,SENATE HOVER:DF,2BB:DF
+3|975K||R5:DF,R8:DF,R4:DF
+4|2.95M||B1 BATTLE:GD,B1 SECURITY:GD,R9:GD
+5|5.35M||R3:GD,SENATE HOVER:GD,2BB:GD
+6|9.85M||R5:DM,BDX EXPLORER:DM,R4:DM
+7|14.5M||B1 BATTLE:DM,R8:DM,R9:DM
+8|36M||R3:RB,B1 SECURITY:RB,2BB:RB
+9|89M||R5:RB,BDX EXPLORER:RB,R4:RB
+10|220M||SENATE HOVER:RB,GROUNDMECH:DF,TRAK-R:DF
+11|550M||B2 SUPER:DF,B2 HEAVY:DF,UTIL-TEC:DF
+12|1.36B||BAL-CORE:RB,GROUNDMECH:GD,TRAK-R:GD
+13|3.4B||B2 SUPER:RB,PROTO-ROLLER:DF,MECHA-DROID:DF
+14|8.45B||B2 HEAVY:RB,B2-RP:DF,R7:GD
+15|21B||STRIKE-ORB:RB,PROTO-ROLLER:GD,BB9:GD
+16|52B||AMP WALKER:RB,MECHA-DROID:GD,B2-RP:DM
+17|130B||OPTI-POD:RB,MONO-WLKR:GD,R7:DM
+18|325B||UTIL-TEC:RB,PROTO-ROLLER:DM,BB9:DM
+19|810B||MECHA-DROID:DM,B2-RP:RB,R7:RB
+20|2T||MONO-WLKR:RB,CYCLO-GRAV:RB,OPTI-STRK:RB
+21|3T||OPTI-POD:BK,B2 SUPER:BK,R2:BK
+22|4.5T||GUNRUNNER:BK,LNG-SHOT:BK,B2-RP:BK
+23|6T||MECHA-DROID:BK,MONO-WLKR:BK,CYCLO-GRAV:BK
+24|9T||B2-RP:BK,BB9:BK,RIC:DF
+25|13.5T||PROTO-ROLLER:BK,LOADLIFTER:DF,MO-TRAK:GD
+26|21T||LEP:GD,TRI-TEK:DM,SNOW MOUSE:RB
+27|32T||RIC-1200:DM,IG:RB,DRFT-R:BK
+28|45T||BB9:GL,RIC:RB,MO-TRAK:BK
+29|68T||MECHA-DROID:GL,OPTI-STRK:GL,IG:BK
+30|100T||R7:GL,LEP:BK,DRFT-R:GL
+31|150T||B2 HEAVY:ST,MECHA-DROID:BK,RIC-1200:BK
+32|230T||GROUNDMECH:GL,BB:GL,MO-TRAK:BK
+33|345T||TRAK-R:ST,MONO-WLKR:GL,LOADLIFTER:GL
+34|520T||B2 SUPER:ST,ORB-WALKER:ST,LEP:GL
+35|778T||PROTO-ROLLER:ST,RIC:ST,KX:ST
+36|1.2Q||B-U4D:KY,SENATE HOVER:KY,ARG:KY
+37|2.5Q||AMP WALKER:KY,STRIKE-ORB:KY,UTIL-TEC:KY
+38|4.5Q||LNG-SHOT:KY,HAUL-R:KY,OPTI-STRK:KY
+39|8Q||MONO-WLKR:KY,BB9:KY,RIC-1200:KY
+40|15Q||IG:KY,TRI-TEK:KY,MO-TRAK:KY`},{id:"p4",name:"Path 4",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,ID10:DF
+2|150K||R3:DF,SENATE HOVER:DF,2BB:DF
+3|975K||R8:GD,R5:GD,R4:DF
+4|2.95M||B1 BATTLE:GD,B1 SECURITY:GD,R9:GD
+5|5.35M||R3:GD,SENATE HOVER:GD,2BB:GD
+6|9.85M||R5:DM,BDX EXPLORER:DM,R4:DM
+7|14.5M||B1 BATTLE:DM,R8:DM,R9:DM
+8|36M||R3:RB,B1 SECURITY:RB,2BB:RB
+9|89M||R5:RB,BDX EXPLORER:RB,R4:RB
+10|220M||SENATE HOVER:RB,GROUNDMECH:DF,TRAK-R:DF
+11|550M||B2 SUPER:DF,B2 HEAVY:DF,UTIL-TEC:DF
+12|1.36B||BAL-CORE:RB,GROUNDMECH:GD,TRAK-R:GD
+13|3.4B||B2 SUPER:RB,PROTO-ROLLER:DF,MECHA-DROID:DF
+14|8.45B||BAL-CORE:DM,GROUNDMECH:DM,TRAK-R:RB
+15|21B||B2 HEAVY:DM,B2 SUPER:RB,B2-RP:DF
+16|52B||UTIL-TEC:RB,BB9:DF,R7:GD
+17|130B||OPTI-STRK:DF,MECHA-DROID:GD,CYCLO-GRAV:GD
+18|325B||B2-RP:GD,BB9:GD,R7:DM
+19|810B||MECHA-DROID:DM,B2-RP:RB,R7:RB
+20|2T||MONO-WLKR:RB,CYCLO-GRAV:RB,OPTI-STRK:RB
+21|3T||GROUNDMECH:BK,AMP WALKER:BK,HAUL-R:BK
+22|4.5T||GUNRUNNER:BK,B2 SUPER:BK,STRIKE-ORB:BK
+23|6T||MONO-WLKR:BK,B2-RP:BK,CYCLO-GRAV:BK
+24|9T||PROTO-ROLLER:BK,MECHA-DROID:BK,MO-TRAK:DF
+25|13.5T||OPTI-STRK:BK,TRI-TEK:DF,DRFT-R:GD
+26|21T||CYCLENS:GD,LEP:DM,MO-TRAK:RB
+27|32T||RIC-1200:DM,SNOW MOUSE:RB,LOADLIFTER:BK
+28|45T||OPTI-STRK:GL,IG:RB,KX:BK
+29|68T||BB9:GL,R7:GL,TRI-TEK:BK
+30|100T||MONO-WLKR:GL,CYCLENS:BK,IG:GL
+31|150T||TRAK-R:ST,CYCLO-GRAV:BK,TRI-TEK:BK
+32|230T||R6:GL,R2:GL,IG:BK
+33|345T||B2 HEAVY:ST,BB9:GL,RIC-1200:GL
+34|520T||AMP WALKER:ST,STRIKE-ORB:ST,MO-TRAK:GL
+35|778T||B2-RP:ST,LEP:ST,LOADLIFTER:ST
+36|1.2Q||BAL-CORE:KY,VECT-ARM:KY,NAV-EX:KY
+37|2.5Q||GUNRUNNER:KY,OPTI-POD:KY,SEN-TRI:KY
+38|4.5Q||GROUNDMECH:KY,B1 HEAVY:KY,R7:KY
+39|8Q||PROTO-ROLLER:KY,B2-RP:KY,SNOW MOUSE:KY
+40|15Q||KX:KY,CYCLENS:KY,DRFT-R:KY`},{id:"p5",name:"Path 5",raw:`1|10K||GONK:DF,MOUSE:DF,ID10:DF
+2|150K||IMPERIAL PROBE:GD,ROLL-R:DF,2BB:DF
+3|975K||VECT-ARM:DF,R4:DF,BDX EXPLORER:GD
+4|2.95M||B1 BATTLE:GD,B1 SECURITY:GD,R9:GD
+5|5.35M||R3:GD,BAL-CORE:GD,R4:GD
+6|9.85M||BDX EXPLORER:DM,2BB:DM,GUNRUNNER:DF
+7|14.5M||R5:DM,ROLL-R:DM,R2:GD
+8|36M||B1 BATTLE:DM,R8:DM,B2 SUPER:GD
+9|89M||NAV-EX:RB,AMP WALKER:GD,STRIKE-ORB:GD
+10|220M||IMPERIAL PROBE:BK,GROUNDMECH:DF,TRAK-R:DF
+11|550M||B2 SUPER:DF,B2 HEAVY:DF,UTIL-TEC:DF
+12|1.36B||BAL-CORE:RB,GROUNDMECH:GD,TRAK-R:GD
+13|3.4B||B2 HEAVY:GD,B2 SUPER:GD,R2:DM
+14|8.45B||GROUNDMECH:DM,TRAK-R:DM,UTIL-TEC:RB
+15|21B||B2 SUPER:DM,B2 HEAVY:DM,B2-RP:DF
+16|52B||BB9:DF,PROTO-ROLLER:GD,R7:GD
+17|130B||OPTI-STRK:DF,MECHA-DROID:GD,CYCLO-GRAV:GD
+18|325B||B2-RP:GD,BB9:GD,R7:DM
+19|810B||CYCLO-GRAV:DM,OPTI-STRK:DM,MECHA-DROID:RB
+20|2T||B2-RP:RB,R7:RB,BB9:RB
+21|3T||LO:BK,HAUL-R:BK,STRIKE-ORB:BK
+22|4.5T||GUNRUNNER:BK,SEN-TRI:BK,R6:BK
+23|6T||B2-RP:BK,CYCLO-GRAV:BK,BB9:BK
+24|9T||MONO-WLKR:BK,OPTI-STRK:BK,MO-TRAK:DF
+25|13.5T||MECHA-DROID:BK,RIC:DF,TRI-TEK:GD
+26|21T||CYCLENS:GD,LEP:DM,SNOW MOUSE:RB
+27|32T||RIC-1200:DM,IG:RB,LOADLIFTER:BK
+28|45T||BB9:GL,RIC:RB,MO-TRAK:BK
+29|68T||MECHA-DROID:GL,OPTI-STRK:GL,IG:BK
+30|100T||R7:GL,LEP:BK,CYCLENS:GL
+31|150T||AMP WALKER:ST,OPTI-STRK:BK,SNOW MOUSE:BK
+32|230T||LO:GL,TRAK-R:GL,DRFT-R:BK
+33|345T||UTIL-TEC:ST,R7:GL,TRI-TEK:GL
+34|520T||LNG-SHOT:ST,HAUL-R:ST,IG:GL
+35|778T||MECHA-DROID:ST,RIC-1200:ST,MO-TRAK:ST
+36|1.2Q||MOUSE:KY,ROLL-R:KY,HOV-R:KY
+37|2.5Q||R6:KY,R2:KY,BB:KY
+38|4.5Q||LO:KY,TRAK-R:KY,MECHA-DROID:KY
+39|8Q||OPTI-STRK:KY,CYCLO-GRAV:KY,RIC:KY
+40|15Q||RIC-1200:KY,LEP:KY,LOADLIFTER:KY`},{id:"p6",name:"Path 6",raw:`1|10,000 Credits|MOUSE, ID10|GONK:DF,MOUSE:DF,ID10:DF
+2|150,000 Credits|PIT|PIT:DF,EG-58:DF,2BB:DF
+3|975,000 Credits|R3|R3:DF,R4:DF,ROLL-R:DF
+4|2.95 Million Credits||EG-58:GD,R9:GD,B1 SECURITY:GD
+5|5.35 Million Credits|R5, VECT-ARM|GONK:GD,R5:GD,VECT-ARM:GD
+6|9.85 Million Credits|2BB|EGL:DF,EG-58:DM,2BB:DM
+7|14.5 Million Credits|R4, R9|KT:DF,R4:DM,R9:DM
+8|36 Million Credits|B1 SECURITY, NAV-EX|MPH:DF,B1 SECURITY:DM,NAV-EX:DM
+9|89 Million Credits|STRIKE-ORB|GONK:DM,EGL:GD,STRIKE-ORB:GD
+10|220 Million Credits|AMP WALKER|GROUNDMECH:DF,TRAK-R:DF,AMP WALKER:DF
+11|550 Million Credits||B2 SUPER:DF,HAUL-R:DF,R2:DF
+12|1.36 Billion Credits||GONK:RB,GROUNDMECH:GD,TRAK-R:GD
+13|3.4 Billion Credits||KT:GD,MPH:GD,PROTO-ROLLER:DF
+14|8.45 Billion Credits||EGL:DM,B2 SUPER:GD,B2-RP:DF
+15|21 Billion Credits||J09-4MN:DF,KT:DM,MPH:DM
+16|52 Billion Credits||PLNK:DF,BB9:DF,R7:GD
+17|130 Billion Credits||EGL:RB,J09-4MN:GD,MECHA-DROID:DF
+18|325 Billion Credits||KT:RB,MPH:RB,PLNK:GD
+19|810 Billion Credits||J09-4MN:DM,PROTO-ROLLER:GD,R7:DM
+20|2 Trillion Credits|MECHA-DROID|PLNK:RB,MECHA-DROID:RB,B2-RP:RB
+21|3 Trillion Credits||GONK:BK,EGL:BK,HAUL-R:BK
+22|4.50 Trillion Credits|GROUNDMECH|KT:BK,GROUNDMECH:BK,R2:BK
+23|6 Trillion Credits||MPH:BK,J09-4MN:BK,BB9:BK
+24|9 Trillion Credits|PROTO-ROLLER|PLNK:BK,PROTO-ROLLER:BK,ECG:DF
+25|13.5 Trillion Credits|R7, LOADLIFTER|R7:BK,IG:DF,LOADLIFTER:DF
+26|21 Trillion Credits|MO-TRAK|MO-TRAK:GD,ECG:GD,DRFT-R:DM
+27|32 Trillion Credits||CYCLENS:RB,SNOW MOUSE:RB,TRI-TEK:BK
+28|45 Trillion Credits|BB9|EGL:GL,J09-4MN:GL,BB9:GL
+29|68 Trillion Credits||KT:GL,PLNK:GL,IG:BK
+30|100 Trillion Credits|B2-RP|MPH:GL,B2-RP:GL,DRFT-R:GL
+31|150 Trillion Credits||EGL:ST,EG-58:BK,SNOW MOUSE:BK
+32|230 Trillion Credits|TRAK-R, CYCLENS|ECG:GL,TRAK-R:GL,CYCLENS:BK
+33|345 Trillion Credits||KT:ST,CYCLO-GRAV:GL,TRI-TEK:GL
+34|520 Trillion Credits|HAUL-R, IG|MPH:ST,HAUL-R:ST,IG:GL
+35|778 Trillion Credits||J09-4MN:ST,PLNK:ST,ECG:ST
+36|1.19 Qa Credits|*|GONK:KY,EG-58:KY,ROLL-R:KY
+37|2.50 Qa Credits|*|EGL:KY,R2:KY,B2 SUPER:KY
+38|4.50 Qa Credits|*|KT:KY,MPH:KY,SNOW MOUSE:KY
+39|8.00 Qa Credits|*|J09-4MN:KY,CYCLO-GRAV:KY,TRI-TEK:KY
+40|15.00 Qa Credits|*|PLNK:KY,ECG:KY,DRFT-R:KY`}];
+let D,R,SELL,NAMES;
+function load(){
+ const p=PATHS.find(x=>x.id===S.path)||PATHS[0];S.path=p.id;
+ D=p.raw.split("\n").map(l=>{const[n,c,s,d]=l.split("|");return{n:+n,c,all:s==="*",s:s==="*"?[]:s?s.split(", "):[],d:d.split(",").map(x=>{const[a,b]=x.split(":");return{name:a,t:CD[b]}})}});
+ R={};SELL={};
+ D.forEach(r=>{r.d.forEach(d=>{(R[d.name]=R[d.name]||[]).push({rb:r.n,t:d.t});if(r.all)(SELL[d.name]=SELL[d.name]||[]).push(r.n)});r.s.forEach(n=>(SELL[n]=SELL[n]||[]).push(r.n))});
+ NAMES=Object.keys(R).sort((a,b)=>a.localeCompare(b));
+ S.p[p.id]=S.p[p.id]||{cur:0,own:{},sold:{}};S.p[p.id].sold=S.p[p.id].sold||{};
+}
+const KEY="droidTrackerV3";let S={path:"sr",p:{},tab:"up",more:false};
+try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const P=()=>S.p[S.path],own=n=>P().own[n]??-1;
+const tiers=n=>`<div class="tiers">${AB.map((a,i)=>`<button class="t${i}${i<=own(n)?" l":""}" data-n="${n}" data-t="${i}">${a}</button>`).join("")}</div>`;
+function card(n,ctx){
+ const cur=P().cur,o=own(n),rs=R[n].filter(r=>r.rb>cur),unmet=rs.find(r=>o<r.t),all=rs.map(r=>"R"+r.rb+" "+AB[r.t]).join(" &rarr; "),up=unmet&&rs.find(r=>r.t>unmet.t);
+ const sold=P().sold[n]&&!rs.length;if(sold)return"";
+ const cq=ctx&&R[n].find(r=>r.rb===ctx),done=cq?o>=cq.t:rs.length&&!unmet,g=cq?(o>=cq.t?`<div class="goal ok"><span>&#10003; ${TN[cq.t]}</span></div>`:`<div class="goal"><span>${ctx===cur+1?"&#9889;":"&#128274;"} ${TN[cq.t]} for R${ctx}</span></div>`):!rs.length?`<div class="goal sl"><span class="badge">SELL</span><span>No longer needed</span><button class="soldbtn" data-sold="${n}">Sold</button></div>`:!unmet?`<div class="goal ok"><span>&#10003; ${TN[rs[rs.length-1].t]} for R${rs.filter(r=>r.t===rs[rs.length-1].t).map(r=>r.rb).join(", R")}</span></div>`:`<div class="goal"><span>${unmet.rb===cur+1?"&#9889;":"&#128274;"} ${TN[unmet.t]} for R${unmet.rb}</span></div>`;
+ return `<div class="c${!rs.length?" fin":""}${sold?" soldc":""}${done?" okc":""}"><div class="nm">${n} ${rbadge(n)}</div>${g}${rs.length>1?route(n,cur,"Needed:"):""}${tiers(n)}</div>`;
+}
+const KN={C:"GONK,MOUSE,IMPERIAL PROBE,R8,CB,DRK-1 PROBE,PIT,ID10,R3,R5,B1 BATTLE",R:"2BB,A-LT,ARG,B1 SECURITY,BAL-CORE,BDX EXPLORER,B-U4D,HOV-R,EG-58,R4,R9,NAV-EX,ROLL-R,VECT-ARM,SENATE HOVER",E:"AMP WALKER,B1 HEAVY,BB,GROUNDMECH,HAUL-R,LO,SEN-TRI,OPTI-POD,ORB-WALKER,R6,R2,STRIKE-ORB,GUNRUNNER,B2 HEAVY,B2 SUPER,TRAK-R,UTIL-TEC,LNG-SHOT,EGL,KT,MPH",L:"B2-RP,BB9,CYCLO-GRAV,OPTI-STRK,MECHA-DROID,MONO-WLKR,PROTO-ROLLER,R7,J09-4MN,PLNK",M:"CYCLENS,DRFT-R,IG,KX,LOADLIFTER,RIC-1200,TRI-TEK,MO-TRAK,RIC,SNOW MOUSE,LEP,ECG"},RAR={},RK={C:"Common",R:"Rare",E:"Epic",L:"Legendary",M:"Mythic"},RC={C:"#9aa4b2",R:"#4aa3ff",E:"#b57bff",L:"#ff9f3d",M:"#ff5fa0"};
+for(const k in KN)KN[k].split(",").forEach(n=>RAR[n]=k);
+const CC={C:[10,25,40,80,120,180,240],R:[30,60,100,250,400,750,1000],E:[120,180,240,2000,5000,8000,12000],L:[400,1200,2500,6000,16000,24000,30000],M:[4000,8000,14000,30000,60000,90000,110000]};
+const rar=n=>S.rar[n]||RAR[n]||"R",known=n=>!!(S.rar[n]||RAR[n]);
+const chips=(n,o,t)=>{let c=0;for(let i=Math.max(o,0)+1;i<=t;i++)c+=CC[rar(n)][i-1];return c};
+const rbadge=n=>`<button class="rar${known(n)?"":" unk"}" data-rar="${n}" style="color:${RC[rar(n)]};border-color:${RC[rar(n)]}" title="${known(n)?"":"Rarity not confirmed - "}tap to change rarity">${RK[rar(n)]}${known(n)?"":"?"}</button>`;
+const route=(n,from,lab)=>{const o=own(n),l=R[n].filter(r=>r.rb>from),g=[];l.forEach(r=>{const p=g[g.length-1];if(p&&p.t===r.t)p.rbs.push(r.rb);else g.push({t:r.t,rbs:[r.rb]})});return l.length?`<div class="route"><span>${lab}</span>${g.map(r=>`<span class="rc t${r.t} l${o>=r.t?" got":""}" title="${TN[r.t]}">R${r.rbs.join(" &middot; R")}</span>`).join("")}</div>`:""};
+function dd(id,items,sel,label,right){return `<div class="dd${right?" r":""}${S.open===id?" open":""}"><button class="ddb" data-dd="${id}"><span>${label}</span><span>&#9662;</span></button><div class="ddl">${items.map(i=>`<button class="ddi${i.v==sel?" sel":""}" data-pick="${id}" data-v="${i.v}">${i.l}</button>`).join("")}</div></div>`}
+function render(){
+ const cur=P().cur,max=D.length,nx=D.find(r=>r.n===cur+1);
+ document.documentElement.dataset.theme=S.theme||"orange";document.body.style.zoom=S.scale||1;
+ document.getElementById("sw").innerHTML=[["orange","#ff8a3d"],["purple","#b78bff"],["blue","#4da3ff"],["green","#34d399"],["rose","#ff6b8b"],["mono","#d4d4d4"]].map(([k,c])=>`<button class="sw${(S.theme||"orange")===k?" on":""}" data-theme="${k}" style="background:${c}" title="${k[0].toUpperCase()+k.slice(1)}"></button>`).join("");
+ const sg=NAMES.filter(n=>!R[n].some(r=>r.rb>cur)&&!P().sold[n]);
+ document.getElementById("sellBox").innerHTML=sg.length?`<h2>Ready to sell (${sg.length})</h2><div class="grid">${sg.map(n=>card(n)).join("")}</div>`:"";
+ const sl=NAMES.filter(n=>P().sold[n]&&!R[n].some(r=>r.rb>cur));
+ document.getElementById("soldBox").innerHTML=sl.length?`<h2>Sold droids (${sl.length})</h2><div class="pills">${sl.map(n=>`<span class="pill">${n}<button class="undo" data-sold="${n}" title="Move back into the overview">&#10005;</button></span>`).join("")}</div>`:"";
+ document.getElementById("pathDd").innerHTML=dd("path",PATHS.map(p=>({v:p.id,l:p.name})),S.path,PATHS.find(p=>p.id===S.path).name);
+ document.getElementById("reset").textContent=S.arm==="reset"?"Tap again to confirm":"\u21BB Reset path";
+ const step=`<div class="row"><div class="stp"><button data-s="-1" ${cur?"":"disabled"} title="Go back one rebirth">&minus;</button><div style="text-align:center"><div class="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--line)" stroke-width="8"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--acc)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(263.9*cur/max).toFixed(1)} 264" transform="rotate(-90 50 50)"/></svg><div class="rn"><b>${cur}</b></div></div><div class="lbl" style="margin-top:4px">Current rebirth</div></div><button data-s="1" ${nx?"":"disabled"} title="Skip ahead one rebirth">+</button></div><div class="row" style="gap:8px"><span class="lbl">Jump to</span>${dd("jump",Array.from({length:max+1},(_,i)=>({v:i,l:String(i)})),cur,String(cur),true)}</div></div>`;
+ const nid=(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length,sup=cur>=12?`<button class="sup${S.arm==="sup"?" arm":""}" data-sup="1">${S.arm==="sup"?"Tap again to confirm":"\u2605 Super Rebirth \u2192 "+PATHS[nid].name}</button>`:"";
+ let body;
+ if(!nx)body=`<div class="big" style="margin-top:14px">All rebirths complete!</div>`;
+ else{
+  const miss=nx.d.filter(d=>own(d.name)<d.t).length,rdy=!miss;
+  const fut=d=>R[d.name].filter(r=>r.rb>nx.n),safe=nx.d.filter(d=>!fut(d).length).map(d=>d.name),sell=[safe.length?"<span style='color:#ff8a8a'>Safe to sell after rebirthing: "+safe.join(", ")+".</span>":""].filter(Boolean).join("<br>")||"Keep all of these for now.";
+  body=`<div class="row" style="margin-top:16px"><div><div class="lbl">Next up</div><div class="big">Rebirth ${nx.n}</div></div><span class="chip">${nx.c}</span></div>`+
+  nx.d.map(d=>{const ok=own(d.name)>=d.t;return `<div class="hr${ok?" ok":""}"><div><b>${d.name}</b> ${rbadge(d.name)}<small>${ok?"&#10003; Have it":"Needs "+TN[d.t]+(d.t>0?" &middot; "+chips(d.name,own(d.name),d.t).toLocaleString()+" chips":"")}</small>${route(d.name,nx.n,"Later:")}</div>${tiers(d.name)}</div>`}).join("")+
+  `<div class="note">${sell}</div><button class="go${rdy?" rdy":""}" data-go="1" ${rdy?"":"disabled"}>${rdy?"Rebirth now \u2192":"Need "+miss+" more droid"+(miss>1?"s":"")}</button>`;
+ }
+ document.getElementById("hero").innerHTML=step+sup+body;
+ document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("on",b.dataset.v===S.tab));
+ const q=document.getElementById("q").value.trim().toLowerCase(),out=document.getElementById("out");
+ if(q||S.tab==="all"){
+  const l=NAMES.filter(n=>n.toLowerCase().includes(q)&&R[n].some(r=>r.rb>cur));
+  out.innerHTML=l.length?`<div class="grid">${l.map(n=>card(n)).join("")}</div>`:`<div class="empty">No droids found</div>`;
+ }else{
+  const l=D.filter(r=>r.n>cur+1),sh=S.more?l:l.slice(0,4);
+  out.innerHTML=sh.map(r=>`<h2>Rebirth ${r.n} &bull; ${r.c}</h2><div class="grid">${r.d.map(d=>card(d.name,r.n)).join("")}</div>`).join("")+(l.length>4?`<button class="more" data-more="1">${S.more?"Show fewer":"Show all "+l.length+" upcoming rebirths"}</button>`:"")||`<div class="empty">Nothing further coming up</div>`;
+ }
+}
+document.addEventListener("click",e=>{
+ if(S.open&&!e.target.closest(".dd")){S.open=null;render()}
+ const b=e.target.closest("button");if(!b||b.disabled)return;
+ const d=b.dataset;if(!d.sup&&b.id!=="reset"&&!d.dd)S.arm=null;if(!d.dd&&!d.pick)S.open=null;
+ if(d.dd){S.open=S.open===d.dd?null:d.dd;render();return}
+ else if(d.pick){if(d.pick==="path"){S.path=d.v;load()}else P().cur=+d.v;S.open=null}
+ else if(d.sup){if(S.arm!=="sup"){S.arm="sup";render();return}S.arm=null;S.path=PATHS[(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length].id;S.p[S.path]={cur:0,own:{},sold:{}};load();window.scrollTo({top:0,behavior:"smooth"})}
+ else if(d.sold)P().sold[d.sold]=!P().sold[d.sold];
+ else if(d.rar){const O="CREL M".replace(" ","");S.rar[d.rar]=O[(O.indexOf(rar(d.rar))+1)%5]}
+ else if(d.theme)S.theme=d.theme;
+ else if(d.scale)S.scale=Math.min(1.5,Math.max(.8,Math.round(((S.scale||1)+.1*+d.scale)*10)/10));
+ else if(d.t!==undefined){const n=d.n,t=+d.t;P().own[n]=own(n)===t?t-1:t}
+ else if(d.go){P().cur++;window.scrollTo({top:0,behavior:"smooth"})}
+ else if(d.s)P().cur+=+d.s;
+ else if(d.v)S.tab=d.v;
+ else if(d.more)S.more=!S.more;
+ else if(b.id==="reset"){if(S.arm!=="reset"){S.arm="reset";render();return}S.arm=null;S.p[S.path]={cur:0,own:{},sold:{}}}
+ else return;
+ save();render();
+});
+document.addEventListener("change",e=>{
+ if(e.target.id==="jump"){P().cur=+e.target.value}
+ else if(e.target.id==="path"){S.path=e.target.value;load()}
+ else return;
+ save();render();
+});
+document.getElementById("q").oninput=render;
+S.arm=null;S.open=null;S.rar=S.rar||{};load();render();
+</script>
+</body>
+</html>
