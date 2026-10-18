@@ -156,13 +156,20 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
 .nextc{align-items:center;text-align:center}#jumpCol{width:100%}
 }
 .c{padding:14px}.c .goal{margin-top:10px}.c>.route{margin:12px 0 4px}.sp{min-height:10px}
+.logo{display:flex;align-items:center;gap:1px;margin-right:18px;user-select:none}
+.lgi{width:46px;height:46px;flex:none;margin-right:-4px;color:var(--acc);filter:drop-shadow(0 0 8px color-mix(in srgb,var(--acc) 55%,transparent))}
+.lgw{display:flex;flex-direction:row;align-items:center;gap:2px;line-height:1;transform:skewX(-9deg)}
+.lgd{font:700 32px/1 "Rajdhani","Poppins",sans-serif;letter-spacing:3px;background:linear-gradient(180deg,var(--tx) 30%,color-mix(in srgb,var(--acc) 75%,var(--tx)));-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:0}
+.lgt{background:var(--acc2);color:#fff;font:700 32px/1 "Rajdhani","Poppins",sans-serif;letter-spacing:.14em;padding:3px 3px 3px 8px;border-radius:3px}
+@media (max-width:440px){.lgd,.lgt{font-size:24px}.lgi{width:38px;height:38px}}
+#pathDd .ddb{border:1px solid color-mix(in srgb,var(--acc) 75%,transparent);box-shadow:0 0 12px color-mix(in srgb,var(--acc) 38%,transparent),inset 0 0 6px color-mix(in srgb,var(--acc) 15%,transparent)}
 .empty{color:var(--mut);padding:20px;text-align:center}
 .more{display:block;margin:16px auto}
 </style>
 </head>
 <body>
 <div class="wrap">
- <div class="row"><div class="row" style="justify-content:flex-start"><h1>Droid Tracker</h1><div id="pathDd"></div></div><div class="tools"><button id="jumpSell" data-jsell="1" style="display:none"></button><div class="sws" id="sw"></div><div class="scl"><button data-scale="-1" title="Smaller">A&minus;</button><button data-scale="1" title="Bigger">A+</button></div><button id="reset" style="color:#ff6a6a">&#8635; Reset path</button></div></div>
+ <div class="row"><div class="row" style="justify-content:flex-start"><div class="logo" role="img" aria-label="Droid Tracker"><svg class="lgi" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"><path d="M16 26A17 17 0 0 1 46 22"/><path d="M48 38A17 17 0 0 1 18 42"/></g><path fill="currentColor" d="M32 23l2.8 6.2L41 32l-6.2 2.8L32 41l-2.8-6.2L23 32l6.2-2.8z"/></svg><div class="lgw"><span class="lgd">DROID</span><span class="lgt">TRACKER</span></div></div><div id="pathDd"></div></div><div class="tools"><button id="jumpSell" data-jsell="1" style="display:none"></button><div class="sws" id="sw"></div><div class="scl"><button data-scale="-1" title="Smaller">A&minus;</button><button data-scale="1" title="Bigger">A+</button></div><button id="reset" style="color:#ff6a6a">&#8635; Reset path</button></div></div>
  <div class="hero" id="hero"></div>
  <div id="lookBox"></div>
  <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><div class="srch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Search droid..."></div><label class="cb" style="margin-left:auto"><input type="checkbox" id="cc"> Chip costs</label><div class="seg2" id="cm"><button data-cm="next" title="Cost to reach the next tier you need">Next</button><button data-cm="last" title="Cost to reach the highest tier you will need">Max</button></div></div>
