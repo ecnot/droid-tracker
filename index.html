@@ -72,15 +72,14 @@ h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text
 .rc{padding:3px 6px;border-radius:6px;font-weight:800}.rc.got{opacity:.35;text-decoration:line-through}
 .soldbtn{margin-left:auto;padding:4px 10px;font-size:12px;font-weight:700;border-color:#a32b2b;color:#ffb0b0}.soldc{opacity:.55}
 .pills{display:flex;flex-wrap:wrap;gap:10px}
-.pill{display:inline-flex;align-items:center;gap:9px;background:var(--pan);border:1px solid var(--line);border-radius:999px;padding:6px 7px 6px 14px;font-weight:600;font-size:14px}
+.pill{display:inline-flex;align-items:center;gap:9px;background:var(--pan);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:600;font-size:14px}
 .pill:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--acc)}
 .undo{padding:2px 10px;font-size:15px;line-height:1.2;border-radius:999px}
 .c.okc{border-color:#2f9d62;background:linear-gradient(160deg,#1b4a30,#18201f 75%);box-shadow:0 0 0 1px #2f9d6266,0 4px 18px #2f9d6222}
 :root[data-theme="purple"]{--bg:#0f0b18;--pan:#181226;--card:#1d1630;--in:#120d20;--line:#342a52;--tx:#efeaf8;--mut:#9d92b8;--acc:#b78bff;--acc2:#8b5cf6;--h1:#2b1a52;--h2:#170f2c;--hb:#5b3fa8;--dd:#231a3b;--ddh:#3d2d66;--goA:#7c3aed;--goB:#c084fc;--sA:#5b21b6;--btxt:#b3a6d0}
 :root[data-theme="blue"]{--bg:#0a1020;--pan:#101a30;--card:#141f3a;--in:#0c1426;--line:#243558;--tx:#e8eefc;--mut:#8da0c6;--acc:#4da3ff;--acc2:#2a7de1;--h1:#12305c;--h2:#0d1a33;--hb:#2a5aa0;--dd:#17233f;--ddh:#2b4272;--goA:#2563eb;--goB:#38bdf8;--sA:#1e40af;--btxt:#9fb2d6}
-:root[data-theme="green"]{--bg:#0c1210;--pan:#131c19;--card:#172420;--in:#0e1613;--line:#25403a;--tx:#e8f3ef;--mut:#8aa89e;--acc:#34d399;--acc2:#10b981;--h1:#123a2c;--h2:#0d1f19;--hb:#2c7a5c;--dd:#1b2b26;--ddh:#2d4a40;--goA:#059669;--goB:#34d399;--sA:#047857;--btxt:#a6c4ba}
-:root[data-theme="rose"]{--bg:#170c10;--pan:#22131a;--card:#281822;--in:#1a0f15;--line:#4a2a37;--tx:#f8e9ee;--mut:#b898a4;--acc:#ff6b8b;--acc2:#e11d48;--h1:#4a1626;--h2:#260d15;--hb:#9a3050;--dd:#2f1a24;--ddh:#5a2d40;--goA:#e11d48;--goB:#fb7185;--sA:#9f1239;--btxt:#c9a8b4}
 :root[data-theme="mono"]{--bg:#0e0e0e;--pan:#171717;--card:#1c1c1c;--in:#111111;--line:#333333;--tx:#f0f0f0;--mut:#999999;--acc:#e5e5e5;--acc2:#6b6b6b;--h1:#2a2a2a;--h2:#161616;--hb:#555555;--dd:#222222;--ddh:#3a3a3a;--goA:#6b6b6b;--goB:#bdbdbd;--sA:#444444;--btxt:#aaaaaa}
+:root[data-theme="cyan"]{--bg:#0a1214;--pan:#10191c;--card:#142024;--in:#0c1517;--line:#25393f;--tx:#e8f4f6;--mut:#8aa9b0;--acc:#22d3ee;--acc2:#0e90a8;--h1:#0f3a45;--h2:#0a1d22;--hb:#2a7c8c;--dd:#172a30;--ddh:#29484f;--goA:#0891b2;--goB:#67e8f9;--sA:#0e7490;--btxt:#a3c1c8}
 .tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.sws{display:flex;gap:7px;align-items:center}
 .sw{width:22px;height:22px;border-radius:50%;padding:0;border:2px solid transparent}.sw.on{border-color:var(--tx)}
 .scl{display:flex;gap:4px}.scl button{padding:5px 10px;font-weight:700}
@@ -113,6 +112,26 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
 .c{display:flex;flex-direction:column}.c .tiers{margin-top:0}.sp{flex:1;min-height:8px}.c>.route{margin:12px 0 4px}
 .tiers{container-type:inline-size}.tiers .fu{display:none}
 @container (min-width:560px){.tiers .ab{display:none}.tiers .fu{display:inline}}
+.gc{color:var(--tx);opacity:.55;font-weight:400;font-size:13px}
+.tabs{flex-wrap:wrap;align-items:center}.cb{display:flex;align-items:center;gap:6px;color:var(--mut);font-size:13px;font-weight:600;cursor:pointer}.cb input{accent-color:var(--acc2);width:16px;height:16px;margin:0}
+.cb{margin-right:10px}#cm{margin-right:0}.tabs .seg2 button{padding:4px 10px;font-size:12px;border:0;font-weight:700}.tabs .seg2 button{color:var(--mut);background:transparent}.tabs .seg2 button.on{background:var(--acc2);color:#fff;box-shadow:0 0 0 1px var(--acc)}
+#cm{position:relative;display:inline-grid;grid-template-columns:1fr 1fr}
+#cm::before{content:"";position:absolute;top:3px;bottom:3px;left:3px;width:calc((100% - 8px)/2);background:var(--acc2);border-radius:6px;box-shadow:0 0 0 1px var(--acc),0 0 10px color-mix(in srgb,var(--acc2) 45%,transparent);transition:transform .28s cubic-bezier(.4,0,.2,1)}
+#cm[data-sel="last"]::before{transform:translateX(calc(100% + 2px))}
+.tabs #cm button{position:relative;z-index:1;transition:color .25s}
+.tabs #cm button.on{background:transparent;box-shadow:none;color:#fff}
+@media (prefers-reduced-motion:reduce){#cm::before{transition:none}}
+.look.off .lt{margin-bottom:0}.look.off{padding:10px 14px}
+.tg{width:40px;height:22px;padding:0;border-radius:999px;position:relative;background:var(--in);border:1px solid var(--line);transition:background-color .25s,border-color .25s}
+.tg i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--mut);transition:transform .25s cubic-bezier(.4,0,.2,1),background-color .25s}
+.tg.on{background:var(--acc2);border-color:var(--acc)}.tg.on i{transform:translateX(18px);background:#fff}
+.slide3{position:relative;display:inline-grid;grid-template-columns:repeat(3,1fr)}
+.slide3::before{content:"";position:absolute;top:3px;bottom:3px;left:3px;width:calc((100% - 10px)/3);background:var(--acc2);border-radius:6px;box-shadow:0 0 0 1px var(--acc),0 0 10px color-mix(in srgb,var(--acc2) 45%,transparent);transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.slide3[data-sel="wrong"]::before{transform:translateX(calc(100% + 2px))}.slide3[data-sel="both"]::before{transform:translateX(calc(200% + 4px))}
+.seg2.slide3 button{position:relative;z-index:1;transition:color .25s}.seg2.slide3 button.on{background:transparent;box-shadow:none;color:#fff}
+@media (prefers-reduced-motion:reduce){.slide3::before,.tg,.tg i{transition:none}}
+.nmrow{display:flex;align-items:center;gap:8px}.nmrow b,.nm{line-height:1}.rar{line-height:1;padding:5px 10px}
+.pill:has(.undo){padding-right:7px}
 .empty{color:var(--mut);padding:20px;text-align:center}
 .more{display:block;margin:16px auto}
 </style>
@@ -122,7 +141,7 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
  <div class="row"><div class="row" style="justify-content:flex-start"><h1>Droid Tracker</h1><div id="pathDd"></div></div><div class="tools"><div class="sws" id="sw"></div><div class="scl"><button data-scale="-1" title="Smaller">A&minus;</button><button data-scale="1" title="Bigger">A+</button></div><button id="reset" style="color:#ff6a6a">&#8635; Reset path</button></div></div>
  <div class="hero" id="hero"></div>
  <div id="lookBox"></div>
- <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><button id="lk" data-lk="1" style="margin-left:auto"></button></div>
+ <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><label class="cb" style="margin-left:auto"><input type="checkbox" id="cc"> Chip costs</label><div class="seg2" id="cm"><button data-cm="next" title="Cost to reach the next tier you need">Next</button><button data-cm="last" title="Cost to reach the highest tier you will need">Max</button></div></div>
  <input type="search" id="q" placeholder="Search droid...">
  <div id="out"></div>
  <div id="sellBox"></div>
@@ -380,9 +399,9 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const P=()=>S.p[S.path],own=n=>P().own[n]??-1;
 const tiers=n=>`<div class="tiers">${AB.map((a,i)=>`<button class="t${i}${i<=own(n)?" l":""}" data-n="${n}" data-t="${i}"><span class="ab">${a}</span><span class="fu">${TN[i]}</span></button>`).join("")}</div>`;
 function card(n,ctx){
- const cur=P().cur,o=own(n),rs=R[n].filter(r=>r.rb>cur),unmet=rs.find(r=>o<r.t),all=rs.map(r=>"R"+r.rb+" "+AB[r.t]).join(" &rarr; "),up=unmet&&rs.find(r=>r.t>unmet.t);
+ const cur=P().cur,o=own(n),rs=R[n].filter(r=>r.rb>cur),unmet=rs.find(r=>o<r.t),all=rs.map(r=>"R"+r.rb+" "+AB[r.t]).join(" &rarr; "),up=unmet&&rs.find(r=>r.t>unmet.t),mx=rs.length?Math.max(...rs.map(r=>r.t)):0,last=S.cmode==="last";
  const sold=P().sold[n]&&!rs.length;if(sold)return"";
- const cq=ctx&&R[n].find(r=>r.rb===ctx),hl=cq?cq.rb:unmet?unmet.rb:0,done=cq?o>=cq.t:rs.length&&!unmet,g=cq?(o>=cq.t?`<div class="goal ok"><span>&#10003; ${TN[cq.t]}</span></div>`:`<div class="goal"><span>${ctx===cur+1?"&#9889;":"&#128274;"} ${TN[cq.t]} for R${ctx}</span></div>`):!rs.length?`<div class="goal sl"><span class="badge">SELL</span><span>No longer needed</span><button class="soldbtn" data-sold="${n}">Sold</button></div>`:!unmet?`<div class="goal ok"><span>&#10003; ${TN[rs[rs.length-1].t]} for R${rs.filter(r=>r.t===rs[rs.length-1].t).map(r=>r.rb).join(", R")}</span></div>`:`<div class="goal"><span>${unmet.rb===cur+1?"&#9889;":"&#128274;"} ${TN[unmet.t]} for R${unmet.rb}</span></div>`;
+ const cq=ctx&&R[n].find(r=>r.rb===ctx),hl=cq?cq.rb:unmet?unmet.rb:0,done=cq?o>=cq.t:rs.length&&!unmet,g=cq?(o>=cq.t?`<div class="goal ok"><span>&#10003; ${TN[cq.t]}</span></div>`:`<div class="goal"><span>${ctx===cur+1?"&#9889;":"&#128274;"} ${TN[cq.t]} for R${ctx}</span>${gc(n,o,last?mx:cq.t)}</div>`):!rs.length?`<div class="goal sl"><span class="badge">SELL</span><span>No longer needed</span><button class="soldbtn" data-sold="${n}">Sold</button></div>`:!unmet?`<div class="goal ok"><span>&#10003; ${TN[rs[rs.length-1].t]} for R${rs.filter(r=>r.t===rs[rs.length-1].t).map(r=>r.rb).join(", R")}</span></div>`:`<div class="goal"><span>${unmet.rb===cur+1?"&#9889;":"&#128274;"} ${TN[unmet.t]} for R${unmet.rb}</span>${gc(n,o,last?mx:unmet.t)}</div>`;
  return `<div class="c${!rs.length?" fin":""}${sold?" soldc":""}${done?" okc":""}"><div class="nm">${n} ${rbadge(n)}</div>${g}${rs.length?route(n,cur,"Needed:",hl):""}<div class="sp"></div>${tiers(n)}</div>`;
 }
 const KN={C:"GONK,MOUSE,IMPERIAL PROBE,R8,CB,DRK-1 PROBE,PIT,ID10,R3,R5,B1 BATTLE",R:"2BB,A-LT,ARG,B1 SECURITY,BAL-CORE,BDX EXPLORER,B-U4D,HOV-R,EG-58,R4,R9,NAV-EX,ROLL-R,VECT-ARM,SENATE HOVER",E:"AMP WALKER,B1 HEAVY,BB,GROUNDMECH,HAUL-R,LO,SEN-TRI,OPTI-POD,ORB-WALKER,R6,R2,STRIKE-ORB,GUNRUNNER,B2 HEAVY,B2 SUPER,TRAK-R,UTIL-TEC,LNG-SHOT,EGL,KT,MPH",L:"B2-RP,BB9,CYCLO-GRAV,OPTI-STRK,MECHA-DROID,MONO-WLKR,PROTO-ROLLER,R7,J09-4MN,PLNK",M:"CYCLENS,DRFT-R,IG,KX,LOADLIFTER,RIC-1200,TRI-TEK,MO-TRAK,RIC,SNOW MOUSE,LEP,ECG"},RAR={},RK={C:"Common",R:"Rare",E:"Epic",L:"Legendary",M:"Mythic"},RC={C:"#9aa4b2",R:"#4aa3ff",E:"#b57bff",L:"#ff9f3d",M:"#ff5fa0"};
@@ -392,17 +411,21 @@ const rar=n=>S.rar[n]||RAR[n]||"R",known=n=>!!(S.rar[n]||RAR[n]);
 const chips=(n,o,t)=>{let c=0;for(let i=Math.max(o,0)+1;i<=t;i++)c+=CC[rar(n)][i-1];return c};
 const rbadge=n=>`<span class="rar" style="color:${RC[rar(n)]};border-color:${RC[rar(n)]}">${RK[rar(n)]}</span>`;
 const route=(n,from,lab,hl)=>{const o=own(n),l=R[n].filter(r=>r.rb>from),g=[];l.forEach(r=>{const p=g[g.length-1];if(p&&p.t===r.t)p.rbs.push(r.rb);else g.push({t:r.t,rbs:[r.rb]})});return l.length?`<div class="route"><span>${lab}</span>${g.map(r=>`<span class="rc t${r.t} l${o>=r.t?" got":""}${r.rbs.includes(hl)?" hl":""}" title="${TN[r.t]}">R${r.rbs.join(" &middot; R")}</span>`).join("")}</div>`:""};
-let armT;function arm(k){S.arm=k;clearTimeout(armT);armT=setTimeout(()=>{if(S.arm===k){S.arm=null;render()}},10000);render()}
+const gc=(n,o,t)=>{const c=!S.chipsOff&&t>0&&t>o?chips(n,o,t):0;if(!c)return"";const bd=[];for(let i=Math.max(o,0)+1;i<=t;i++)bd.push(TN[i]+" "+CC[rar(n)][i-1].toLocaleString());return`<span class="gc" title="${bd.join(" + ")}">+ ${c.toLocaleString()} for ${TN[t]}</span>`};
+let armT,PM=null;function arm(k){S.arm=k;clearTimeout(armT);armT=setTimeout(()=>{if(S.arm===k){S.arm=null;render()}},10000);render()}
 function dd(id,items,sel,label,right){return `<div class="dd${right?" r":""}${S.open===id?" open":""}"><button class="ddb" data-dd="${id}"><span>${label}</span><span>&#9662;</span></button><div class="ddl">${items.map(i=>`<button class="ddi${i.v==sel?" sel":""}" data-pick="${id}" data-v="${i.v}">${i.l}</button>`).join("")}</div></div>`}
 function render(){
  const cur=P().cur,max=D.length,nx=D.find(r=>r.n===cur+1);
+ document.getElementById("cc").checked=!S.chipsOff;document.getElementById("cm").style.display=S.chipsOff?"none":"";
+ document.getElementById("cm").dataset.sel=S.cmode||"next";document.querySelectorAll("#cm button").forEach(b=>b.classList.toggle("on",b.dataset.cm===(S.cmode||"next")));
  {const on=S.look!==false,ah=Math.min(S.ahead||3,5),seen={},list=[],AHL=[1,2,3,4,5].map(n=>({v:n,l:"Next "+n+(n===1?" rebirth":" rebirths")})),AL="Next "+ah+(ah===1?" rebirth":" rebirths"),md=S.lmode||"miss";
   D.filter(r=>r.n>cur&&r.n<=cur+ah).forEach(r=>r.d.forEach(d=>{const o=own(d.name),m=o<0,w=o>=0&&o<d.t;if(!seen[d.name]&&((md==="miss"&&m)||(md==="wrong"&&w)||(md==="both"&&(m||w)))){seen[d.name]=1;list.push({n:d.name,rb:r.n,t:d.t,o})}}));
-  const b=document.getElementById("lk");b.innerHTML="&#10145;&#65039; Coming up: "+(on?"On":"Off");b.classList.toggle("lkon",on);
+  
   const MS={miss:"Missing",wrong:"Rarity",both:"Both"},NM={miss:"Nothing missing",wrong:"No droids need a rarity upgrade",both:"You're all set"};
-  document.getElementById("lookBox").innerHTML=!on?"":`<div class="look"><div class="lt"><b>&#10145;&#65039; Coming up</b><div class="lr"><div class="seg2">${Object.keys(MS).map(k=>`<button class="${k===md?"on":""}" data-lm="${k}">${MS[k]}</button>`).join("")}</div>${dd("ahead",AHL,ah,AL,true)}</div></div>${list.length?`<div class="pills">${list.map(x=>`<span class="pill">${x.n}<span class="lk">R${x.rb} &middot; ${TN[x.t]}</span>${x.o>=0?`<span class="lk2">have ${TN[x.o]}</span>`:""}</span>`).join("")}</div>`:`<div class="okm">&#10003; ${NM[md]} in the next ${ah} rebirth${ah===1?"":"s"}</div>`}</div>`;}
- document.documentElement.dataset.theme=S.theme||"orange";document.body.style.zoom=S.scale||1;
- document.getElementById("sw").innerHTML=[["orange","#ff8a3d"],["purple","#b78bff"],["blue","#4da3ff"],["green","#34d399"],["rose","#ff6b8b"],["mono","#d4d4d4"]].map(([k,c])=>`<button class="sw${(S.theme||"orange")===k?" on":""}" data-theme="${k}" style="background:${c}" title="${k[0].toUpperCase()+k.slice(1)}"></button>`).join("");
+  document.getElementById("lookBox").innerHTML=`<div class="look${on?"":" off"}"><div class="lt"><b>&#10145;&#65039; Coming up</b><div class="lr">${on?`<div class="seg2 slide3" data-sel="${PM||md}">${Object.keys(MS).map(k=>`<button class="${k===md?"on":""}" data-lm="${k}">${MS[k]}</button>`).join("")}</div>${dd("ahead",AHL,ah,AL,true)}`:""}<button class="tg${on?" on":""}" data-lk="1" role="switch" aria-checked="${on}" title="Turn Coming up ${on?"off":"on"}"><i></i></button></div></div>${on?(list.length?`<div class="pills">${list.map(x=>`<span class="pill">${x.n}<span class="lk">R${x.rb} &middot; ${TN[x.t]}</span>${x.o>=0?`<span class="lk2">have ${TN[x.o]}</span>`:""}</span>`).join("")}</div>`:`<div class="okm">&#10003; ${NM[md]} in the next ${ah} rebirth${ah===1?"":"s"}</div>`):""}</div>`;
+  {const sw=document.querySelector("#lookBox .slide3");if(sw){requestAnimationFrame(()=>requestAnimationFrame(()=>{sw.dataset.sel=md}))}}PM=md;}
+ if(!["orange","purple","blue","cyan","mono"].includes(S.theme))S.theme="orange";document.documentElement.dataset.theme=S.theme;document.body.style.zoom=S.scale||1;
+ document.getElementById("sw").innerHTML=[["orange","#ff8a3d"],["purple","#b78bff"],["blue","#4da3ff"],["cyan","#22d3ee"],["mono","#d4d4d4"]].map(([k,c])=>`<button class="sw${(S.theme||"orange")===k?" on":""}" data-theme="${k}" style="background:${c}" title="${k[0].toUpperCase()+k.slice(1)}"></button>`).join("");
  const sg=NAMES.filter(n=>!R[n].some(r=>r.rb>cur)&&!P().sold[n]);
  document.getElementById("sellBox").innerHTML=sg.length?`<h2>Ready to sell (${sg.length})</h2><div class="grid">${sg.map(n=>card(n)).join("")}</div>`:"";
  const sl=NAMES.filter(n=>P().sold[n]&&!R[n].some(r=>r.rb>cur));
@@ -417,11 +440,11 @@ function render(){
   const miss=nx.d.filter(d=>own(d.name)<d.t).length,rdy=!miss;
   const fut=d=>R[d.name].filter(r=>r.rb>nx.n),safe=nx.d.filter(d=>!fut(d).length).map(d=>d.name),sell=[safe.length?"<span style='color:#ff8a8a'>Safe to sell after rebirthing: "+safe.join(", ")+".</span>":""].filter(Boolean).join("<br>")||"Keep all of these for now.";
   body=`<div class="row" style="margin-top:16px"><div><div class="lbl">Next up</div><div class="big">Rebirth ${nx.n}</div></div><span class="chip">${nx.c}</span></div>`+
-  nx.d.map(d=>{const ok=own(d.name)>=d.t;return `<div class="hr${ok?" ok":""}"><div><b>${d.name}</b> ${rbadge(d.name)}<small>${ok?"":"Needs "+TN[d.t]+(d.t>0?" &middot; "+chips(d.name,own(d.name),d.t).toLocaleString()+" chips":"")}</small>${route(d.name,nx.n,"Later:")}</div>${tiers(d.name)}</div>`}).join("")+
+  nx.d.map(d=>{const ok=own(d.name)>=d.t;return `<div class="hr${ok?" ok":""}"><div><div class="nmrow"><b>${d.name}</b>${rbadge(d.name)}</div><small>${ok?"":"Needs "+TN[d.t]+(d.t>0?" &middot; "+chips(d.name,own(d.name),d.t).toLocaleString()+" chips":"")}</small>${route(d.name,nx.n,"Later:")}</div>${tiers(d.name)}</div>`}).join("")+
   `<div class="note">${sell}</div><button class="go${rdy?" rdy":""}" data-go="1" ${rdy?"":"disabled"}>${rdy?"Rebirth now \u2192":"Need "+miss+" more droid"+(miss>1?"s":"")}</button>`;
  }
  document.getElementById("hero").innerHTML=step+body;if(sup)document.getElementById("jumpCol").insertAdjacentHTML("beforeend",sup);
- document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("on",b.dataset.v===S.tab));
+ document.querySelectorAll(".tabs>button[data-v]").forEach(b=>b.classList.toggle("on",b.dataset.v===S.tab));
  const q=document.getElementById("q").value.trim().toLowerCase(),out=document.getElementById("out");
  if(q||S.tab==="all"){
   const l=NAMES.filter(n=>n.toLowerCase().includes(q)&&R[n].some(r=>r.rb>cur));
@@ -441,6 +464,7 @@ document.addEventListener("click",e=>{
  else if(d.sold)P().sold[d.sold]=!P().sold[d.sold];
  else if(d.rar){const O="CREL M".replace(" ","");S.rar[d.rar]=O[(O.indexOf(rar(d.rar))+1)%5]}
  else if(d.lm)S.lmode=d.lm;
+ else if(d.cm)S.cmode=d.cm;
  else if(d.lk)S.look=S.look===false;
  else if(d.theme)S.theme=d.theme;
  else if(d.scale)S.scale=Math.min(1.5,Math.max(.8,Math.round(((S.scale||1)+.1*+d.scale)*10)/10));
@@ -456,6 +480,7 @@ document.addEventListener("click",e=>{
 document.addEventListener("change",e=>{
  if(e.target.id==="jump"){P().cur=+e.target.value}
  else if(e.target.id==="path"){S.path=e.target.value;load()}
+ else if(e.target.id==="cc"){S.chipsOff=!e.target.checked}
  else return;
  save();render();
 });
