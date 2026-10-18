@@ -36,7 +36,7 @@ select option:checked,select option:hover{background:var(--acc2) linear-gradient
 .tabs button{padding:10px 18px;font-weight:700;color:var(--mut)}.tabs button.on{background:var(--acc2);color:#fff;border-color:var(--acc2)}
 input[type=search]{width:100%;background:var(--pan);border:1px solid var(--line);border-radius:12px;padding:13px 14px;color:var(--tx);font:inherit;font-size:16px;margin-bottom:12px}
 h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text-transform:uppercase}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(380px,100%),1fr));gap:12px}
 .c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
 .c.fin{border-color:#a32b2b;background:#2a1212}.c.fin .nm{color:#ff7a7a}
 .goal.sl{color:#ff9a9a;background:#3a1717;justify-content:flex-start;align-items:center;gap:10px}.badge{background:#e03a3a;color:#fff;border-radius:5px;padding:2px 8px;font-size:11px;font-weight:800;letter-spacing:.5px}
@@ -68,13 +68,13 @@ h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text
 .hint{font-size:12px;color:var(--mut);margin-top:6px;line-height:1.6}
 .nm{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .rar{display:inline-block;cursor:default;user-select:none;padding:2px 9px;font-size:11px;font-weight:700;border-radius:999px;background:transparent;border:1px solid}.rar.unk{border-style:dashed}
-.route{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;font-size:11px;font-weight:600;color:var(--mut)}
-.rc{padding:3px 9px;border-radius:6px;font-weight:800}.rc.got{opacity:.35;text-decoration:line-through}
+.route{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:12px 0;font-size:11px;font-weight:600;color:var(--mut)}
+.rc{padding:3px 6px;border-radius:6px;font-weight:800}.rc.got{opacity:.35;text-decoration:line-through}
 .soldbtn{margin-left:auto;padding:4px 10px;font-size:12px;font-weight:700;border-color:#a32b2b;color:#ffb0b0}.soldc{opacity:.55}
 .pills{display:flex;flex-wrap:wrap;gap:10px}
 .pill{display:inline-flex;align-items:center;gap:9px;background:var(--pan);border:1px solid var(--line);border-radius:999px;padding:6px 7px 6px 14px;font-weight:600;font-size:14px}
 .pill:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--acc)}
-.undo{padding:3px 10px;font-size:12px;border-radius:999px}
+.undo{padding:2px 10px;font-size:15px;line-height:1.2;border-radius:999px}
 .c.okc{border-color:#2f9d62;background:linear-gradient(160deg,#1b4a30,#18201f 75%);box-shadow:0 0 0 1px #2f9d6266,0 4px 18px #2f9d6222}
 :root[data-theme="purple"]{--bg:#0f0b18;--pan:#181226;--card:#1d1630;--in:#120d20;--line:#342a52;--tx:#efeaf8;--mut:#9d92b8;--acc:#b78bff;--acc2:#8b5cf6;--h1:#2b1a52;--h2:#170f2c;--hb:#5b3fa8;--dd:#231a3b;--ddh:#3d2d66;--goA:#7c3aed;--goB:#c084fc;--sA:#5b21b6;--btxt:#b3a6d0}
 :root[data-theme="blue"]{--bg:#0a1020;--pan:#101a30;--card:#141f3a;--in:#0c1426;--line:#243558;--tx:#e8eefc;--mut:#8da0c6;--acc:#4da3ff;--acc2:#2a7de1;--h1:#12305c;--h2:#0d1a33;--hb:#2a5aa0;--dd:#17233f;--ddh:#2b4272;--goA:#2563eb;--goB:#38bdf8;--sA:#1e40af;--btxt:#9fb2d6}
@@ -86,7 +86,7 @@ h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text
 .scl{display:flex;gap:4px}.scl button{padding:5px 10px;font-weight:700}
 .ring{position:relative;width:108px;height:108px}.ring svg{width:100%;height:100%}
 .rn{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.rn b{font-size:36px;line-height:1}.rn small{font-size:11px;color:var(--mut);margin-top:2px}
-.grid.fit{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.grid.fit{grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr))}
 .hero>.row:first-child{align-items:flex-start;gap:14px 20px}
 .look{background:var(--pan);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px}
 .look.ok{color:var(--ok);font-weight:600}.lt{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
@@ -108,6 +108,8 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
 .dd.open .ddl{animation:ddin .14s ease-out}@keyframes ddin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 .go.rdy{animation:rdy 2.8s ease-in-out infinite alternate}@keyframes rdy{from{box-shadow:0 0 10px color-mix(in srgb,var(--goA) 25%,transparent)}to{box-shadow:0 0 22px color-mix(in srgb,var(--goA) 55%,transparent)}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.c.fin:hover{border-color:#d84a4a}
+.c.okc:hover{border-color:#44c47e}
 .empty{color:var(--mut);padding:20px;text-align:center}
 .more{display:block;margin:16px auto}
 </style>
@@ -401,7 +403,7 @@ function render(){
  const sg=NAMES.filter(n=>!R[n].some(r=>r.rb>cur)&&!P().sold[n]);
  document.getElementById("sellBox").innerHTML=sg.length?`<h2>Ready to sell (${sg.length})</h2><div class="grid">${sg.map(n=>card(n)).join("")}</div>`:"";
  const sl=NAMES.filter(n=>P().sold[n]&&!R[n].some(r=>r.rb>cur));
- document.getElementById("soldBox").innerHTML=sl.length?`<h2>Sold droids (${sl.length})</h2><div class="pills">${sl.map(n=>`<span class="pill">${n}<button class="undo" data-sold="${n}" title="Move back into the overview">&#10005;</button></span>`).join("")}</div>`:"";
+ document.getElementById("soldBox").innerHTML=sl.length?`<h2>Sold droids (${sl.length})</h2><div class="pills">${sl.map(n=>`<span class="pill">${n}<button class="undo" data-sold="${n}" title="Undo - move back into the overview" aria-label="Undo">&#8630;</button></span>`).join("")}</div>`:"";
  document.getElementById("pathDd").innerHTML=dd("path",PATHS.map(p=>({v:p.id,l:p.name})),S.path,PATHS.find(p=>p.id===S.path).name);
  document.getElementById("reset").textContent=S.arm==="reset"?"Tap again to confirm":"\u21BB Reset path";
  const step=`<div class="row"><div class="stp"><button data-s="-1" ${cur?"":"disabled"} title="Go back one rebirth">&minus;</button><div style="text-align:center;position:relative"><div class="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--line)" stroke-width="8"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--acc)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(263.9*cur/max).toFixed(1)} 264" transform="rotate(-90 50 50)"/></svg><div class="rn"><b>${cur}</b></div></div><div class="lbl" style="white-space:nowrap;margin:6px -40px 0;text-align:center">Current rebirth</div></div><button data-s="1" ${nx?"":"disabled"} title="Skip ahead one rebirth">+</button></div><div id="jumpCol" style="display:flex;flex-direction:column;align-items:flex-end;gap:12px"><div class="row" style="gap:8px"><span class="lbl">Jump to</span>${dd("jump",Array.from({length:max+1},(_,i)=>({v:i,l:String(i)})),cur,String(cur),true)}</div></div></div>`;
