@@ -83,6 +83,7 @@ h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text
 .ring{position:relative;width:108px;height:108px}.ring svg{width:100%;height:100%}
 .rn{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.rn b{font-size:36px;line-height:1}.rn small{font-size:11px;color:var(--mut);margin-top:2px}
 .grid.fit{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.hero>.row:first-child{padding-bottom:28px}
 .empty{color:var(--mut);padding:20px;text-align:center}
 .more{display:block;margin:16px auto}
 </style>
@@ -372,7 +373,7 @@ function render(){
  document.getElementById("soldBox").innerHTML=sl.length?`<h2>Sold droids (${sl.length})</h2><div class="pills">${sl.map(n=>`<span class="pill">${n}<button class="undo" data-sold="${n}" title="Move back into the overview">&#10005;</button></span>`).join("")}</div>`:"";
  document.getElementById("pathDd").innerHTML=dd("path",PATHS.map(p=>({v:p.id,l:p.name})),S.path,PATHS.find(p=>p.id===S.path).name);
  document.getElementById("reset").textContent=S.arm==="reset"?"Tap again to confirm":"\u21BB Reset path";
- const step=`<div class="row"><div class="stp"><button data-s="-1" ${cur?"":"disabled"} title="Go back one rebirth">&minus;</button><div style="text-align:center"><div class="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--line)" stroke-width="8"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--acc)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(263.9*cur/max).toFixed(1)} 264" transform="rotate(-90 50 50)"/></svg><div class="rn"><b>${cur}</b></div></div><div class="lbl" style="margin-top:4px">Current rebirth</div></div><button data-s="1" ${nx?"":"disabled"} title="Skip ahead one rebirth">+</button></div><div class="row" style="gap:8px"><span class="lbl">Jump to</span>${dd("jump",Array.from({length:max+1},(_,i)=>({v:i,l:String(i)})),cur,String(cur),true)}</div></div>`;
+ const step=`<div class="row"><div class="stp"><button data-s="-1" ${cur?"":"disabled"} title="Go back one rebirth">&minus;</button><div style="text-align:center;position:relative"><div class="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--line)" stroke-width="8"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--acc)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(263.9*cur/max).toFixed(1)} 264" transform="rotate(-90 50 50)"/></svg><div class="rn"><b>${cur}</b></div></div><div class="lbl" style="position:absolute;top:100%;left:50%;transform:translateX(-50%);white-space:nowrap;margin-top:6px">Current rebirth</div></div><button data-s="1" ${nx?"":"disabled"} title="Skip ahead one rebirth">+</button></div><div class="row" style="gap:8px"><span class="lbl">Jump to</span>${dd("jump",Array.from({length:max+1},(_,i)=>({v:i,l:String(i)})),cur,String(cur),true)}</div></div>`;
  const nid=(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length,sup=cur>=12?`<button class="sup${S.arm==="sup"?" arm":""}" data-sup="1">${S.arm==="sup"?"Tap again to confirm":"\u2605 Super Rebirth \u2192 "+PATHS[nid].name}</button>`:"";
  let body;
  if(!nx)body=`<div class="big" style="margin-top:14px">All rebirths complete!</div>`;
