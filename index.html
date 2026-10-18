@@ -91,6 +91,11 @@ h2{font-size:14px;letter-spacing:.5px;color:var(--mut);margin:18px 4px 10px;text
 .look.ok{color:var(--ok);font-weight:600}.lt{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
 .ahd{padding:3px 10px;font-size:12px;border-radius:999px}.lk{color:var(--gold);font-weight:700;font-size:12px}.tabs button.lkon{border-color:var(--acc);color:var(--acc);background:var(--in)}
 .hr small:empty{display:none}
+.seg2{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:9px}
+.seg2 button{border:0;background:transparent;color:var(--mut);padding:4px 10px;font-size:12px;font-weight:700;border-radius:6px}.seg2 button.on{background:var(--acc2);color:#fff}
+.lk2{color:var(--mut);font-size:11px;font-weight:600}.okm{color:var(--ok);font-weight:600}
+.lr .ddb{padding:5px 10px;font-size:12px;min-width:0}
+.lr{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .empty{color:var(--mut);padding:20px;text-align:center}
 .more{display:block;margin:16px auto}
 </style>
@@ -373,10 +378,11 @@ const route=(n,from,lab)=>{const o=own(n),l=R[n].filter(r=>r.rb>from),g=[];l.for
 function dd(id,items,sel,label,right){return `<div class="dd${right?" r":""}${S.open===id?" open":""}"><button class="ddb" data-dd="${id}"><span>${label}</span><span>&#9662;</span></button><div class="ddl">${items.map(i=>`<button class="ddi${i.v==sel?" sel":""}" data-pick="${id}" data-v="${i.v}">${i.l}</button>`).join("")}</div></div>`}
 function render(){
  const cur=P().cur,max=D.length,nx=D.find(r=>r.n===cur+1);
- {const on=S.look!==false,ah=Math.min(S.ahead||3,5),seen={},list=[],AHL=[1,2,3,4,5].map(n=>({v:n,l:"Next "+n+(n===1?" rebirth":" rebirths")})),AL="Next "+ah+(ah===1?" rebirth":" rebirths");
-  D.filter(r=>r.n>cur&&r.n<=cur+ah).forEach(r=>r.d.forEach(d=>{if(own(d.name)<0&&!seen[d.name]){seen[d.name]=1;list.push({n:d.name,rb:r.n,t:d.t})}}));
+ {const on=S.look!==false,ah=Math.min(S.ahead||3,5),seen={},list=[],AHL=[1,2,3,4,5].map(n=>({v:n,l:"Next "+n+(n===1?" rebirth":" rebirths")})),AL="Next "+ah+(ah===1?" rebirth":" rebirths"),md=S.lmode||"miss";
+  D.filter(r=>r.n>cur&&r.n<=cur+ah).forEach(r=>r.d.forEach(d=>{const o=own(d.name),m=o<0,w=o>=0&&o<d.t;if(!seen[d.name]&&((md==="miss"&&m)||(md==="wrong"&&w)||(md==="both"&&(m||w)))){seen[d.name]=1;list.push({n:d.name,rb:r.n,t:d.t,o})}}));
   const b=document.getElementById("lk");b.innerHTML="&#10145;&#65039; Coming up: "+(on?"On":"Off");b.classList.toggle("lkon",on);
-  document.getElementById("lookBox").innerHTML=!on?"":list.length?`<div class="look"><div class="lt"><b>&#10145;&#65039; Coming up</b>${dd("ahead",AHL,ah,AL,true)}</div><div class="pills">${list.map(x=>`<span class="pill">${x.n}<span class="lk">R${x.rb} &middot; ${TN[x.t]}</span></span>`).join("")}</div></div>`:`<div class="look ok"><div class="lt" style="margin:0"><span>&#10003; Nothing coming up that you don't own yet</span>${dd("ahead",AHL,ah,AL,true)}</div></div>`}
+  const MS={miss:"Missing",wrong:"Rarity",both:"Both"},NM={miss:"Nothing missing",wrong:"No droids need a rarity upgrade",both:"You're all set"};
+  document.getElementById("lookBox").innerHTML=!on?"":`<div class="look"><div class="lt"><b>&#10145;&#65039; Coming up</b><div class="lr"><div class="seg2">${Object.keys(MS).map(k=>`<button class="${k===md?"on":""}" data-lm="${k}">${MS[k]}</button>`).join("")}</div>${dd("ahead",AHL,ah,AL,true)}</div></div>${list.length?`<div class="pills">${list.map(x=>`<span class="pill">${x.n}<span class="lk">R${x.rb} &middot; ${TN[x.t]}</span>${x.o>=0?`<span class="lk2">have ${TN[x.o]}</span>`:""}</span>`).join("")}</div>`:`<div class="okm">&#10003; ${NM[md]} in the next ${ah} rebirth${ah===1?"":"s"}</div>`}</div>`;}
  document.documentElement.dataset.theme=S.theme||"orange";document.body.style.zoom=S.scale||1;
  document.getElementById("sw").innerHTML=[["orange","#ff8a3d"],["purple","#b78bff"],["blue","#4da3ff"],["green","#34d399"],["rose","#ff6b8b"],["mono","#d4d4d4"]].map(([k,c])=>`<button class="sw${(S.theme||"orange")===k?" on":""}" data-theme="${k}" style="background:${c}" title="${k[0].toUpperCase()+k.slice(1)}"></button>`).join("");
  const sg=NAMES.filter(n=>!R[n].some(r=>r.rb>cur)&&!P().sold[n]);
@@ -412,10 +418,11 @@ document.addEventListener("click",e=>{
  const b=e.target.closest("button");if(!b||b.disabled)return;
  const d=b.dataset;if(!d.sup&&b.id!=="reset"&&!d.dd)S.arm=null;if(!d.dd&&!d.pick)S.open=null;
  if(d.dd){S.open=S.open===d.dd?null:d.dd;render();return}
- else if(d.pick){if(d.pick==="path"){S.path=d.v;load()}else if(d.pick==="ahead")S.ahead=+d.v;else P().cur=+d.v;S.open=null}
+ else if(d.pick){if(d.pick==="path"){S.path=d.v;load()}else if(d.pick==="ahead")S.ahead=+d.v;else if(d.pick==="lmode")S.lmode=d.v;else P().cur=+d.v;S.open=null}
  else if(d.sup){if(S.arm!=="sup"){S.arm="sup";render();return}S.arm=null;S.path=PATHS[(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length].id;S.p[S.path]={cur:0,own:{},sold:{}};load();window.scrollTo({top:0,behavior:"smooth"})}
  else if(d.sold)P().sold[d.sold]=!P().sold[d.sold];
  else if(d.rar){const O="CREL M".replace(" ","");S.rar[d.rar]=O[(O.indexOf(rar(d.rar))+1)%5]}
+ else if(d.lm)S.lmode=d.lm;
  else if(d.lk)S.look=S.look===false;
  else if(d.theme)S.theme=d.theme;
  else if(d.scale)S.scale=Math.min(1.5,Math.max(.8,Math.round(((S.scale||1)+.1*+d.scale)*10)/10));
