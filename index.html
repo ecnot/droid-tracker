@@ -163,6 +163,11 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
 .lgt{background:var(--acc2);color:#fff;font:700 32px/1 "Rajdhani","Poppins",sans-serif;letter-spacing:.14em;padding:3px 3px 3px 8px;border-radius:3px}
 @media (max-width:440px){.lgd,.lgt{font-size:24px}.lgi{width:38px;height:38px}}
 #pathDd .ddb{border:1px solid color-mix(in srgb,var(--acc) 75%,transparent);box-shadow:0 0 12px color-mix(in srgb,var(--acc) 38%,transparent),inset 0 0 6px color-mix(in srgb,var(--acc) 15%,transparent)}
+.done40{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:6px 0 4px}
+.sup.sup40{width:100%;margin-top:0;padding:16px 34px;font-size:18px;font-weight:700;color:#fff;border:0;background:linear-gradient(135deg,#6d28d9,#a855f7);background-size:auto;text-shadow:0 1px 2px #0005;box-shadow:0 0 24px #a855f7aa,0 0 54px #7c3aed55,inset 0 0 12px #ffffff2e;animation:none}
+.sup.sup40.arm{box-shadow:0 0 0 2px #e9d5ff99,0 0 30px #c084fc,0 0 60px #7c3aed77,inset 0 0 12px #ffffff2e}
+.sh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:18px 4px 10px}.sh h2{margin:0}
+.sellall{color:#ffb0b0;border-color:#8a2f2f;font-weight:700;padding:6px 14px}.sellall.arm{background:#5a1a1a;border-color:#d84a4a;color:#fff}
 .empty{color:var(--mut);padding:20px;text-align:center}
 .more{display:block;margin:16px auto}
 </style>
@@ -459,16 +464,16 @@ function render(){
  if(!["orange","purple","blue","cyan","mono"].includes(S.theme))S.theme="orange";document.documentElement.dataset.theme=S.theme;document.body.style.zoom=S.scale||1;
  document.getElementById("sw").innerHTML=[["orange","#ff8a3d"],["purple","#b78bff"],["blue","#4da3ff"],["cyan","#22d3ee"],["mono","#d4d4d4"]].map(([k,c])=>`<button class="sw${(S.theme||"orange")===k?" on":""}" data-theme="${k}" style="background:${c}" title="${k[0].toUpperCase()+k.slice(1)}"></button>`).join("");
  const sg=NAMES.filter(n=>!R[n].some(r=>r.rb>cur)&&!P().sold[n]);
- document.getElementById("sellBox").innerHTML=sg.length?`<h2>Ready to sell (${sg.length})</h2><div class="grid">${sg.map(n=>card(n)).join("")}</div>`:"";
+ document.getElementById("sellBox").innerHTML=sg.length?`<div class="sh"><h2>Ready to sell (${sg.length})</h2><button class="sellall" data-sa="1">Sell all</button></div><div class="grid">${sg.map(n=>card(n)).join("")}</div>`:"";
  const jb=document.getElementById("jumpSell");jb.style.display=sg.length?"":"none";jb.innerHTML="&#8595; Sell ("+sg.length+")";
  const sl=NAMES.filter(n=>P().sold[n]&&!R[n].some(r=>r.rb>cur));
  document.getElementById("soldBox").innerHTML=sl.length?`<h2>Sold droids (${sl.length})</h2><div class="pills">${sl.map(n=>`<span class="pill">${n}<button class="undo" data-sold="${n}" title="Undo - move back into the overview" aria-label="Undo">&#8630;</button></span>`).join("")}</div>`:"";
  document.getElementById("pathDd").innerHTML=dd("path",PATHS.map(p=>({v:p.id,l:p.name})),S.path,PATHS.find(p=>p.id===S.path).name);
  document.getElementById("reset").textContent=S.arm==="reset"?"Tap again to confirm":"\u21BB Reset path";
  const step=`<div class="row"><div class="stp"><button data-s="-1" ${cur?"":"disabled"} title="Go back one rebirth">&minus;</button><div style="text-align:center;position:relative"><div class="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--line)" stroke-width="8"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--acc)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(263.9*cur/max).toFixed(1)} 264" transform="rotate(-90 50 50)"/></svg><div class="rn"><b>${cur}</b></div></div><div class="lbl" style="white-space:nowrap;margin:6px -40px 0;text-align:center">Current rebirth</div></div><button data-s="1" ${nx?"":"disabled"} title="Skip ahead one rebirth">+</button></div><div id="jumpCol" style="display:flex;flex-direction:column;align-items:flex-end;gap:12px"><div class="row" style="gap:8px"><span class="lbl">Jump to</span>${dd("jump",Array.from({length:max+1},(_,i)=>({v:i,l:String(i)})),cur,String(cur),true)}</div></div></div>`;
- const nid=(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length,sup=cur>=12?`<button class="sup${S.arm==="sup"?" arm":""}" data-sup="1">${S.arm==="sup"?"Tap again to confirm":"\u2605 Super Rebirth"}</button>`:"";
+ const nid=(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length,sup=cur>=40?`<button class="sup sup40" data-sup="1">\u2605 Super Rebirth</button>`:cur>=12?`<button class="sup${S.arm==="sup"?" arm":""}" data-sup="1">${S.arm==="sup"?"Tap again to confirm":"\u2605 Super Rebirth"}</button>`:"";
  let body;
- if(!nx)body=`<div class="big" style="margin-top:14px">All rebirths complete!</div>`;
+ if(!nx)body=`<div class="nextc" id="nextRow"><div class="big">All rebirths complete!</div></div>${sup}`;
  else{
   const miss=nx.d.filter(d=>own(d.name)<d.t).length,rdy=!miss;
   const fut=d=>R[d.name].filter(r=>r.rb>nx.n),safe=nx.d.filter(d=>!fut(d).length).map(d=>d.name),sell=[safe.length?"<span style='color:#ff8a8a'>Safe to sell after rebirthing: "+safe.join(", ")+"</span>":""].filter(Boolean).join("<br>")||"Keep all of these for now.";
@@ -476,7 +481,7 @@ function render(){
   nx.d.map(d=>{const ok=own(d.name)>=d.t;return `<div class="hr${ok?" ok":""}"><div><div class="nmrow"><b>${d.name}</b>${rbadge(d.name)}</div><small>${ok?"":"Needs "+TN[d.t]+(d.t>0?" &middot; "+chips(d.name,own(d.name),d.t).toLocaleString()+" chips":"")}</small>${route(d.name,nx.n,"Later:")}</div>${tiers(d.name)}</div>`}).join("")+
   `<div class="note">${sell}</div><button class="go${rdy?" rdy":""}" data-go="1" ${rdy?"":"disabled"}>${rdy?"Rebirth now \u2192":"Need "+miss+" more droid"+(miss>1?"s":"")}</button>`;
  }
- document.getElementById("hero").innerHTML=step+body;{const nr=document.getElementById("nextRow");if(nr)document.getElementById("hero").firstElementChild.insertBefore(nr,document.getElementById("jumpCol"))}if(sup)document.getElementById("jumpCol").insertAdjacentHTML("beforeend",sup);
+ document.getElementById("hero").innerHTML=step+body;{const nr=document.getElementById("nextRow");if(nr)document.getElementById("hero").firstElementChild.insertBefore(nr,document.getElementById("jumpCol"))}if(sup&&nx)document.getElementById("jumpCol").insertAdjacentHTML("beforeend",sup);
  document.querySelectorAll(".tabs>button[data-v]").forEach(b=>b.classList.toggle("on",b.dataset.v===S.tab));
  const q=document.getElementById("q").value.trim().toLowerCase(),out=document.getElementById("out");
  if(q||S.tab==="all"){
@@ -490,14 +495,15 @@ function render(){
 document.addEventListener("click",e=>{
  if(S.open&&!e.target.closest(".dd")){S.open=null;render()}
  const b=e.target.closest("button");if(!b||b.disabled)return;
- const d=b.dataset;if(!d.sup&&b.id!=="reset"&&!d.dd)S.arm=null;if(!d.dd&&!d.pick)S.open=null;
+ const d=b.dataset;if(!d.sup&&!d.sa&&b.id!=="reset"&&!d.dd)S.arm=null;if(!d.dd&&!d.pick)S.open=null;
  if(d.dd){S.open=S.open===d.dd?null:d.dd;render();return}
  else if(d.pick){if(d.pick==="path"){S.path=d.v;load()}else if(d.pick==="ahead")S.ahead=+d.v;else if(d.pick==="lmode")S.lmode=d.v;else P().cur=+d.v;S.open=null}
- else if(d.sup){if(S.arm!=="sup"){arm("sup");return}S.arm=null;S.path=PATHS[(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length].id;S.p[S.path]={cur:0,own:{},sold:{}};load();window.scrollTo({top:0,behavior:"smooth"})}
+ else if(d.sup){if(!b.classList.contains("sup40")&&S.arm!=="sup"){arm("sup");return}S.arm=null;S.path=PATHS[(PATHS.findIndex(p=>p.id===S.path)+1)%PATHS.length].id;S.p[S.path]={cur:0,own:{},sold:{}};load();window.scrollTo({top:0,behavior:"smooth"})}
  else if(d.sold)P().sold[d.sold]=!P().sold[d.sold];
  else if(d.rar){const O="CREL M".replace(" ","");S.rar[d.rar]=O[(O.indexOf(rar(d.rar))+1)%5]}
  else if(d.top){window.scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"});return}
  else if(d.jsell){const el=document.getElementById("sellBox");if(el)el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"});return}
+ else if(d.sa){NAMES.filter(n=>!R[n].some(r=>r.rb>P().cur)&&!P().sold[n]).forEach(n=>{P().sold[n]=true})}
  else if(d.lm)S.lmode=d.lm;
  else if(d.cm)S.cmode=d.cm;
  else if(d.lk)S.look=S.look===false;
