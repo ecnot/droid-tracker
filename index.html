@@ -226,7 +226,7 @@ const PATHS=[{id:"p1",name:"Path 1",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,CB:DF
 38|4.5Q||R6:KY,R2:KY,BB9:KY
 39|8Q||PROTO-ROLLER:KY,R7:KY,IG:KY
 40|15Q||SNOW MOUSE:KY,CYCLENS:KY,DRFT-R:KY`},{id:"p2",name:"Path 2",raw:`1|10K||MOUSE:DF,GONK:DF,ID10:DF
-2|150K||ROLL-R:DF,SENATE HOVER:DF,NAV-EX:DF
+2|150K||ROLL-R:DF,SENATE HOVERCAM:DF,NAV-EX:DF
 3|975K||BDX EXPLORER:DF,VECT-ARM:DF,R4:DF
 4|2.95M||BAL-CORE:DF,2BB:DF,ORB-WALKER:DF
 5|5.35M||VECT-ARM:GD,NAV-EX:GD,R4:GD
@@ -265,15 +265,15 @@ const PATHS=[{id:"p1",name:"Path 1",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,CB:DF
 38|4.5Q||B2 HEAVY:KY,B2 SUPER:KY,B2-RP:KY
 39|8Q||MECHA-DROID:KY,CYCLO-GRAV:KY,KX:KY
 40|15Q||LEP:KY,LOADLIFTER:KY,RIC:KY`},{id:"p3",name:"Path 3",raw:`1|10K||GONK:DF,PIT:DF,MOUSE:DF
-2|150K||R3:DF,SENATE HOVER:DF,2BB:DF
+2|150K||R3:DF,SENATE HOVERCAM:DF,2BB:DF
 3|975K||R5:DF,R8:DF,R4:DF
 4|2.95M||B1 BATTLE:GD,B1 SECURITY:GD,R9:GD
-5|5.35M||R3:GD,SENATE HOVER:GD,2BB:GD
+5|5.35M||R3:GD,SENATE HOVERCAM:GD,2BB:GD
 6|9.85M||R5:DM,BDX EXPLORER:DM,R4:DM
 7|14.5M||B1 BATTLE:DM,R8:DM,R9:DM
 8|36M||R3:RB,B1 SECURITY:RB,2BB:RB
 9|89M||R5:RB,BDX EXPLORER:RB,R4:RB
-10|220M||SENATE HOVER:RB,GROUNDMECH:DF,TRAK-R:DF
+10|220M||SENATE HOVERCAM:RB,GROUNDMECH:DF,TRAK-R:DF
 11|550M||B2 SUPER:DF,B2 HEAVY:DF,UTIL-TEC:DF
 12|1.36B||BAL-CORE:RB,GROUNDMECH:GD,TRAK-R:GD
 13|3.4B||B2 SUPER:RB,PROTO-ROLLER:DF,MECHA-DROID:DF
@@ -299,20 +299,20 @@ const PATHS=[{id:"p1",name:"Path 1",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,CB:DF
 33|345T||TRAK-R:ST,MONO-WLKR:GL,LOADLIFTER:GL
 34|520T||B2 SUPER:ST,ORB-WALKER:ST,LEP:GL
 35|778T||PROTO-ROLLER:ST,RIC:ST,KX:ST
-36|1.2Q||B-U4D:KY,SENATE HOVER:KY,ARG:KY
+36|1.2Q||B-U4D:KY,SENATE HOVERCAM:KY,ARG:KY
 37|2.5Q||AMP WALKER:KY,STRIKE-ORB:KY,UTIL-TEC:KY
 38|4.5Q||LNG-SHOT:KY,HAUL-R:KY,OPTI-STRK:KY
 39|8Q||MONO-WLKR:KY,BB9:KY,RIC-1200:KY
 40|15Q||IG:KY,TRI-TEK:KY,MO-TRAK:KY`},{id:"p4",name:"Path 4",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,ID10:DF
-2|150K||R3:DF,SENATE HOVER:DF,2BB:DF
+2|150K||R3:DF,SENATE HOVERCAM:DF,2BB:DF
 3|975K||R8:GD,R5:GD,R4:DF
 4|2.95M||B1 BATTLE:GD,B1 SECURITY:GD,R9:GD
-5|5.35M||R3:GD,SENATE HOVER:GD,2BB:GD
+5|5.35M||R3:GD,SENATE HOVERCAM:GD,2BB:GD
 6|9.85M||R5:DM,BDX EXPLORER:DM,R4:DM
 7|14.5M||B1 BATTLE:DM,R8:DM,R9:DM
 8|36M||R3:RB,B1 SECURITY:RB,2BB:RB
 9|89M||R5:RB,BDX EXPLORER:RB,R4:RB
-10|220M||SENATE HOVER:RB,GROUNDMECH:DF,TRAK-R:DF
+10|220M||SENATE HOVERCAM:RB,GROUNDMECH:DF,TRAK-R:DF
 11|550M||B2 SUPER:DF,B2 HEAVY:DF,UTIL-TEC:DF
 12|1.36B||BAL-CORE:RB,GROUNDMECH:GD,TRAK-R:GD
 13|3.4B||B2 SUPER:RB,PROTO-ROLLER:DF,MECHA-DROID:DF
@@ -432,6 +432,8 @@ function load(){
 }
 const KEY="droidTrackerV3";let S={path:"sr",p:{},tab:"up",more:false};
 try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+const RN={"SENATE HOVER":"SENATE HOVERCAM"};
+try{for(const id in S.p){const p=S.p[id];for(const k of ["own","sold"])if(p&&p[k])for(const o in RN)if(o in p[k]){p[k][RN[o]]=p[k][o];delete p[k][o]}}if(S.rar)for(const o in RN)if(o in S.rar){S.rar[RN[o]]=S.rar[o];delete S.rar[o]}}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const P=()=>S.p[S.path],own=n=>P().own[n]??-1;
 const tiers=n=>`<div class="tiers">${AB.map((a,i)=>`<button class="t${i}${i<=own(n)?" l":""}" data-n="${n}" data-t="${i}"><span class="ab">${a}</span><span class="fu">${TN[i]}</span></button>`).join("")}</div>`;
@@ -441,7 +443,7 @@ function card(n,ctx){
  const cq=ctx&&R[n].find(r=>r.rb===ctx),hl=cq?cq.rb:unmet?unmet.rb:0,done=cq?o>=cq.t:rs.length&&!unmet,g=cq?(o>=cq.t?`<div class="goal ok"><span>&#10003; ${TN[cq.t]}</span></div>`:`<div class="goal"><span>${ctx===cur+1?"&#9889;":"&#128274;"} ${TN[cq.t]} for R${ctx}</span>${gc(n,o,last?mx:cq.t)}</div>`):!rs.length?`<div class="goal sl"><span class="badge">SELL</span><span>No longer needed</span><button class="soldbtn" data-sold="${n}">Sold</button></div>`:!unmet?`<div class="goal ok"><span>&#10003; ${TN[rs[rs.length-1].t]} for R${rs.filter(r=>r.t===rs[rs.length-1].t).map(r=>r.rb).join(", R")}</span></div>`:`<div class="goal"><span>${unmet.rb===cur+1?"&#9889;":"&#128274;"} ${TN[unmet.t]} for R${unmet.rb}</span>${gc(n,o,last?mx:unmet.t)}</div>`;
  return `<div class="c${!rs.length?" fin":""}${sold?" soldc":""}${done?" okc":""}"><div class="nm"><span class="nt">${n}</span>${rbadge(n)}</div>${g}${rs.length?route(n,cur,"Needed:",hl):""}<div class="sp"></div>${tiers(n)}</div>`;
 }
-const KN={C:"GONK,MOUSE,IMPERIAL PROBE,R8,CB,DRK-1 PROBE,PIT,ID10,R3,R5,B1 BATTLE",R:"2BB,A-LT,ARG,B1 SECURITY,BAL-CORE,BDX EXPLORER,B-U4D,HOV-R,EG-58,R4,R9,NAV-EX,ROLL-R,VECT-ARM,SENATE HOVER",E:"AMP WALKER,B1 HEAVY,BB,GROUNDMECH,HAUL-R,LO,SEN-TRI,OPTI-POD,ORB-WALKER,R6,R2,STRIKE-ORB,GUNRUNNER,B2 HEAVY,B2 SUPER,TRAK-R,UTIL-TEC,LNG-SHOT,EGL,KT,MPH",L:"B2-RP,BB9,CYCLO-GRAV,OPTI-STRK,MECHA-DROID,MONO-WLKR,PROTO-ROLLER,R7,J09-4MN,PLNK",M:"CYCLENS,DRFT-R,IG,KX,LOADLIFTER,RIC-1200,TRI-TEK,MO-TRAK,RIC,SNOW MOUSE,LEP,ECG"},RAR={},RK={C:"Common",R:"Rare",E:"Epic",L:"Legendary",M:"Mythic"},RC={C:"#9aa4b2",R:"#4aa3ff",E:"#b57bff",L:"#ff9f3d",M:"#ff5fa0"};
+const KN={C:"GONK,MOUSE,IMPERIAL PROBE,R8,CB,DRK-1 PROBE,PIT,ID10,R3,R5,B1 BATTLE",R:"2BB,A-LT,ARG,B1 SECURITY,BAL-CORE,BDX EXPLORER,B-U4D,HOV-R,EG-58,R4,R9,NAV-EX,ROLL-R,VECT-ARM,SENATE HOVERCAM",E:"AMP WALKER,B1 HEAVY,BB,GROUNDMECH,HAUL-R,LO,SEN-TRI,OPTI-POD,ORB-WALKER,R6,R2,STRIKE-ORB,GUNRUNNER,B2 HEAVY,B2 SUPER,TRAK-R,UTIL-TEC,LNG-SHOT,EGL,KT,MPH",L:"B2-RP,BB9,CYCLO-GRAV,OPTI-STRK,MECHA-DROID,MONO-WLKR,PROTO-ROLLER,R7,J09-4MN,PLNK",M:"CYCLENS,DRFT-R,IG,KX,LOADLIFTER,RIC-1200,TRI-TEK,MO-TRAK,RIC,SNOW MOUSE,LEP,ECG"},RAR={},RK={C:"Common",R:"Rare",E:"Epic",L:"Legendary",M:"Mythic"},RC={C:"#9aa4b2",R:"#4aa3ff",E:"#b57bff",L:"#ff9f3d",M:"#ff5fa0"};
 for(const k in KN)KN[k].split(",").forEach(n=>RAR[n]=k);
 const CC={C:[10,25,40,80,120,180,240],R:[30,60,100,250,400,750,1000],E:[120,180,240,2000,5000,8000,12000],L:[400,1200,2500,6000,16000,24000,30000],M:[4000,8000,14000,30000,60000,90000,110000]};
 const rar=n=>S.rar[n]||RAR[n]||"R",known=n=>!!(S.rar[n]||RAR[n]);
