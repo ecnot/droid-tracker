@@ -177,7 +177,7 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
  <div class="row"><div class="row" style="justify-content:flex-start"><div class="logo" role="img" aria-label="Droid Tracker"><svg class="lgi" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"><path d="M16 26A17 17 0 0 1 46 22"/><path d="M48 38A17 17 0 0 1 18 42"/></g><path fill="currentColor" d="M32 23l2.8 6.2L41 32l-6.2 2.8L32 41l-2.8-6.2L23 32l6.2-2.8z"/></svg><div class="lgw"><span class="lgd">DROID</span><span class="lgt">TRACKER</span></div></div><div id="pathDd"></div></div><div class="tools"><button id="jumpSell" data-jsell="1" style="display:none"></button><div class="sws" id="sw"></div><div class="scl"><button data-scale="-1" title="Smaller">A&minus;</button><button data-scale="1" title="Bigger">A+</button></div><button id="reset" style="color:#ff6a6a">&#8635; Reset path</button></div></div>
  <div class="hero" id="hero"></div>
  <div id="lookBox"></div>
- <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><div class="srch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Search droid..."></div><label class="cb" style="margin-left:auto"><input type="checkbox" id="cc"> Chip costs</label><div class="seg2" id="cm"><button data-cm="next" title="Cost to reach the next tier you need">Next</button><button data-cm="last" title="Cost to reach the highest tier you will need">Max</button></div></div>
+ <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><div class="srch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Search droid or rarity..."></div><label class="cb" style="margin-left:auto"><input type="checkbox" id="cc"> Chip costs</label><div class="seg2" id="cm"><button data-cm="next" title="Cost to reach the next tier you need">Next</button><button data-cm="last" title="Cost to reach the highest tier you will need">Max</button></div></div>
  
  <div id="out"></div>
  <div id="sellBox"></div>
@@ -487,7 +487,7 @@ function render(){
  document.querySelectorAll(".tabs>button[data-v]").forEach(b=>b.classList.toggle("on",b.dataset.v===S.tab));
  const q=document.getElementById("q").value.trim().toLowerCase(),out=document.getElementById("out");
  if(q||S.tab==="all"){
-  const l=NAMES.filter(n=>n.toLowerCase().includes(q)&&R[n].some(r=>r.rb>cur));
+  const rq=q.length>=3&&Object.values(RK).some(v=>v.toLowerCase().startsWith(q)),nx0=n=>Math.min(...R[n].filter(r=>r.rb>cur).map(r=>r.rb)),l=NAMES.filter(n=>R[n].some(r=>r.rb>cur)&&(n.toLowerCase().includes(q)||(q.length>=3&&RK[rar(n)].toLowerCase().startsWith(q)))).sort((a,b)=>rq?nx0(a)-nx0(b):0);
   out.innerHTML=l.length?`<div class="grid">${l.map(n=>card(n)).join("")}</div>`:`<div class="empty">No droids found</div>`;
  }else{
   const l=D.filter(r=>r.n>cur+1),sh=S.more?l:l.slice(0,4);
