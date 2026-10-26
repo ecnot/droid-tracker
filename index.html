@@ -181,6 +181,11 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
 :root[data-theme="glass"] .modal{background:rgba(40,55,95,.28)}
 :root[data-theme="glass"] .mbox{background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(24px) saturate(1.7);backdrop-filter:blur(24px) saturate(1.7);box-shadow:inset 0 1px 0 #fff,0 24px 70px rgba(40,60,120,.28)}
 :root[data-theme="glass"] .mact .mdanger{background:rgba(255,69,58,.14);color:#c0261c;border-color:rgba(255,69,58,.4)}
+.srch input{padding-right:46px}.srch input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.srch .qx{position:absolute;right:10px;top:0;bottom:0;margin:auto 0;width:26px;height:26px;border-radius:50%;padding:0;border:0;display:none;align-items:center;justify-content:center;background:var(--dd);color:var(--mut)}
+.srch .qx.show{display:flex}.srch .qx:hover{color:var(--tx)}
+.srch .qx svg{position:static;transform:none;pointer-events:none}
+:root[data-theme="glass"] .srch .qx{background:rgba(40,60,110,.1)}
 /* ===== Glass (light, liquid-glass) theme ===== */
 :root[data-theme="glass"]{--bg:#eaf0fa;--pan:rgba(255,255,255,.5);--card:rgba(255,255,255,.5);--in:rgba(255,255,255,.62);--line:rgba(255,255,255,.88);--tx:#16213b;--mut:#5b6784;--acc:#0a84ff;--acc2:#0a7aff;--ok:#1a8f4c;--gold:#9a5a00;--h1:rgba(255,255,255,.74);--h2:rgba(255,255,255,.36);--hb:rgba(255,255,255,.95);--dd:rgba(250,252,255,.86);--ddh:rgba(10,132,255,.14);--goA:#0a84ff;--goB:#5ac8fa;--sA:#0a6fd6;--btxt:#5b6784;--gs:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.4),0 8px 28px rgba(40,60,120,.12),0 1px 3px rgba(40,60,120,.1);color-scheme:light}
 :root[data-theme="glass"]{--pg:radial-gradient(60% 55% at 12% 8%,rgba(74,163,255,.4) 0,#0000 62%),radial-gradient(50% 45% at 92% 12%,rgba(181,123,255,.36) 0,#0000 60%),radial-gradient(55% 50% at 85% 92%,rgba(255,95,160,.32) 0,#0000 62%),radial-gradient(50% 50% at 8% 88%,rgba(255,159,61,.36) 0,#0000 60%),radial-gradient(45% 40% at 50% 55%,rgba(154,164,178,.24) 0,#0000 65%)}
@@ -268,7 +273,7 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
  <div class="row"><div class="row" style="justify-content:flex-start"><div class="logo" role="img" aria-label="Droid Tracker"><svg class="lgi" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"><path d="M16 26A17 17 0 0 1 46 22"/><path d="M48 38A17 17 0 0 1 18 42"/></g><path fill="currentColor" d="M32 23l2.8 6.2L41 32l-6.2 2.8L32 41l-2.8-6.2L23 32l6.2-2.8z"/></svg><div class="lgw"><span class="lgd">DROID</span><span class="lgt">TRACKER</span><svg class="lgk" aria-hidden="true"><defs><mask id="lgm"><rect width="100%" height="100%" fill="#fff"/><text x="8" y="50%" dominant-baseline="central" fill="#000">TRACKER</text></mask></defs><rect width="100%" height="100%" rx="3" fill="#16213b" mask="url(#lgm)"/></svg></div></div><div id="pathDd"></div></div><div class="tools"><button id="jumpSell" data-jsell="1" style="display:none"></button><div class="sws" id="sw"></div><div class="scl"><button data-scale="-1" title="Smaller">A&minus;</button><button data-scale="1" title="Bigger">A+</button></div><button id="reset" style="color:#ff6a6a">&#8635; Reset path</button></div></div>
  <div class="hero" id="hero"></div>
  <div id="lookBox"></div>
- <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><div class="srch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Search droid or rarity..."></div><label class="cb" style="margin-left:auto"><input type="checkbox" id="cc"> Chip costs</label><div class="seg2" id="cm"><button data-cm="next" title="Cost to reach the next tier you need">Next</button><button data-cm="last" title="Cost to reach the highest tier you will need">Max</button></div></div>
+ <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><div class="srch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Search droid or rarity..."><button type="button" id="qx" class="qx" data-qx="1" aria-label="Clear search" title="Clear search"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><label class="cb" style="margin-left:auto"><input type="checkbox" id="cc"> Chip costs</label><div class="seg2" id="cm"><button data-cm="next" title="Cost to reach the next tier you need">Next</button><button data-cm="last" title="Cost to reach the highest tier you will need">Max</button></div></div>
  
  <div id="out"></div>
  <div id="sellBox"></div>
@@ -578,6 +583,7 @@ function render(){
  document.getElementById("hero").innerHTML=step+body;{const nr=document.getElementById("nextRow");if(nr)document.getElementById("hero").firstElementChild.insertBefore(nr,document.getElementById("jumpCol"))}if(sup&&nx)document.getElementById("jumpCol").insertAdjacentHTML("beforeend",sup);
  document.querySelectorAll(".tabs>button[data-v]").forEach(b=>b.classList.toggle("on",b.dataset.v===S.tab));
  const q=document.getElementById("q").value.trim().toLowerCase(),out=document.getElementById("out");
+ document.getElementById("qx").classList.toggle("show",!!document.getElementById("q").value);
  if(q||S.tab==="all"){
   const rq=q.length>=3&&Object.values(RK).some(v=>v.toLowerCase().startsWith(q)),nx0=n=>Math.min(...R[n].filter(r=>r.rb>cur).map(r=>r.rb)),l=NAMES.filter(n=>R[n].some(r=>r.rb>cur)&&(n.toLowerCase().includes(q)||(q.length>=3&&RK[rar(n)].toLowerCase().startsWith(q)))).sort((a,b)=>rq?nx0(a)-nx0(b):0);
   out.innerHTML=l.length?`<div class="grid">${l.map(n=>card(n)).join("")}</div>`:`<div class="empty">No droids found</div>`;
@@ -598,6 +604,7 @@ document.addEventListener("click",e=>{
  else if(d.rar){const O="CREL M".replace(" ","");S.rar[d.rar]=O[(O.indexOf(rar(d.rar))+1)%5]}
  else if(d.top){window.scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"});return}
  else if(d.jsell){const el=document.getElementById("sellBox");if(el)el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"});return}
+ else if(d.qx){const qi=document.getElementById("q");qi.value="";qi.focus()}
  else if(d.sa){NAMES.filter(n=>!R[n].some(r=>r.rb>P().cur)&&!P().sold[n]).forEach(n=>{P().sold[n]=true})}
  else if(d.lm)S.lmode=d.lm;
  else if(d.cm)S.cmode=d.cm;
@@ -623,6 +630,7 @@ document.addEventListener("change",e=>{
  save();render();
 });
 document.getElementById("q").oninput=render;
+document.getElementById("q").onkeydown=e=>{if(e.key==="Escape"&&e.target.value){e.target.value="";render()}};
 let lastF=null;
 function openModal(){const m=document.getElementById("modal"),n=PATHS.find(p=>p.id===S.path).name;document.getElementById("mt").textContent="Reset "+n+"?";document.getElementById("mp").textContent="This clears every ticked tier, your current rebirth and the sold droids for "+n+". This can't be undone.";lastF=document.activeElement;m.classList.add("show");const c=m.querySelector('[data-m="x"]');if(c)c.focus()}
 function closeModal(){document.getElementById("modal").classList.remove("show");try{if(lastF)lastF.focus()}catch(e){}}
