@@ -273,7 +273,7 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
  <div class="row"><div class="row" style="justify-content:flex-start"><div class="logo" role="img" aria-label="Droid Tracker"><svg class="lgi" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"><path d="M16 26A17 17 0 0 1 46 22"/><path d="M48 38A17 17 0 0 1 18 42"/></g><path fill="currentColor" d="M32 23l2.8 6.2L41 32l-6.2 2.8L32 41l-2.8-6.2L23 32l6.2-2.8z"/></svg><div class="lgw"><span class="lgd">DROID</span><span class="lgt">TRACKER</span><svg class="lgk" aria-hidden="true"><defs><mask id="lgm"><rect width="100%" height="100%" fill="#fff"/><text x="8" y="50%" dominant-baseline="central" fill="#000">TRACKER</text></mask></defs><rect width="100%" height="100%" rx="3" fill="#16213b" mask="url(#lgm)"/></svg></div></div><div id="pathDd"></div></div><div class="tools"><button id="jumpSell" data-jsell="1" style="display:none"></button><div class="sws" id="sw"></div><div class="scl"><button data-scale="-1" title="Smaller">A&minus;</button><button data-scale="1" title="Bigger">A+</button></div><button id="reset" style="color:#ff6a6a">&#8635; Reset path</button></div></div>
  <div class="hero" id="hero"></div>
  <div id="lookBox"></div>
- <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><div class="srch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Search droid or rarity..."><button type="button" id="qx" class="qx" data-qx="1" aria-label="Clear search" title="Clear search"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><label class="cb" style="margin-left:auto"><input type="checkbox" id="cc"> Chip costs</label><div class="seg2" id="cm"><button data-cm="next" title="Cost to reach the next tier you need">Next</button><button data-cm="last" title="Cost to reach the highest tier you will need">Max</button></div></div>
+ <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><div class="srch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Search droid, rarity or tier..."><button type="button" id="qx" class="qx" data-qx="1" aria-label="Clear search" title="Clear search"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><label class="cb" style="margin-left:auto"><input type="checkbox" id="cc"> Chip costs</label><div class="seg2" id="cm"><button data-cm="next" title="Cost to reach the next tier you need">Next</button><button data-cm="last" title="Cost to reach the highest tier you will need">Max</button></div></div>
  
  <div id="out"></div>
  <div id="sellBox"></div>
@@ -318,11 +318,11 @@ const PATHS=[{id:"p1",name:"Path 1",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,CB:DF
 33|345T||B1 HEAVY:ST,CYCLO-GRAV:GL,DRFT-R:GL
 34|520T||GROUNDMECH:ST,BB:ST,CYCLENS:GL
 35|778T||BB9:ST,SNOW MOUSE:ST,IG:ST
-36|1.2Q||BDX EXPLORER:KY,A-LT:KY,2BB:KY
-37|2.5Q||GROUNDMECH:KY,B1 HEAVY:KY,BB:KY
-38|4.5Q||R6:KY,R2:KY,BB9:KY
-39|8Q||PROTO-ROLLER:KY,R7:KY,IG:KY
-40|15Q||SNOW MOUSE:KY,CYCLENS:KY,DRFT-R:KY`},{id:"p2",name:"Path 2",raw:`1|10K||MOUSE:DF,GONK:DF,ID10:DF
+36|1.2Qa||BDX EXPLORER:KY,A-LT:KY,2BB:KY
+37|2.5Qa||GROUNDMECH:KY,B1 HEAVY:KY,BB:KY
+38|4.5Qa||R6:KY,R2:KY,BB9:KY
+39|8Qa||PROTO-ROLLER:KY,R7:KY,IG:KY
+40|15Qa||SNOW MOUSE:KY,CYCLENS:KY,DRFT-R:KY`},{id:"p2",name:"Path 2",raw:`1|10K||MOUSE:DF,GONK:DF,ID10:DF
 2|150K||ROLL-R:DF,SENATE HOVERCAM:DF,NAV-EX:DF
 3|975K||BDX EXPLORER:DF,VECT-ARM:DF,R4:DF
 4|2.95M||BAL-CORE:DF,2BB:DF,ORB-WALKER:DF
@@ -357,11 +357,11 @@ const PATHS=[{id:"p1",name:"Path 1",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,CB:DF
 33|345T||R2:ST,OPTI-STRK:GL,KX:GL
 34|520T||LO:ST,R6:ST,RIC:GL
 35|778T||R7:ST,CYCLENS:ST,DRFT-R:ST
-36|1.2Q||B1 SECURITY:KY,R9:KY,R4:KY
-37|2.5Q||LO:KY,ORB-WALKER:KY,TRAK-R:KY
-38|4.5Q||B2 HEAVY:KY,B2 SUPER:KY,B2-RP:KY
-39|8Q||MECHA-DROID:KY,CYCLO-GRAV:KY,KX:KY
-40|15Q||LEP:KY,LOADLIFTER:KY,RIC:KY`},{id:"p3",name:"Path 3",raw:`1|10K||GONK:DF,PIT:DF,MOUSE:DF
+36|1.2Qa||B1 SECURITY:KY,R9:KY,R4:KY
+37|2.5Qa||LO:KY,ORB-WALKER:KY,TRAK-R:KY
+38|4.5Qa||B2 HEAVY:KY,B2 SUPER:KY,B2-RP:KY
+39|8Qa||MECHA-DROID:KY,CYCLO-GRAV:KY,KX:KY
+40|15Qa||LEP:KY,LOADLIFTER:KY,RIC:KY`},{id:"p3",name:"Path 3",raw:`1|10K||GONK:DF,PIT:DF,MOUSE:DF
 2|150K||R3:DF,SENATE HOVERCAM:DF,2BB:DF
 3|975K||R5:DF,R8:DF,R4:DF
 4|2.95M||B1 BATTLE:GD,B1 SECURITY:GD,R9:GD
@@ -396,11 +396,11 @@ const PATHS=[{id:"p1",name:"Path 1",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,CB:DF
 33|345T||TRAK-R:ST,MONO-WLKR:GL,LOADLIFTER:GL
 34|520T||B2 SUPER:ST,ORB-WALKER:ST,LEP:GL
 35|778T||PROTO-ROLLER:ST,RIC:ST,KX:ST
-36|1.2Q||B-U4D:KY,SENATE HOVERCAM:KY,ARG:KY
-37|2.5Q||AMP WALKER:KY,STRIKE-ORB:KY,UTIL-TEC:KY
-38|4.5Q||LNG-SHOT:KY,HAUL-R:KY,OPTI-STRK:KY
-39|8Q||MONO-WLKR:KY,BB9:KY,RIC-1200:KY
-40|15Q||IG:KY,TRI-TEK:KY,MO-TRAK:KY`},{id:"p4",name:"Path 4",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,ID10:DF
+36|1.2Qa||B-U4D:KY,SENATE HOVERCAM:KY,ARG:KY
+37|2.5Qa||AMP WALKER:KY,STRIKE-ORB:KY,UTIL-TEC:KY
+38|4.5Qa||LNG-SHOT:KY,HAUL-R:KY,OPTI-STRK:KY
+39|8Qa||MONO-WLKR:KY,BB9:KY,RIC-1200:KY
+40|15Qa||IG:KY,TRI-TEK:KY,MO-TRAK:KY`},{id:"p4",name:"Path 4",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,ID10:DF
 2|150K||R3:DF,SENATE HOVERCAM:DF,2BB:DF
 3|975K||R8:GD,R5:GD,R4:DF
 4|2.95M||B1 BATTLE:GD,B1 SECURITY:GD,R9:GD
@@ -435,11 +435,11 @@ const PATHS=[{id:"p1",name:"Path 1",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,CB:DF
 33|345T||B2 HEAVY:ST,BB9:GL,RIC-1200:GL
 34|520T||AMP WALKER:ST,STRIKE-ORB:ST,MO-TRAK:GL
 35|778T||B2-RP:ST,LEP:ST,LOADLIFTER:ST
-36|1.2Q||BAL-CORE:KY,VECT-ARM:KY,NAV-EX:KY
-37|2.5Q||GUNRUNNER:KY,OPTI-POD:KY,SEN-TRI:KY
-38|4.5Q||GROUNDMECH:KY,B1 HEAVY:KY,R7:KY
-39|8Q||PROTO-ROLLER:KY,B2-RP:KY,SNOW MOUSE:KY
-40|15Q||KX:KY,CYCLENS:KY,DRFT-R:KY`},{id:"p5",name:"Path 5",raw:`1|10K||GONK:DF,MOUSE:DF,ID10:DF
+36|1.2Qa||BAL-CORE:KY,VECT-ARM:KY,NAV-EX:KY
+37|2.5Qa||GUNRUNNER:KY,OPTI-POD:KY,SEN-TRI:KY
+38|4.5Qa||GROUNDMECH:KY,B1 HEAVY:KY,R7:KY
+39|8Qa||PROTO-ROLLER:KY,B2-RP:KY,SNOW MOUSE:KY
+40|15Qa||KX:KY,CYCLENS:KY,DRFT-R:KY`},{id:"p5",name:"Path 5",raw:`1|10K||GONK:DF,MOUSE:DF,ID10:DF
 2|150K||IMPERIAL PROBE:GD,ROLL-R:DF,2BB:DF
 3|975K||VECT-ARM:DF,R4:DF,BDX EXPLORER:GD
 4|2.95M||B1 BATTLE:GD,B1 SECURITY:GD,R9:GD
@@ -474,50 +474,50 @@ const PATHS=[{id:"p1",name:"Path 1",raw:`1|10K||PIT:DF,DRK-1 PROBE:DF,CB:DF
 33|345T||UTIL-TEC:ST,R7:GL,TRI-TEK:GL
 34|520T||LNG-SHOT:ST,HAUL-R:ST,IG:GL
 35|778T||MECHA-DROID:ST,RIC-1200:ST,MO-TRAK:ST
-36|1.2Q||MOUSE:KY,ROLL-R:KY,HOV-R:KY
-37|2.5Q||R6:KY,R2:KY,BB:KY
-38|4.5Q||LO:KY,TRAK-R:KY,MECHA-DROID:KY
-39|8Q||OPTI-STRK:KY,CYCLO-GRAV:KY,RIC:KY
-40|15Q||RIC-1200:KY,LEP:KY,LOADLIFTER:KY`},{id:"p6",name:"Path 6",raw:`1|10,000 Credits|MOUSE, ID10|GONK:DF,MOUSE:DF,ID10:DF
-2|150,000 Credits|PIT|PIT:DF,EG-58:DF,2BB:DF
-3|975,000 Credits|R3|R3:DF,R4:DF,ROLL-R:DF
-4|2.95 Million Credits||EG-58:GD,R9:GD,B1 SECURITY:GD
-5|5.35 Million Credits|R5, VECT-ARM|GONK:GD,R5:GD,VECT-ARM:GD
-6|9.85 Million Credits|2BB|EGL:DF,EG-58:DM,2BB:DM
-7|14.5 Million Credits|R4, R9|KT:DF,R4:DM,R9:DM
-8|36 Million Credits|B1 SECURITY, NAV-EX|MPH:DF,B1 SECURITY:DM,NAV-EX:DM
-9|89 Million Credits|STRIKE-ORB|GONK:DM,EGL:GD,STRIKE-ORB:GD
-10|220 Million Credits|AMP WALKER|GROUNDMECH:DF,TRAK-R:DF,AMP WALKER:DF
-11|550 Million Credits||B2 SUPER:DF,HAUL-R:DF,R2:DF
-12|1.36 Billion Credits||GONK:RB,GROUNDMECH:GD,TRAK-R:GD
-13|3.4 Billion Credits||KT:GD,MPH:GD,PROTO-ROLLER:DF
-14|8.45 Billion Credits||EGL:DM,B2 SUPER:GD,B2-RP:DF
-15|21 Billion Credits||J09-4MN:DF,KT:DM,MPH:DM
-16|52 Billion Credits||PLNK:DF,BB9:DF,R7:GD
-17|130 Billion Credits||EGL:RB,J09-4MN:GD,MECHA-DROID:DF
-18|325 Billion Credits||KT:RB,MPH:RB,PLNK:GD
-19|810 Billion Credits||J09-4MN:DM,PROTO-ROLLER:GD,R7:DM
-20|2 Trillion Credits|MECHA-DROID|PLNK:RB,MECHA-DROID:RB,B2-RP:RB
-21|3 Trillion Credits||GONK:BK,EGL:BK,HAUL-R:BK
-22|4.50 Trillion Credits|GROUNDMECH|KT:BK,GROUNDMECH:BK,R2:BK
-23|6 Trillion Credits||MPH:BK,J09-4MN:BK,BB9:BK
-24|9 Trillion Credits|PROTO-ROLLER|PLNK:BK,PROTO-ROLLER:BK,ECG:DF
-25|13.5 Trillion Credits|R7, LOADLIFTER|R7:BK,IG:DF,LOADLIFTER:DF
-26|21 Trillion Credits|MO-TRAK|MO-TRAK:GD,ECG:GD,DRFT-R:DM
-27|32 Trillion Credits||CYCLENS:RB,SNOW MOUSE:RB,TRI-TEK:BK
-28|45 Trillion Credits|BB9|EGL:GL,J09-4MN:GL,BB9:GL
-29|68 Trillion Credits||KT:GL,PLNK:GL,IG:BK
-30|100 Trillion Credits|B2-RP|MPH:GL,B2-RP:GL,DRFT-R:GL
-31|150 Trillion Credits||EGL:ST,EG-58:BK,SNOW MOUSE:BK
-32|230 Trillion Credits|TRAK-R, CYCLENS|ECG:GL,TRAK-R:GL,CYCLENS:BK
-33|345 Trillion Credits||KT:ST,CYCLO-GRAV:GL,TRI-TEK:GL
-34|520 Trillion Credits|HAUL-R, IG|MPH:ST,HAUL-R:ST,IG:GL
-35|778 Trillion Credits||J09-4MN:ST,PLNK:ST,ECG:ST
-36|1.19 Qa Credits|*|GONK:KY,EG-58:KY,ROLL-R:KY
-37|2.50 Qa Credits|*|EGL:KY,R2:KY,B2 SUPER:KY
-38|4.50 Qa Credits|*|KT:KY,MPH:KY,SNOW MOUSE:KY
-39|8.00 Qa Credits|*|J09-4MN:KY,CYCLO-GRAV:KY,TRI-TEK:KY
-40|15.00 Qa Credits|*|PLNK:KY,ECG:KY,DRFT-R:KY`}];
+36|1.2Qa||MOUSE:KY,ROLL-R:KY,HOV-R:KY
+37|2.5Qa||R6:KY,R2:KY,BB:KY
+38|4.5Qa||LO:KY,TRAK-R:KY,MECHA-DROID:KY
+39|8Qa||OPTI-STRK:KY,CYCLO-GRAV:KY,RIC:KY
+40|15Qa||RIC-1200:KY,LEP:KY,LOADLIFTER:KY`},{id:"p6",name:"Path 6",raw:`1|10K|MOUSE, ID10|GONK:DF,MOUSE:DF,ID10:DF
+2|150K|PIT|PIT:DF,EG-58:DF,2BB:DF
+3|975K|R3|R3:DF,R4:DF,ROLL-R:DF
+4|2.95M||EG-58:GD,R9:GD,B1 SECURITY:GD
+5|5.35M|R5, VECT-ARM|GONK:GD,R5:GD,VECT-ARM:GD
+6|9.85M|2BB|EGL:DF,EG-58:DM,2BB:DM
+7|14.5M|R4, R9|KT:DF,R4:DM,R9:DM
+8|36M|B1 SECURITY, NAV-EX|MPH:DF,B1 SECURITY:DM,NAV-EX:DM
+9|89M|STRIKE-ORB|GONK:DM,EGL:GD,STRIKE-ORB:GD
+10|220M|AMP WALKER|GROUNDMECH:DF,TRAK-R:DF,AMP WALKER:DF
+11|550M||B2 SUPER:DF,HAUL-R:DF,R2:DF
+12|1.36B||GONK:RB,GROUNDMECH:GD,TRAK-R:GD
+13|3.4B||KT:GD,MPH:GD,PROTO-ROLLER:DF
+14|8.45B||EGL:DM,B2 SUPER:GD,B2-RP:DF
+15|21B||J09-4MN:DF,KT:DM,MPH:DM
+16|52B||PLNK:DF,BB9:DF,R7:GD
+17|130B||EGL:RB,J09-4MN:GD,MECHA-DROID:DF
+18|325B||KT:RB,MPH:RB,PLNK:GD
+19|810B||J09-4MN:DM,PROTO-ROLLER:GD,R7:DM
+20|2T|MECHA-DROID|PLNK:RB,MECHA-DROID:RB,B2-RP:RB
+21|3T||GONK:BK,EGL:BK,HAUL-R:BK
+22|4.5T|GROUNDMECH|KT:BK,GROUNDMECH:BK,R2:BK
+23|6T||MPH:BK,J09-4MN:BK,BB9:BK
+24|9T|PROTO-ROLLER|PLNK:BK,PROTO-ROLLER:BK,ECG:DF
+25|13.5T|R7, LOADLIFTER|R7:BK,IG:DF,LOADLIFTER:DF
+26|21T|MO-TRAK|MO-TRAK:GD,ECG:GD,DRFT-R:DM
+27|32T||CYCLENS:RB,SNOW MOUSE:RB,TRI-TEK:BK
+28|45T|BB9|EGL:GL,J09-4MN:GL,BB9:GL
+29|68T||KT:GL,PLNK:GL,IG:BK
+30|100T|B2-RP|MPH:GL,B2-RP:GL,DRFT-R:GL
+31|150T||EGL:ST,EG-58:BK,SNOW MOUSE:BK
+32|230T|TRAK-R, CYCLENS|ECG:GL,TRAK-R:GL,CYCLENS:BK
+33|345T||KT:ST,CYCLO-GRAV:GL,TRI-TEK:GL
+34|520T|HAUL-R, IG|MPH:ST,HAUL-R:ST,IG:GL
+35|778T||J09-4MN:ST,PLNK:ST,ECG:ST
+36|1.19Qa|*|GONK:KY,EG-58:KY,ROLL-R:KY
+37|2.5Qa|*|EGL:KY,R2:KY,B2 SUPER:KY
+38|4.5Qa|*|KT:KY,MPH:KY,SNOW MOUSE:KY
+39|8Qa|*|J09-4MN:KY,CYCLO-GRAV:KY,TRI-TEK:KY
+40|15Qa|*|PLNK:KY,ECG:KY,DRFT-R:KY`}];
 let D,R,SELL,NAMES;
 function load(){
  const p=PATHS.find(x=>x.id===S.path)||PATHS[0];S.path=p.id;
@@ -576,7 +576,7 @@ function render(){
  else{
   const miss=nx.d.filter(d=>own(d.name)<d.t).length,rdy=!miss;
   const fut=d=>R[d.name].filter(r=>r.rb>nx.n),safe=nx.d.filter(d=>!fut(d).length).map(d=>d.name),sell=[safe.length?"<span style='color:#ff8a8a'>Safe to sell after rebirthing: "+safe.join(", ")+"</span>":""].filter(Boolean).join("<br>")||"Keep all of these for now.";
-  body=`<div class="nextc" id="nextRow"><div class="lbl">Next up</div><div class="big">Rebirth ${nx.n}</div><span class="chip">${nx.c}</span></div>`+
+  body=`<div class="nextc" id="nextRow"><div class="lbl">Next up</div><div class="big">Rebirth ${nx.n}</div><span class="chip">${nx.c} Credits</span></div>`+
   nx.d.map(d=>{const ok=own(d.name)>=d.t;return `<div class="hr${ok?" ok":""}"><div><div class="nmrow"><b>${d.name}</b>${rbadge(d.name)}</div><small>${ok?"":"Needs "+TN[d.t]+(d.t>0?" &middot; "+chips(d.name,own(d.name),d.t).toLocaleString()+" chips":"")}</small>${route(d.name,nx.n,"Later:")}</div>${tiers(d.name)}</div>`}).join("")+
   `<div class="note">${sell}</div><button class="go${rdy?" rdy":""}" data-go="1" ${rdy?"":"disabled"}>${rdy?"Rebirth now \u2192":"Need "+miss+" more droid"+(miss>1?"s":"")}</button>`;
  }
@@ -585,11 +585,11 @@ function render(){
  const q=document.getElementById("q").value.trim().toLowerCase(),out=document.getElementById("out");
  document.getElementById("qx").classList.toggle("show",!!document.getElementById("q").value);
  if(q||S.tab==="all"){
-  const rq=q.length>=3&&Object.values(RK).some(v=>v.toLowerCase().startsWith(q)),nx0=n=>Math.min(...R[n].filter(r=>r.rb>cur).map(r=>r.rb)),l=NAMES.filter(n=>R[n].some(r=>r.rb>cur)&&(n.toLowerCase().includes(q)||(q.length>=3&&RK[rar(n)].toLowerCase().startsWith(q)))).sort((a,b)=>rq?nx0(a)-nx0(b):0);
-  out.innerHTML=l.length?`<div class="grid">${l.map(n=>card(n)).join("")}</div>`:`<div class="empty">No droids found</div>`;
+  const rk=q.length>=3?Object.keys(RK).find(k=>RK[k].toLowerCase().startsWith(q)):undefined,rq=rk!==undefined,ti=q.length>=3?TN.findIndex((t,i)=>t.toLowerCase().startsWith(q)||AB[i].toLowerCase()===q):-1,tq=ti>=0&&!rq,nx0=n=>Math.min(...R[n].filter(r=>r.rb>cur).map(r=>r.rb)),nxt=n=>Math.min(...R[n].filter(r=>r.rb>cur&&r.t===ti).map(r=>r.rb)),l=NAMES.filter(n=>R[n].some(r=>r.rb>cur)&&(n.toLowerCase().includes(q)||(rq&&rar(n)===rk)||(tq&&R[n].some(r=>r.rb>cur&&r.t===ti)))).sort((a,b)=>rq?nx0(a)-nx0(b):tq?nxt(a)-nxt(b):0);
+  out.innerHTML=l.length?(rq||tq?`<h2>${rq?RK[rk]+" droids you still need":"Droids you still need in "+TN[ti]} (${l.length})</h2>`:"")+`<div class="grid">${l.map(n=>card(n)).join("")}</div>`:`<div class="empty">No droids found</div>`;
  }else{
   const l=D.filter(r=>r.n>cur+1),sh=S.more?l:l.slice(0,4);
-  out.innerHTML=sh.map(r=>`<h2>Rebirth ${r.n} &bull; ${r.c}</h2><div class="grid fit">${r.d.map(d=>card(d.name,r.n)).join("")}</div>`).join("")+(l.length>4?`<button class="more" data-more="1">${S.more?"Show fewer":"Show all "+l.length+" upcoming rebirths"}</button>`:"")||`<div class="empty">Nothing further coming up</div>`;
+  out.innerHTML=sh.map(r=>`<h2>Rebirth ${r.n} &bull; ${r.c} Credits</h2><div class="grid fit">${r.d.map(d=>card(d.name,r.n)).join("")}</div>`).join("")+(l.length>4?`<button class="more" data-more="1">${S.more?"Show fewer":"Show all "+l.length+" upcoming rebirths"}</button>`:"")||`<div class="empty">Nothing further coming up</div>`;
  }
 }
 document.addEventListener("click",e=>{
