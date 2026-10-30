@@ -186,6 +186,14 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
 .srch .qx.show{display:flex}.srch .qx:hover{color:var(--tx)}
 .srch .qx svg{position:static;transform:none;pointer-events:none}
 :root[data-theme="glass"] .srch .qx{background:rgba(40,60,110,.1)}
+.stip{position:absolute;left:0;top:calc(100% + 10px);z-index:40;width:max-content;max-width:min(400px,92vw);padding:12px 14px;border-radius:12px;background:var(--dd);border:1px solid var(--line);box-shadow:0 12px 34px #000a;font-size:13px;line-height:1.55;color:var(--tx);display:none}
+.stip.show{display:block;animation:ddin .16s ease-out}
+.stip::before{content:"";position:absolute;top:-6px;left:22px;width:10px;height:10px;background:var(--dd);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+.stip code{background:var(--in);padding:1px 6px;border-radius:5px;font-weight:700}
+.stip button{margin-top:8px;padding:5px 12px;font-size:12px;font-weight:700}
+:root[data-theme="glass"] .stip{background:rgba(250,252,255,.94);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-color:rgba(255,255,255,.95);box-shadow:0 14px 40px rgba(40,60,120,.22),inset 0 1px 0 #fff}
+:root[data-theme="glass"] .stip::before{background:rgba(250,252,255,.98);border-color:rgba(255,255,255,.95)}
+:root[data-theme="glass"] .stip code{background:rgba(40,60,110,.08)}
 /* ===== Glass (light, liquid-glass) theme ===== */
 :root[data-theme="glass"]{--bg:#eaf0fa;--pan:rgba(255,255,255,.5);--card:rgba(255,255,255,.5);--in:rgba(255,255,255,.62);--line:rgba(255,255,255,.88);--tx:#16213b;--mut:#5b6784;--acc:#0a84ff;--acc2:#0a7aff;--ok:#1a8f4c;--gold:#9a5a00;--h1:rgba(255,255,255,.74);--h2:rgba(255,255,255,.36);--hb:rgba(255,255,255,.95);--dd:rgba(250,252,255,.86);--ddh:rgba(10,132,255,.14);--goA:#0a84ff;--goB:#5ac8fa;--sA:#0a6fd6;--btxt:#5b6784;--gs:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.4),0 8px 28px rgba(40,60,120,.12),0 1px 3px rgba(40,60,120,.1);color-scheme:light}
 :root[data-theme="glass"]{--pg:radial-gradient(60% 55% at 12% 8%,rgba(74,163,255,.4) 0,#0000 62%),radial-gradient(50% 45% at 92% 12%,rgba(181,123,255,.36) 0,#0000 60%),radial-gradient(55% 50% at 85% 92%,rgba(255,95,160,.32) 0,#0000 62%),radial-gradient(50% 50% at 8% 88%,rgba(255,159,61,.36) 0,#0000 60%),radial-gradient(45% 40% at 50% 55%,rgba(154,164,178,.24) 0,#0000 65%)}
@@ -273,7 +281,7 @@ button:active:not(:disabled){transform:translateY(0) scale(.97)}
  <div class="row"><div class="row" style="justify-content:flex-start"><div class="logo" role="img" aria-label="Droid Tracker"><svg class="lgi" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"><path d="M16 26A17 17 0 0 1 46 22"/><path d="M48 38A17 17 0 0 1 18 42"/></g><path fill="currentColor" d="M32 23l2.8 6.2L41 32l-6.2 2.8L32 41l-2.8-6.2L23 32l6.2-2.8z"/></svg><div class="lgw"><span class="lgd">DROID</span><span class="lgt">TRACKER</span><svg class="lgk" aria-hidden="true"><defs><mask id="lgm"><rect width="100%" height="100%" fill="#fff"/><text x="8" y="50%" dominant-baseline="central" fill="#000">TRACKER</text></mask></defs><rect width="100%" height="100%" rx="3" fill="#16213b" mask="url(#lgm)"/></svg></div></div><div id="pathDd"></div></div><div class="tools"><button id="jumpSell" data-jsell="1" style="display:none"></button><div class="sws" id="sw"></div><div class="scl"><button data-scale="-1" title="Smaller">A&minus;</button><button data-scale="1" title="Bigger">A+</button></div><button id="reset" style="color:#ff6a6a">&#8635; Reset path</button></div></div>
  <div class="hero" id="hero"></div>
  <div id="lookBox"></div>
- <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><div class="srch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Search droid, rarity or tier..."><button type="button" id="qx" class="qx" data-qx="1" aria-label="Clear search" title="Clear search"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><label class="cb" style="margin-left:auto"><input type="checkbox" id="cc"> Chip costs</label><div class="seg2" id="cm"><button data-cm="next" title="Cost to reach the next tier you need">Next</button><button data-cm="last" title="Cost to reach the highest tier you will need">Max</button></div></div>
+ <div class="tabs"><button data-v="up">Rebirths</button><button data-v="all">All droids</button><div class="srch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Search droid, rarity or tier..." title="Tip: use * or ? as wildcards, e.g. r? finds R2 to R9"><div class="stip" id="stip" role="status"><b>Tip:</b> use <code>*</code> for any letters and <code>?</code> for a single character. <code>r?</code> finds R2 to R9, <code>b2*</code> finds every B2 droid.<br><button type="button" data-tip="1">Got it</button></div><button type="button" id="qx" class="qx" data-qx="1" aria-label="Clear search" title="Clear search"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><label class="cb" style="margin-left:auto"><input type="checkbox" id="cc"> Chip costs</label><div class="seg2" id="cm"><button data-cm="next" title="Cost to reach the next tier you need">Next</button><button data-cm="last" title="Cost to reach the highest tier you will need">Max</button></div></div>
  
  <div id="out"></div>
  <div id="sellBox"></div>
@@ -585,8 +593,8 @@ function render(){
  const q=document.getElementById("q").value.trim().toLowerCase(),out=document.getElementById("out");
  document.getElementById("qx").classList.toggle("show",!!document.getElementById("q").value);
  if(q||S.tab==="all"){
-  const rk=q.length>=3?Object.keys(RK).find(k=>RK[k].toLowerCase().startsWith(q)):undefined,rq=rk!==undefined,ti=q.length>=3?TN.findIndex((t,i)=>t.toLowerCase().startsWith(q)||AB[i].toLowerCase()===q):-1,tq=ti>=0&&!rq,nx0=n=>Math.min(...R[n].filter(r=>r.rb>cur).map(r=>r.rb)),nxt=n=>Math.min(...R[n].filter(r=>r.rb>cur&&r.t===ti).map(r=>r.rb)),l=NAMES.filter(n=>R[n].some(r=>r.rb>cur)&&(n.toLowerCase().includes(q)||(rq&&rar(n)===rk)||(tq&&R[n].some(r=>r.rb>cur&&r.t===ti)))).sort((a,b)=>rq?nx0(a)-nx0(b):tq?nxt(a)-nxt(b):0);
-  out.innerHTML=l.length?(rq||tq?`<h2>${rq?RK[rk]+" droids you still need":"Droids you still need in "+TN[ti]} (${l.length})</h2>`:"")+`<div class="grid">${l.map(n=>card(n)).join("")}</div>`:`<div class="empty">No droids found</div>`;
+  const wr=/[*?]/.test(q)?new RegExp("^"+q.replace(/[.+^${}()|[\]\\]/g,"\\$&").replace(/\*/g,".*").replace(/\?/g,".")+"$","i"):null,rk=q.length>=3&&!wr?Object.keys(RK).find(k=>RK[k].toLowerCase().startsWith(q)):undefined,rq=rk!==undefined,ti=q.length>=3&&!wr?TN.findIndex((t,i)=>t.toLowerCase().startsWith(q)||AB[i].toLowerCase()===q):-1,tq=ti>=0&&!rq,nx0=n=>Math.min(...R[n].filter(r=>r.rb>cur).map(r=>r.rb)),nxt=n=>Math.min(...R[n].filter(r=>r.rb>cur&&r.t===ti).map(r=>r.rb)),l=NAMES.filter(n=>R[n].some(r=>r.rb>cur)&&((wr?wr.test(n):n.toLowerCase().includes(q))||(rq&&rar(n)===rk)||(tq&&R[n].some(r=>r.rb>cur&&r.t===ti)))).sort((a,b)=>rq?nx0(a)-nx0(b):tq?nxt(a)-nxt(b):0);
+  out.innerHTML=l.length?(rq||tq?`<h2>${rq?RK[rk]+" droids you still need":"Droids you still need in "+TN[ti]} (${l.length})</h2>`:wr?`<h2>Matching droids you still need (${l.length})</h2>`:"")+`<div class="grid">${l.map(n=>card(n)).join("")}</div>`:`<div class="empty">No droids found</div>`;
  }else{
   const l=D.filter(r=>r.n>cur+1),sh=S.more?l:l.slice(0,4);
   out.innerHTML=sh.map(r=>`<h2>Rebirth ${r.n} &bull; ${r.c} Credits</h2><div class="grid fit">${r.d.map(d=>card(d.name,r.n)).join("")}</div>`).join("")+(l.length>4?`<button class="more" data-more="1">${S.more?"Show fewer":"Show all "+l.length+" upcoming rebirths"}</button>`:"")||`<div class="empty">Nothing further coming up</div>`;
@@ -604,6 +612,7 @@ document.addEventListener("click",e=>{
  else if(d.rar){const O="CREL M".replace(" ","");S.rar[d.rar]=O[(O.indexOf(rar(d.rar))+1)%5]}
  else if(d.top){window.scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"});return}
  else if(d.jsell){const el=document.getElementById("sellBox");if(el)el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"});return}
+ else if(d.tip){hideTip();return}
  else if(d.qx){const qi=document.getElementById("q");qi.value="";qi.focus()}
  else if(d.sa){NAMES.filter(n=>!R[n].some(r=>r.rb>P().cur)&&!P().sold[n]).forEach(n=>{P().sold[n]=true})}
  else if(d.lm)S.lmode=d.lm;
@@ -629,8 +638,11 @@ document.addEventListener("change",e=>{
  else return;
  save();render();
 });
-document.getElementById("q").oninput=render;
-document.getElementById("q").onkeydown=e=>{if(e.key==="Escape"&&e.target.value){e.target.value="";render()}};
+let tipT;
+function hideTip(){document.getElementById("stip").classList.remove("show");clearTimeout(tipT)}
+function showTip(){S.tipSeen=true;save();document.getElementById("stip").classList.add("show");clearTimeout(tipT);tipT=setTimeout(hideTip,10000)}
+document.getElementById("q").oninput=()=>{render();if(!S.tipSeen&&document.getElementById("q").value)showTip()};
+document.getElementById("q").onkeydown=e=>{if(e.key==="Escape"){hideTip();if(e.target.value){e.target.value="";render()}}};
 let lastF=null;
 function openModal(){const m=document.getElementById("modal"),n=PATHS.find(p=>p.id===S.path).name;document.getElementById("mt").textContent="Reset "+n+"?";document.getElementById("mp").textContent="This clears every ticked tier, your current rebirth and the sold droids for "+n+". This can't be undone.";lastF=document.activeElement;m.classList.add("show");const c=m.querySelector('[data-m="x"]');if(c)c.focus()}
 function closeModal(){document.getElementById("modal").classList.remove("show");try{if(lastF)lastF.focus()}catch(e){}}
